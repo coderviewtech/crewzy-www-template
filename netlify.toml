@@ -1,7 +1,7 @@
 # Crewzy marketing site — crewzy.io
 #
-# DNS stays at Namecheap: add a CNAME for `www` -> <site>.netlify.app and an
-# ALIAS/A record on the apex. No nameserver change, so the SendGrid domain
+# DNS stays at the existing registrar: add a CNAME for `www` -> <site>.netlify.app
+# and an ALIAS/A record on the apex. No nameserver change, so existing email
 # authentication records are untouched.
 
 [build]

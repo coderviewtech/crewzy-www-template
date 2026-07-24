@@ -43,8 +43,8 @@ Connected to this repo; every push to `main` rebuilds. Settings live in
 
 ### DNS
 
-DNS stays at **Namecheap** — there is no nameserver change, so the SendGrid
-domain-authentication records are untouched.
+DNS stays at the existing registrar — there is no nameserver change, so the
+existing email-authentication records are untouched.
 
 | Record | Host | Value |
 |---|---|---|
