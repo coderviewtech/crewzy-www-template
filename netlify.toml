@@ -1,0 +1,18 @@
+# Crewzy marketing site — crewzy.io
+#
+# DNS stays at Namecheap: add a CNAME for `www` -> <site>.netlify.app and an
+# ALIAS/A record on the apex. No nameserver change, so the SendGrid domain
+# authentication records are untouched.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Where "Start free" and "Sign in" send people. Change to
+  # https://app.crewzy.io when the production host exists — one line, no code.
+  NEXT_PUBLIC_APP_ORIGIN = "https://dev.crewzy.io"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

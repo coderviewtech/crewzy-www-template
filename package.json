@@ -1,0 +1,26 @@
+{
+  "name": "crewzy-www",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Crewzy marketing site — crewzy.io",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "lucide-react": "^1.26.0",
+    "next": "^16.2.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^10.7.0",
+    "eslint-config-next": "^16.2.11",
+    "typescript": "^5"
+  }
+}
