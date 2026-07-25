@@ -3505,8 +3505,10 @@
   border-radius: 16px;
   background: #fff;
   box-shadow: 0 24px 46px -26px rgba(25, 25, 29, 0.5);
+  /* --scatter shrinks the fly-out distance so the same animation fits a phone
+     screen (set to 1 on desktop, smaller on mobile below). */
   transform:
-    translate(calc(var(--x) * (1 - var(--p))), calc(var(--y) * (1 - var(--p))))
+    translate(calc(var(--x) * var(--scatter, 1) * (1 - var(--p))), calc(var(--y) * var(--scatter, 1) * (1 - var(--p))))
     rotate(calc(var(--r) * (1 - var(--p))))
     scale(calc(0.94 - 0.66 * var(--p)));
   opacity: clamp(0, calc(1.06 - var(--p) * 1.55), 1);
@@ -3656,11 +3658,23 @@
 /* Below 720px (and for reduced motion) the wide scatter can't fit, so skip the
    fly-in and just show the collapsed result: the one Crewzy window. */
 @media (max-width: 720px) {
-  .collapseCard { display: none; }
-  .collapseStage { height: auto; padding: 6px 0 14px; }
-  .collapseWindow { position: static; width: min(440px, 100%); margin: 0 auto; transform: none; opacity: 1; }
-  .collapseWindowNav { grid-template-columns: repeat(2, 1fr); }
-  .collapseCaption { opacity: 1; }
+  /* Same scroll-driven collapse, sized for a phone: a shorter fly-out
+     (--scatter) and smaller cards/window so nothing shoots off-screen. */
+  .collapseStage { --scatter: 0.42; height: 380px; }
+  .collapseCard {
+    width: 124px;
+    margin: -42px 0 0 -62px;
+    padding: 11px 12px;
+    border-radius: 13px;
+  }
+  .collapseCard > span { width: 29px; height: 29px; }
+  .collapseCard b { margin: 8px 0 6px; font-size: 12px; }
+  .collapseCard i { height: 5px; }
+  .collapseWindowBody { padding: 18px; }
+  .collapseWindowHub { padding: 8px 13px; font-size: 12.5px; }
+  .collapseWindowHub > span { width: 22px; height: 22px; }
+  .collapseWindowNav { grid-template-columns: repeat(2, 1fr); margin-top: 14px; gap: 7px; }
+  .collapseWindowNav span { padding: 8px 9px; font-size: 11px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
