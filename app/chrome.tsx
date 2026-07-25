@@ -1,5 +1,6 @@
 "use client";
 
+import Lenis from "lenis";
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
@@ -168,7 +169,22 @@ function NavMenu({ label, items, onNavigate }: { label: string; items: MenuItem[
               href={href}
               key={itemLabel}
               role="menuitem"
-              onClick={() => { setOpen(false); onNavigate?.(); }}
+              onClick={(event) => {
+                setOpen(false);
+                onNavigate?.();
+                // Module links (Platform menu) select the module in the
+                // carousel. When we're already on the home page, drive it
+                // directly — a same-page hash on the App Router does not fire
+                // a reliable hashchange, so Next would just scroll to the top.
+                // From another page, let the Link navigate and the carousel
+                // reads the hash on mount.
+                const moduleMatch = /#module-([a-z0-9-]+)$/.exec(href);
+                if (moduleMatch && window.location.pathname === "/") {
+                  event.preventDefault();
+                  window.history.replaceState(null, "", `/#${`module-${moduleMatch[1]}`}`);
+                  window.dispatchEvent(new CustomEvent("crewzy:select-module", { detail: moduleMatch[1] }));
+                }
+              }}
             >
               <span><ItemIcon size={17} /></span>
               <div><strong>{itemLabel}</strong><small>{blurb}</small></div>
@@ -250,8 +266,10 @@ export function useScrollMotion(pageRef: React.RefObject<HTMLElement | null>, re
       documentRoot.style.scrollPaddingTop = previousScrollPadding;
     };
 
+    // Lenis owns wheel/scroll smoothing, so leave native scroll-behavior alone
+    // (setting it to "smooth" fights Lenis). scrollPaddingTop still offsets
+    // anchor landings under the fixed header.
     if (!prefersReducedMotion) {
-      documentRoot.style.scrollBehavior = "smooth";
       documentRoot.style.scrollPaddingTop = "76px";
     }
 
@@ -319,11 +337,55 @@ export function useScrollMotion(pageRef: React.RefObject<HTMLElement | null>, re
     window.addEventListener("scroll", requestScrollMotion, { passive: true });
     window.addEventListener("resize", requestScrollMotion);
 
+    // Inertia scroll. This is the single biggest "premium feel" lever — the
+    // page decelerates with weight instead of stopping dead. Lenis drives real
+    // scroll, so the reveal/zoom system above keeps working unchanged; we just
+    // also nudge it on every Lenis frame so the parallax stays in lock-step.
+    const lenis = new Lenis({
+      duration: 1.05,
+      // easeOutExpo — quick to respond, long gentle settle. Matches the reveal
+      // curve so scroll and content share one motion character.
+      easing: (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+      wheelMultiplier: 0.9,
+    });
+    // Exposed so in-page components (e.g. the Platform-menu module select) can
+    // scroll through the same smooth engine instead of a native jump.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+    lenis.on("scroll", requestScrollMotion);
+
+    let lenisFrame = 0;
+    const runLenis = (time: number) => {
+      lenis.raf(time);
+      lenisFrame = window.requestAnimationFrame(runLenis);
+    };
+    lenisFrame = window.requestAnimationFrame(runLenis);
+
+    // Route in-page anchor clicks through Lenis so #section jumps glide too,
+    // with the same header offset the CSS uses. External and same-page module
+    // deep-links (handled elsewhere) are left alone.
+    const onAnchorClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey) return;
+      const link = (event.target as HTMLElement)?.closest?.('a[href*="#"]') as HTMLAnchorElement | null;
+      if (!link) return;
+      const url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
+      const target = url.hash && url.hash.length > 1 ? document.getElementById(url.hash.slice(1)) : null;
+      if (!target) return;
+      event.preventDefault();
+      lenis.scrollTo(target, { offset: -76 });
+      history.pushState(null, "", url.hash);
+    };
+    document.addEventListener("click", onAnchorClick);
+
     return () => {
       observer.disconnect();
       if (scrollMotionFrame) window.cancelAnimationFrame(scrollMotionFrame);
+      if (lenisFrame) window.cancelAnimationFrame(lenisFrame);
+      lenis.destroy();
+      document.removeEventListener("click", onAnchorClick);
       window.removeEventListener("scroll", requestScrollMotion);
       window.removeEventListener("resize", requestScrollMotion);
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
       restoreScrollSettings();
     };
   }, [pageRef, revealedClass, motionReadyClass]);

@@ -45,40 +45,17 @@ const CAPABILITY_ROTATION_MS = 3500;
 // The stack a growing team typically pays for. These collapse into one Crewzy
 // hub on screen — six tools, one replacement, which is the whole argument.
 // Deliberately generic categories, never competitor brand names.
+// Six tools scattered around the edges, each wired to the central Crewzy hub
+// by a dashed connector — the "bring it all together" constellation. `line`
+// is the spoke's outer endpoint in the stage's 0–100 coordinate space (the hub
+// sits at 50,50), aimed just short of each chip so the line meets it cleanly.
 const CONVERGE_TOOLS = [
-  { label: "HR tool", at: { top: "3%", left: "1%" }, tx: 180, ty: 118, tone: "#7650e8", soft: "#ddd3fa" },
-  { label: "Timesheet app", at: { top: "1%", right: "2%" }, tx: -172, ty: 124, tone: "#168f82", soft: "#c7e6e2" },
-  { label: "Recruitment / ATS", at: { top: "43%", left: "0%" }, tx: 176, ty: 2, tone: "#ff6b57", soft: "#ffd5cf" },
-  { label: "Invoicing tool", at: { top: "43%", right: "0%" }, tx: -176, ty: 2, tone: "#2f6fd0", soft: "#cfdff7" },
-  { label: "Expense app", at: { bottom: "3%", left: "4%" }, tx: 162, ty: -118, tone: "#d9832a", soft: "#f6dfc4" },
-  { label: "Compliance sheet", at: { bottom: "1%", right: "3%" }, tx: -158, ty: -126, tone: "#c2418a", soft: "#f3ccdf" },
-];
-
-const PAIN_OUTCOMES = [
-  {
-    icon: UsersRound,
-    pain: "Instead of a separate HR tool",
-    title: "Core HR, onboarding and offboarding.",
-    text: "One employee record from first day to last, with self-service profiles, documents and company access built in.",
-  },
-  {
-    icon: Clock3,
-    pain: "Instead of separate time and leave apps",
-    title: "Timesheets, leave and approvals.",
-    text: "Time logged against real projects, leave that follows your policy, and approvals that keep a complete decision history.",
-  },
-  {
-    icon: FileCheck2,
-    pain: "Instead of an ATS and a compliance spreadsheet",
-    title: "Recruitment and expiry tracking.",
-    text: "Hire in the same place you onboard, and track every visa, right-to-work, insurance and certification date before it lapses.",
-  },
-  {
-    icon: WalletCards,
-    pain: "Instead of separate invoicing and expense tools",
-    title: "Invoices, expenses and an AI assistant.",
-    text: "Raise invoices from approved work, chase late payers automatically, and ask an assistant that can act across all of it.",
-  },
+  { label: "People management", at: { top: "3%", left: "1%" }, line: { x: 19, y: 21 }, tone: "#7650e8", soft: "#ddd3fa" },
+  { label: "Timesheet", at: { top: "1%", right: "2%" }, line: { x: 82, y: 18 }, tone: "#168f82", soft: "#c7e6e2" },
+  { label: "Recruitment", at: { top: "43%", left: "0%" }, line: { x: 17, y: 50 }, tone: "#ff6b57", soft: "#ffd5cf" },
+  { label: "Invoicing", at: { top: "43%", right: "0%" }, line: { x: 83, y: 50 }, tone: "#2f6fd0", soft: "#cfdff7" },
+  { label: "Expenses", at: { bottom: "3%", left: "4%" }, line: { x: 20, y: 81 }, tone: "#d9832a", soft: "#f6dfc4" },
+  { label: "Compliance", at: { bottom: "1%", right: "3%" }, line: { x: 81, y: 83 }, tone: "#c2418a", soft: "#f3ccdf" },
 ];
 
 const FAQS = [
@@ -203,60 +180,88 @@ function ActivityRow({ icon: Icon, title, detail, time }: { icon: LucideIcon; ti
   return <div className={styles.activityRow}><span><Icon size={14} /></span><div><strong>{title}</strong><small>{detail}</small></div><time>{time}</time></div>;
 }
 
-function ToolConvergence() {
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [playing, setPlaying] = useState(false);
+/* The six scattered tool cards that collapse into the Crewzy window. x/y are
+   the resting scatter offset from centre (px), r the resting tilt. */
+const COLLAPSE_TOOLS = [
+  { label: "People", Icon: UsersRound, tone: "#7650e8", soft: "#ede8fc", x: -252, y: -118, r: -8 },
+  { label: "Timesheets", Icon: Clock3, tone: "#137b70", soft: "#d7efeb", x: 252, y: -132, r: 7 },
+  { label: "Recruitment", Icon: UserRoundCheck, tone: "#d9563f", soft: "#fce2db", x: -300, y: 34, r: -5 },
+  { label: "Finance", Icon: WalletCards, tone: "#2f6fd0", soft: "#dbe8fb", x: 300, y: 40, r: 6 },
+  { label: "Leave", Icon: CalendarDays, tone: "#b06a1c", soft: "#fbedd6", x: -206, y: 168, r: -6 },
+  { label: "Compliance", Icon: ShieldCheck, tone: "#c2418a", soft: "#fbe1ef", x: 212, y: 176, r: 5 },
+];
 
-  /* The loop used to start at page load, so by the time you scrolled down it
-     was at a random point in its 7s cycle — often the stretch where the tools
-     have already collapsed and the stage looks empty. Now it runs only while
-     on screen and restarts from the first frame every time it re-enters, so
-     the six-become-one story plays in full whether you arrive scrolling down
-     or scrolling back up. */
+/* Scroll-scrubbed collapse (portrait.so style, no pinning): the scattered tool
+   cards fly to the centre, shrink and fade while the Crewzy window zooms up —
+   driven entirely by where the block sits in the viewport, written to `--p`
+   (0 = scattered, 1 = collapsed). */
+function CollapseWindow() {
+  const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!("IntersectionObserver" in window)) {
-      setPlaying(true);
+    const el = ref.current;
+    if (!el) return;
+    const setP = (p: number) => el.style.setProperty("--p", p.toFixed(4));
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setP(1);
       return;
     }
-    const observer = new IntersectionObserver(
-      ([entry]) => setPlaying(entry.isIntersecting),
-      { threshold: 0.4 },
-    );
-    observer.observe(stage);
-    return () => observer.disconnect();
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // Track the block's CENTRE, not its top. Top-based ramping started the
+      // collapse the instant the block peeked in from the bottom, so it was
+      // already fully collapsed before the reader reached the section. Now the
+      // cards stay scattered until the section is roughly centred in view, then
+      // collapse as it rises past centre toward the top.
+      const centre = rect.top + rect.height / 2;
+      const start = vh * 0.62; // p = 0 while the centre is at/below 62% down
+      const end = vh * 0.15; // p = 1 once the centre nears the top
+      const p = Math.min(1, Math.max(0, (start - centre) / (start - end)));
+      setP(p);
+    };
+    const onScroll = () => { if (!raf) raf = window.requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
-    <div className={styles.convergeWrap} data-reveal="scale" data-scroll-zoom="panel">
-      <div
-        ref={stageRef}
-        className={`${styles.convergeStage} ${playing ? styles.convergePlaying : ""}`}
-        aria-label="Six separate tools — HR, timesheets, recruitment, invoicing, expenses and a compliance sheet — replaced by one Crewzy workspace"
-      >
-        {CONVERGE_TOOLS.map((tool, index) => (
-          <span
-            className={styles.convergeTool}
-            key={tool.label}
-            style={{
-              ...tool.at,
-              // Custom properties drive the converge vector and each tool's
-              // own colour; TS has no type for them on CSSProperties.
-              "--tx": `${tool.tx}px`,
-              "--ty": `${tool.ty}px`,
-              "--tool": tool.tone,
-              "--tool-soft": tool.soft,
-              animationDelay: `${(index * 0.11).toFixed(2)}s`,
-            } as unknown as CSSProperties}
+    <div className={styles.collapse} ref={ref}>
+      <div className={styles.collapseStage} aria-label="Six separate tools collapsing into one Crewzy workspace">
+        {COLLAPSE_TOOLS.map(({ label, Icon, tone, soft, x, y, r }) => (
+          <div
+            className={styles.collapseCard}
+            key={label}
+            style={{ "--x": `${x}px`, "--y": `${y}px`, "--r": `${r}deg`, "--tool": tone, "--tool-soft": soft } as unknown as CSSProperties}
           >
-            {tool.label}
-          </span>
+            <span><Icon size={18} /></span>
+            <b>{label}</b>
+            <i /><i />
+          </div>
         ))}
-        <span className={styles.convergeHub}><BrandIcon size={17} /> Crewzy</span>
+        <div className={styles.collapseWindow}>
+          <div className={styles.collapseWindowBar}>
+            <span /><span /><span />
+            <em><LockKeyhole size={10} /> app.crewzy.io</em>
+          </div>
+          <div className={styles.collapseWindowBody}>
+            <div className={styles.collapseWindowHub}><span><BrandIcon size={16} /></span> Crewzy workspace</div>
+            <div className={styles.collapseWindowNav}>
+              {COLLAPSE_TOOLS.map(({ label, Icon, tone, soft }) => (
+                <span key={label} style={{ "--tool": tone, "--tool-soft": soft } as unknown as CSSProperties}><Icon size={13} />{label}</span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-      <p className={styles.convergeCaption}><b>Six</b> logins, <b>six</b> bills, <b>six</b> places to check — now just <strong>one</strong>.</p>
     </div>
   );
 }
@@ -265,9 +270,9 @@ function Hero() {
   return (
     <section className={styles.hero} id="top">
       <div className={styles.heroContent} data-reveal>
-        <Eyebrow icon={Sparkles}>For growing agencies, consultancies and insurance teams</Eyebrow>
+        <Eyebrow icon={UsersRound}>Built for people-driven businesses</Eyebrow>
         <h1>Stop running your business across a dozen <span>disconnected tools.</span></h1>
-        <p>Crewzy replaces the stack of tools you pay for and stitch together — one login, one bill, far less admin.</p>
+        <p>Crewzy runs hiring, HR, time, leave and invoicing in one place — so a growing team spends less on software and gets its time back.</p>
         <div className={styles.heroActions}>
           <Link href={appUrl("/signup")}>Set up free workspace <ArrowRight size={18} /></Link>
           <Link href="#outcomes">See how Crewzy helps <Play size={16} fill="currentColor" /></Link>
@@ -284,21 +289,11 @@ function OutcomesSection() {
     <section className={styles.outcomesSection} id="outcomes">
       <div className={styles.outcomesInner}>
         <div className={styles.outcomesHeading} data-reveal>
-          <div>
-            <Eyebrow icon={TimerReset}>Why teams switch</Eyebrow>
-            <h2>One platform, not <span>six subscriptions.</span></h2>
-            <p>Growing companies rarely struggle because a single tool is bad. They struggle because nothing talks to anything else, and someone re-types the same information all week. Crewzy brings people, hiring, time, compliance and money into one workspace, so your team spends less on software and less time on admin.</p>
-          </div>
-          <ToolConvergence />
+          <Eyebrow icon={TimerReset}>Why teams switch</Eyebrow>
+          <h2>One platform, not <span>six subscriptions.</span></h2>
+          <p>The problem is rarely one bad tool. It&apos;s that none of them talk to each other — so the same new hire gets typed into five systems, timesheets and leave never quite reconcile, and every month-end turns into a scramble to work out what&apos;s actually true.</p>
         </div>
-        <div className={styles.outcomeGrid}>
-          {PAIN_OUTCOMES.map(({ icon: OutcomeIcon, pain, title, text }, index) => (
-            <article data-reveal data-reveal-delay={String((index % 2) + 1)} key={pain}>
-              <span><OutcomeIcon size={21} /></span>
-              <div><small>{pain}</small><h3>{title}</h3><p>{text}</p></div>
-            </article>
-          ))}
-        </div>
+        <CollapseWindow />
       </div>
     </section>
   );
@@ -438,25 +433,33 @@ function Features() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isInView, setIsInView] = useState(false);
 
-  /* "Platform → Recruitment" arrives as #module-recruitment. Reading it from
-     the URL rather than an in-page event means the link also works from a
-     sub-page, where this component isn't mounted when the click happens.
+  /* Selecting a module from the Platform menu. Two entry points, because one
+     alone never covers both cases reliably:
+       - Same-page click: the menu fires a `crewzy:select-module` event (a
+         `hashchange` does NOT reliably fire on a same-page hash under the
+         App Router, which is why the old version scrolled to the top instead).
+       - Arriving from a sub-page: this component mounts with #module-x already
+         in the URL, so we read the hash once on mount.
      Matched by slug, not index, so reordering the modules can't open the
      wrong one. */
   const capabilitiesRef = useRef(capabilities);
   capabilitiesRef.current = capabilities;
   useEffect(() => {
-    const applyModuleHash = () => {
-      const match = /^#module-(.+)$/.exec(window.location.hash);
-      if (!match) return;
-      const index = capabilitiesRef.current.findIndex(item => moduleSlug(item.label) === match[1]);
+    const goToModule = (slug: string) => {
+      const index = capabilitiesRef.current.findIndex(item => moduleSlug(item.label) === slug);
       if (index < 0) return;
       setActiveSlide(index);
-      sectionRef.current?.scrollIntoView({ block: "start" });
+      const el = sectionRef.current;
+      if (!el) return;
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (t: Element, o?: { offset?: number }) => void } }).__lenis;
+      if (lenis) lenis.scrollTo(el, { offset: -16 });
+      else el.scrollIntoView({ block: "start" });
     };
-    applyModuleHash();
-    window.addEventListener("hashchange", applyModuleHash);
-    return () => window.removeEventListener("hashchange", applyModuleHash);
+    const match = /^#module-(.+)$/.exec(window.location.hash);
+    if (match) goToModule(match[1]);
+    const onSelect = (event: Event) => goToModule((event as CustomEvent<string>).detail);
+    window.addEventListener("crewzy:select-module", onSelect);
+    return () => window.removeEventListener("crewzy:select-module", onSelect);
   }, []);
   const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -493,7 +496,7 @@ function Features() {
 
   return (
     <section className={styles.features} id="features" ref={sectionRef}>
-      <div className={styles.sectionHeading} data-reveal><Eyebrow icon={Zap}>Product proof</Eyebrow><h2>See the outcome, then see how Crewzy <span>delivers it.</span></h2><p>Explore the connected workflows that remove follow-ups for employees, give managers control and preserve evidence for the business.</p></div>
+      <div className={styles.sectionHeading} data-reveal><Eyebrow icon={Zap}>Product proof</Eyebrow><h2>See the outcome, then see how Crewzy <span>delivers it.</span></h2><p>See each module in action — and how everything runs on one shared employee record, so a detail entered once shows up everywhere it&apos;s needed.</p></div>
       <div className={`${styles.capabilityShowcase} ${isPaused ? styles.carouselPaused : ""}`} data-reveal="scale" data-scroll-zoom="panel" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)} onFocusCapture={() => setIsPaused(true)} onBlurCapture={() => setIsPaused(false)}>
         <div className={styles.capabilityTabs} role="tablist" aria-label="Crewzy platform capabilities">
           {capabilities.map((capability, index) => {
@@ -529,7 +532,7 @@ function MoreSection() {
   return (
     <section className={styles.moreSection} id="security">
       <div className={styles.moreHeading} data-reveal>
-        <div><Eyebrow icon={Sparkles}>Everyday value</Eyebrow><h2>Less admin for your team. Fewer tools to pay for. <span>Evidence for the business.</span></h2></div>
+        <div><Eyebrow icon={Sparkles}>Everyday value</Eyebrow><h2>Less admin for your team. <span>Evidence for the business.</span></h2></div>
         <div className={styles.moreValueProps}><span><UsersRound size={18} /><b>One login</b><small>for employees</small></span><span><UserRoundCheck size={18} /><b>One bill</b><small>for the business</small></span><span><ShieldCheck size={18} /><b>One audit trail</b><small>for compliance</small></span></div>
       </div>
       <div className={styles.moreGrid}>{items.map(({ icon: ItemIcon, type, kicker, title, text }, index) => <article className={styles[`moreCard${type}`]} data-reveal data-reveal-delay={String(index + 1)} data-scroll-zoom="card" key={title}><div className={styles.moreCardVisual}><div className={styles.moreCardHeader}><span><ItemIcon size={21} /></span><small>0{index + 1}</small></div><OperationalPreview type={type} /></div><div className={styles.moreCardCopy}><b>{kicker}</b><h3>{title}</h3><p>{text}</p></div></article>)}</div>

@@ -8,6 +8,9 @@
   --purple-dark: #5a35c7;
   --coral: #ff6b57;
   --teal: #168f82;
+  /* One easing character for every interaction — quick response, soft settle.
+     Same family as the scroll-reveal and the Lenis scroll curve. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   min-height: 100vh;
   overflow-x: clip;
   color: var(--ink);
@@ -928,116 +931,109 @@
   margin: 0 auto;
 }
 
+/* Centred like the hero — eyebrow, headline, note — with the consolidation
+   window sitting below it. */
 .outcomesHeading {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 56px;
-}
-/* The paragraph now sits under the headline in the left column, so the
-   right column is free for the convergence animation. */
-.outcomesHeading > div > p {
-  max-width: 560px;
-  margin: 20px 0 0;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.62;
-}
-@media (max-width: 900px) {
-  .outcomesHeading {
-    grid-template-columns: 1fr;
-    align-items: start;
-    gap: 30px;
-  }
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .outcomesHeading h2 {
-  max-width: 590px;
-  margin: 22px 0 0;
+  max-width: 620px;
+  margin: 22px 0 16px;
   font-size: 52px;
   line-height: 1.08;
   font-weight: 900;
 }
 
 .outcomesHeading > p {
-  max-width: 590px;
-  margin: 0 0 4px;
+  max-width: 680px;
+  margin: 0;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.7;
+  /* Centred paragraph — balance evens the line lengths so the last word
+     ("true.") can't strand on a line of its own. */
+  text-wrap: balance;
 }
 
 .outcomeGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: 68px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 58px;
   border-top: 1px solid #ded7dc;
-  border-bottom: 1px solid #ded7dc;
 }
 
+/* Each row is a before → after: the fragmented old stack, an arrow, then the
+   one Crewzy capability that replaces it. */
 .outcomeGrid article {
   display: grid;
-  align-items: start;
-  min-height: 230px;
-  padding: 36px 40px;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 0.92fr) 30px minmax(0, 1.55fr);
+  align-items: center;
+  gap: 26px;
+  padding: 26px 4px;
   border-bottom: 1px solid #ded7dc;
 }
 
-.outcomeGrid article:nth-child(odd) {
-  padding-left: 0;
-  border-right: 1px solid #ded7dc;
+/* "Before": drawn as something temporary — dashed border, muted — so it reads
+   as the thing being removed. */
+.outcomeFrom {
+  margin: 0;
+  padding: 15px 18px;
+  border: 1px dashed #d4ccda;
+  border-radius: 10px;
+  background: #faf8fb;
+  color: #857d8b;
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.45;
+  text-wrap: balance;
 }
 
-.outcomeGrid article:nth-child(even) { padding-right: 0; }
+.outcomeArrow {
+  justify-self: center;
+  color: var(--coral);
+}
 
-.outcomeGrid article:nth-child(n + 3) { border-bottom: 0; }
+/* "After": the one Crewzy capability, full colour. */
+.outcomeTo {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
 
-.outcomeGrid article > span {
+.outcomeTo > span {
   display: grid;
   width: 46px;
   height: 46px;
   place-items: center;
-  border-radius: 7px;
+  border-radius: 9px;
   color: var(--purple-dark);
   background: var(--lavender);
 }
 
-.outcomeGrid article:nth-child(2) > span {
-  color: #137b70;
-  background: #e9f8f4;
-}
+.outcomeGrid article:nth-child(2) .outcomeTo > span { color: #137b70; background: #e9f8f4; }
+.outcomeGrid article:nth-child(3) .outcomeTo > span { color: #c84f3e; background: #fff0ed; }
+.outcomeGrid article:nth-child(4) .outcomeTo > span { color: #8e6b18; background: #fff7db; }
 
-.outcomeGrid article:nth-child(3) > span {
-  color: #c84f3e;
-  background: #fff0ed;
-}
-
-.outcomeGrid article:nth-child(4) > span {
-  color: #8e6b18;
-  background: #fff7db;
-}
-
-.outcomeGrid small {
-  color: #817984;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.outcomeGrid h3 {
-  margin: 8px 0 10px;
-  font-size: 24px;
+.outcomeTo h3 {
+  margin: 2px 0 8px;
+  font-size: 21px;
   line-height: 1.25;
   font-weight: 900;
+  text-wrap: balance;
 }
 
-.outcomeGrid p {
+.outcomeTo p {
   margin: 0;
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 14.5px;
+  line-height: 1.62;
 }
 
 .features {
@@ -1071,6 +1067,9 @@
   line-height: 1.65;
 }
 
+/* ---------------------------------------------------------------------------
+   Capability showcase — horizontal tab bar over a copy / visual stage.
+   --------------------------------------------------------------------------- */
 .capabilityShowcase {
   width: min(1180px, 100%);
   margin: 0 auto;
@@ -1078,8 +1077,8 @@
 
 .capabilityTabs {
   display: grid;
-  /* Six modules, one row. Keep this count in step with the capabilities
-     array — a mismatch silently wraps the last tab onto a second row. */
+  /* Six modules, one row. Keep this in step with the capabilities array — a
+     mismatch silently wraps the last tab onto a second row. */
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 6px;
   padding: 6px;
@@ -1127,8 +1126,7 @@
   background: var(--lavender);
 }
 
-/* One colour per module, matching the tools in the convergence animation
-   above — so a module reads as the same thing in both places. */
+/* One colour per module, matching the collapse animation above. */
 .capabilityTabs button:nth-child(1) > span { color: var(--purple-dark); background: var(--lavender); }
 .capabilityTabs button:nth-child(2) > span { color: #c84f3e; background: #fff0ed; }
 .capabilityTabs button:nth-child(3) > span { color: #137b70; background: #e9f8f4; }
@@ -1159,8 +1157,7 @@
   flex-direction: column;
 }
 
-/* Kicker chip. Matched on :first-child rather than an index, so it can't be
-   knocked off by adding or removing a sibling above it. */
+/* Kicker chip. Matched on :first-child so a sibling above can't knock it off. */
 .capabilityCopy > div:first-child {
   display: flex;
   align-items: center;
@@ -1255,7 +1252,7 @@
 
 .slideTrack {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 7px;
   margin-top: 14px;
 }
@@ -1278,7 +1275,7 @@
   background: var(--coral);
   transform: scaleX(0);
   transform-origin: left;
-  animation: slide-progress 5s linear forwards;
+  animation: slide-progress 3.5s linear forwards;
 }
 
 .carouselPaused .slideTrackActive::after { animation-play-state: paused; }
@@ -1290,6 +1287,11 @@
 
 @keyframes slide-progress {
   to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capabilityStage { animation: none; }
+  .slideTrack .slideTrackActive::after { animation: none; }
 }
 
 .timesheetVisual,
@@ -2454,15 +2456,15 @@
   .outcomesHeading { grid-template-columns: 1fr; gap: 24px; }
   .outcomesHeading h2,
   .outcomesHeading > p { max-width: 700px; }
-  .outcomeGrid { grid-template-columns: 1fr; margin-top: 48px; }
-  .outcomeGrid article,
-  .outcomeGrid article:nth-child(odd),
-  .outcomeGrid article:nth-child(even) {
-    min-height: 0;
-    padding: 30px 0;
-    border-right: 0;
-    border-bottom: 1px solid #ded7dc;
+  .outcomeGrid { margin-top: 48px; }
+  /* Stack the before/after and turn the arrow downward. */
+  .outcomeGrid article {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 14px;
+    padding: 26px 0;
   }
+  .outcomeArrow { justify-self: start; margin-left: 8px; transform: rotate(90deg); }
   .outcomeGrid article:last-child { border-bottom: 0; }
   .sectionHeading h2,
   .moreHeading h2 { font-size: 46px; }
@@ -2526,15 +2528,10 @@
   .outcomesSection { padding: 88px 16px; }
   .outcomesHeading h2 { font-size: 38px; }
   .outcomesHeading > p { font-size: 15px; }
-  .outcomeGrid article,
-  .outcomeGrid article:nth-child(odd),
-  .outcomeGrid article:nth-child(even) {
-    padding: 26px 0;
-    grid-template-columns: 42px minmax(0, 1fr);
-    gap: 14px;
-  }
-  .outcomeGrid article > span { width: 40px; height: 40px; }
-  .outcomeGrid h3 { font-size: 21px; }
+  .outcomeGrid article { padding: 24px 0; }
+  .outcomeTo { grid-template-columns: 40px minmax(0, 1fr); gap: 13px; }
+  .outcomeTo > span { width: 40px; height: 40px; }
+  .outcomeTo h3 { font-size: 20px; }
   .features,
   .moreSection { padding: 92px 16px; }
   .sectionHeading { margin-bottom: 42px; }
@@ -2635,8 +2632,30 @@
   max-width: 520px;
   height: 300px;
 }
+/* The dashed spokes. Dots stream inward toward the hub while on screen — the
+   "bring it all together" motion, calmer than the old collapse loop. */
+.convergeLines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.convergeLines line {
+  stroke: #d3c8e3;
+  stroke-width: 1.6;
+  stroke-dasharray: 0.5 6;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.convergePlaying .convergeLines line {
+  animation: dash-flow 1.7s linear infinite;
+}
 .convergeTool {
   position: absolute;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -2667,6 +2686,7 @@
 }
 .convergeHub {
   position: absolute;
+  z-index: 3;
   left: 50%;
   top: 50%;
   display: inline-flex;
@@ -2687,18 +2707,23 @@
 /* Animations run only while the stage is on screen. Adding the class from a
    state where `animation` was absent restarts both loops at frame 0, which is
    what makes the story replay on every re-entry. */
+/* Tools rest in place with a gentle float, connected by the spokes — no more
+   collapse loop (it kept leaving the stage empty mid-cycle). */
 .convergePlaying .convergeTool {
-  animation: toolConverge 7s cubic-bezier(0.55, 0, 0.25, 1) infinite;
+  animation: converge-float 4.6s ease-in-out infinite;
 }
 
 .convergePlaying .convergeHub {
-  animation: hubGather 7s ease-in-out infinite;
+  animation: hubGather 4.6s ease-in-out infinite;
 }
 .convergeCaption {
-  max-width: 46ch;
+  max-width: 44ch;
+  margin-top: 6px;
   text-align: center;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.6;
+  text-wrap: balance;
 }
 /* The repeated "six" is the argument — colour it like the headline
    highlights so the eye picks up the count, then lands on "one". */
@@ -2709,37 +2734,42 @@
 .convergeCaption strong {
   color: var(--purple);
   font-weight: 900;
+  /* "one" is the payoff — sized up so the eye lands on it after the three
+     "six"s. Inline, so the trailing period stays at normal size. */
+  font-size: 1.5em;
+  letter-spacing: -0.01em;
 }
-@keyframes toolConverge {
-  0%   { opacity: 0; transform: translate(0, 0) scale(0.92); }
-  12%  { opacity: 1; transform: translate(0, 0) scale(1); }
-  44%  { opacity: 1; transform: translate(0, 0) scale(1); }
-  70%  { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.4); }
-  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.4); }
+/* Dots flowing along a spoke toward the hub (positive offset = toward x1/y1,
+   the centre). */
+@keyframes dash-flow {
+  to { stroke-dashoffset: 13; }
+}
+@keyframes converge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 @keyframes hubGather {
-  0%, 42% {
-    transform: translate(-50%, -50%) scale(0.9);
-    box-shadow: 0 14px 32px -20px rgba(118, 80, 232, 0.6);
-  }
-  72% {
-    transform: translate(-50%, -50%) scale(1.07);
-    box-shadow: 0 0 0 14px rgba(118, 80, 232, 0.09), 0 20px 44px -18px rgba(118, 80, 232, 0.8);
-  }
-  88%, 100% {
+  0%, 100% {
     transform: translate(-50%, -50%) scale(1);
     box-shadow: 0 16px 36px -20px rgba(118, 80, 232, 0.7);
   }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 0 0 12px rgba(118, 80, 232, 0.08), 0 20px 44px -18px rgba(118, 80, 232, 0.8);
+  }
 }
-/* Motion off: show it as a static diagram — six tools around one hub. */
+/* Motion off: a still constellation — six tools wired to one hub. */
 @media (prefers-reduced-motion: reduce) {
   .convergeTool,
   .convergePlaying .convergeTool { opacity: 1; transform: none; animation: none; }
   .convergeHub,
   .convergePlaying .convergeHub { animation: none; transform: translate(-50%, -50%); }
+  .convergePlaying .convergeLines line { animation: none; }
 }
-/* Narrow screens: drop the absolute layout, stack it simply. */
+/* Narrow screens: drop the absolute layout, stack it simply. The spokes only
+   make sense around the centred hub, so hide them here. */
 @media (max-width: 720px) {
+  .convergeLines { display: none; }
   .convergeStage {
     height: auto;
     display: flex;
@@ -3384,4 +3414,258 @@
 @media (prefers-reduced-motion: reduce) {
   .hero::before,
   .subHero::before { background-attachment: initial; }
+}
+
+/* ---------------------------------------------------------------------------
+   Card depth on hover
+   The card families were static bordered boxes — the flattest, most
+   template-like part of the site. A restrained lift + shadow bloom + border
+   tint makes them read as crafted and interactive, without the tilt/parallax
+   theatrics that would undercut an enterprise tone. The icon chip nudges up a
+   touch so the whole card feels like one responsive object.
+   --------------------------------------------------------------------------- */
+.subCards article,
+.shapeGrid article,
+.subFit > div,
+.subSteps li {
+  transition: transform 360ms var(--ease), box-shadow 360ms var(--ease),
+    border-color 360ms var(--ease);
+}
+
+.subCards article:hover,
+.shapeGrid article:hover,
+.subFit > div:hover,
+.subSteps li:hover {
+  transform: translateY(-5px);
+  border-color: #d9cdf3;
+  box-shadow: 0 22px 48px -26px rgba(77, 55, 117, 0.4);
+}
+
+.subCards article > span,
+.shapeGrid article > span,
+.subFit > div > span {
+  transition: transform 360ms var(--ease), background 360ms var(--ease);
+}
+
+.subCards article:hover > span,
+.shapeGrid article:hover > span,
+.subFit > div:hover > span {
+  transform: translateY(-2px) scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subCards article,
+  .shapeGrid article,
+  .subFit > div,
+  .subSteps li,
+  .subCards article > span,
+  .shapeGrid article > span,
+  .subFit > div > span {
+    transition: none;
+  }
+  .subCards article:hover,
+  .shapeGrid article:hover,
+  .subFit > div:hover,
+  .subSteps li:hover {
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Collapse animation (portrait.so style) — six scattered tool cards fly into
+   one Crewzy window as you scroll. Driven entirely by `--p` (0 = scattered,
+   1 = collapsed), written by CollapseWindow from the block's viewport position.
+   --------------------------------------------------------------------------- */
+.collapse {
+  --p: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  margin: 34px auto 0;
+}
+
+.collapseStage {
+  position: relative;
+  width: min(960px, 100%);
+  height: 540px;
+}
+
+/* Scattered cards: at p=0 they sit at their offset + tilt, full size; at p=1
+   they have flown to centre, shrunk and faded out. */
+.collapseCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 168px;
+  margin: -58px 0 0 -84px;
+  padding: 15px 16px;
+  border: 1px solid var(--tool-soft, #eee);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 46px -26px rgba(25, 25, 29, 0.5);
+  transform:
+    translate(calc(var(--x) * (1 - var(--p))), calc(var(--y) * (1 - var(--p))))
+    rotate(calc(var(--r) * (1 - var(--p))))
+    scale(calc(0.94 - 0.66 * var(--p)));
+  opacity: clamp(0, calc(1.06 - var(--p) * 1.55), 1);
+  will-change: transform, opacity;
+}
+
+.collapseCard > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 9px;
+  color: #fff;
+  background: var(--tool, #999);
+}
+
+.collapseCard b {
+  display: block;
+  margin: 11px 0 9px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.collapseCard i {
+  display: block;
+  height: 6px;
+  border-radius: 3px;
+  background: #efeaf3;
+}
+
+.collapseCard i + i {
+  margin-top: 6px;
+  width: 68%;
+}
+
+/* Central Crewzy window — zooms up as the cards collapse in. */
+.collapseWindow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Width as a fraction of the stage, not fixed px, so it always fills the
+     section and reads large whatever the screen width. */
+  width: 84%;
+  margin-left: -42%;
+  overflow: hidden;
+  border: 1px solid #e4dcf1;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 50px 100px -44px rgba(77, 55, 117, 0.62);
+  /* Zooms from small up to a touch over full size, so the finished Crewzy
+     workspace lands large and prominent. */
+  transform: translateY(-50%) scale(calc(0.56 + 0.52 * var(--p)));
+  opacity: clamp(0, calc(0.2 + var(--p) * 1.25), 1);
+  will-change: transform, opacity;
+}
+
+.collapseWindowBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 15px;
+  border-bottom: 1px solid #eee6f2;
+  background: #faf8fc;
+}
+
+.collapseWindowBar > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e0d7e6;
+}
+
+.collapseWindowBar em {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  gap: 5px;
+  color: #9a929f;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.collapseWindowBody { padding: 30px; }
+
+.collapseWindowHub {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 18px;
+  border-radius: 11px;
+  background: var(--purple);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.collapseWindowHub > span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.collapseWindowNav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 20px;
+  gap: 9px;
+}
+
+.collapseWindowNav span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: var(--tool-soft, #f5f2f8);
+  color: var(--tool, #555);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* The payoff line. "one" is the punchline — big and in Crewzy purple, so the
+   drop in size from "Six tools become" mirrors the six-into-one collapse. */
+.collapseCaption {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  opacity: clamp(0, calc(var(--p) * 1.7 - 0.5), 1);
+}
+
+.collapseCaption strong {
+  color: var(--purple);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+/* Below 720px (and for reduced motion) the wide scatter can't fit, so skip the
+   fly-in and just show the collapsed result: the one Crewzy window. */
+@media (max-width: 720px) {
+  .collapseCard { display: none; }
+  .collapseStage { height: auto; padding: 6px 0 14px; }
+  .collapseWindow { position: static; width: min(440px, 100%); margin: 0 auto; transform: none; opacity: 1; }
+  .collapseWindowNav { grid-template-columns: repeat(2, 1fr); }
+  .collapseCaption { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapseCard { display: none; }
+  .collapseStage { height: auto; padding: 6px 0 14px; }
+  .collapseWindow { position: static; margin: 0 auto; transform: none; opacity: 1; }
+  .collapseCaption { opacity: 1; }
 }
