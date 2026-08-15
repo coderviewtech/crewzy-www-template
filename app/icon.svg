@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Crewzy">
+  <!-- Mirrors the header brand mark in chrome.tsx: BrandIcon (lucide users-round)
+       knocked out in white on the brand purple, in a rounded square. The header
+       tile is 34px with an 8px radius and a 19px glyph; those ratios are kept
+       here (radius 7/32, glyph 19.2/32) so the tab icon and the site logo read
+       as the same mark. Stroke is thickened from lucide's 2 to 2.5 because the
+       default hairline disappears once a favicon is scaled down to 16px. -->
+  <rect width="32" height="32" rx="7" fill="#7650e8"/>
+  <g transform="translate(6.4 6.4) scale(0.8)"
+     fill="none" stroke="#ffffff" stroke-width="2.5"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 21a8 8 0 0 0-16 0"/>
+    <circle cx="10" cy="8" r="5"/>
+    <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>
+  </g>
+</svg>

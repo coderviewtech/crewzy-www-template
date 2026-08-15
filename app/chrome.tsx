@@ -128,7 +128,10 @@ export function Logo() {
   );
 }
 
-export function Eyebrow({ icon: Icon = Sparkles, children, dark = false }: { icon?: LucideIcon; children: ReactNode; dark?: boolean }) {
+/* `icon` is deliberately required. It used to default to Sparkles, which is the
+   Crewzy AI mark — so any section that omitted an icon silently inherited it and
+   read as a generic AI/Gemini sparkle. Every section now states its own icon. */
+export function Eyebrow({ icon: Icon, children, dark = false }: { icon: LucideIcon; children: ReactNode; dark?: boolean }) {
   return <div className={`${styles.eyebrow} ${dark ? styles.eyebrowDark : ""}`}><Icon size={14} />{children}</div>;
 }
 

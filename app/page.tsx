@@ -9,6 +9,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Bell,
+  Blocks,
   Bot,
   CalendarDays,
   Check,
@@ -18,11 +19,14 @@ import {
   FileCheck2,
   FileText,
   FolderKanban,
+  Gauge,
   KeyRound,
   LockKeyhole,
   Menu,
+  MessageCircleQuestion,
   Play,
   ReceiptText,
+  Rocket,
   Search,
   ShieldCheck,
   Sparkles,
@@ -532,12 +536,12 @@ function MoreSection() {
   return (
     <section className={styles.moreSection} id="security">
       <div className={styles.moreHeading} data-reveal>
-        <div><Eyebrow icon={Sparkles}>Everyday value</Eyebrow><h2>Less admin for your team. <span>Evidence for the business.</span></h2></div>
+        <div><Eyebrow icon={Gauge}>Everyday value</Eyebrow><h2>Less admin for your team. <span>Evidence for the business.</span></h2></div>
         <div className={styles.moreValueProps}><span><UsersRound size={18} /><b>One login</b><small>for employees</small></span><span><UserRoundCheck size={18} /><b>One bill</b><small>for the business</small></span><span><ShieldCheck size={18} /><b>One audit trail</b><small>for compliance</small></span></div>
       </div>
       <div className={styles.moreGrid}>{items.map(({ icon: ItemIcon, type, kicker, title, text }, index) => <article className={styles[`moreCard${type}`]} data-reveal data-reveal-delay={String(index + 1)} data-scroll-zoom="card" key={title}><div className={styles.moreCardVisual}><div className={styles.moreCardHeader}><span><ItemIcon size={21} /></span><small>0{index + 1}</small></div><OperationalPreview type={type} /></div><div className={styles.moreCardCopy}><b>{kicker}</b><h3>{title}</h3><p>{text}</p></div></article>)}</div>
       <div className={styles.integrationPanel}>
-        <div className={styles.integrationCopy} data-reveal><Eyebrow icon={Sparkles}>Connected by design</Eyebrow><h3>Add a module, not <span>another integration.</span></h3><p>Every module runs on the same employee record and the same permissions, so switching one on adds capability instead of another system to wire up and keep in sync.</p><div><span><Check size={15} /> One employee identity</span><span><Check size={15} /> Nothing to integrate</span><span><Check size={15} /> Every decision keeps its evidence</span></div></div>
+        <div className={styles.integrationCopy} data-reveal><Eyebrow icon={Blocks}>Connected by design</Eyebrow><h3>Add a module, not <span>another integration.</span></h3><p>Every module runs on the same employee record and the same permissions, so switching one on adds capability instead of another system to wire up and keep in sync.</p><div><span><Check size={15} /> One employee identity</span><span><Check size={15} /> Nothing to integrate</span><span><Check size={15} /> Every decision keeps its evidence</span></div></div>
         <div className={styles.integrationCanvas} aria-label="Crewzy connected modules" data-reveal="scale" data-scroll-zoom="panel">
           <div className={styles.integrationConnections} aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
           <div className={styles.integrationHub}><span><BrandIcon size={24} /></span><strong>Crewzy</strong><small>Identity &amp; access hub</small></div>
@@ -572,7 +576,7 @@ function IntegrationNode({ icon: Icon, label, position }: { icon: LucideIcon; la
 function FaqSection() {
   return (
     <section className={styles.faqSection} id="faq">
-      <div className={styles.faqIntro} data-reveal><Eyebrow icon={Sparkles}>FAQs</Eyebrow><h2>Need <span>answers?</span></h2><p>Answers on modules, access, security and Crewzy AI.</p><Link href="mailto:support@crewzy.io">Ask our team <ArrowRight size={16} /></Link></div>
+      <div className={styles.faqIntro} data-reveal><Eyebrow icon={MessageCircleQuestion}>FAQs</Eyebrow><h2>Need <span>answers?</span></h2><p>Answers on modules, access, security and Crewzy AI.</p><Link href="mailto:support@crewzy.io">Ask our team <ArrowRight size={16} /></Link></div>
       <div className={styles.faqList} data-reveal data-reveal-delay="1">{FAQS.map((item, index) => <details key={item.question} open={index === 0}><summary>{item.question}<span>+</span></summary><p>{item.answer}</p></details>)}</div>
     </section>
   );
@@ -599,7 +603,7 @@ function BuildingBadge({ icon: Icon, label }: { icon: LucideIcon; label: string 
 function FinalCta() {
   return (
     <section className={styles.finalCta} id="get-started">
-      <div className={styles.finalCtaCopy} data-reveal><Eyebrow icon={Sparkles}>Ready when you are</Eyebrow><h2>Replace your stack with <span>one workspace.</span></h2><p>Start free for up to 10 employees. No card required. Add the modules you need as you grow, on the same people, history and workflow.</p><div><Link href={appUrl("/signup")}>Set up free workspace <ArrowRight size={18} /></Link><Link href="mailto:sales@crewzy.io">Talk to sales</Link></div></div>
+      <div className={styles.finalCtaCopy} data-reveal><Eyebrow icon={Rocket}>Ready when you are</Eyebrow><h2>Replace your stack with <span>one workspace.</span></h2><p>Start free for up to 10 employees. No card required. Add the modules you need as you grow, on the same people, history and workflow.</p><div><Link href={appUrl("/signup")}>Set up free workspace <ArrowRight size={18} /></Link><Link href="mailto:sales@crewzy.io">Talk to sales</Link></div></div>
       <div className={styles.finalPhoto} data-reveal="photo" data-scroll-zoom="photo"><Image src="/images/crewzy-team-workshop.png" alt="A team collaborating around a planning board" fill sizes="(max-width: 800px) 100vw, 45vw" /></div>
     </section>
   );

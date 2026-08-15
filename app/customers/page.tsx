@@ -6,10 +6,11 @@ import {
   ArrowRight,
   Briefcase,
   Check,
+  DoorOpen,
   Landmark,
   MessagesSquare,
+  Rocket,
   ShieldCheck,
-  Sparkles,
   Users,
   Wrench,
 } from "lucide-react";
@@ -59,7 +60,7 @@ export default function CustomersPage() {
 
       <section className={styles.subHero}>
         <div className={styles.subHeroInner} data-reveal>
-          <Eyebrow icon={Sparkles}>Early access</Eyebrow>
+          <Eyebrow icon={DoorOpen}>Early access</Eyebrow>
           <h1>We are picking our <span>first customers carefully.</span></h1>
           <p>Crewzy is live and in use, and we are onboarding a small group of design partners rather than opening the doors to everyone at once. That way the platform gets shaped by companies actually running on it.</p>
           <div className={styles.subHeroActions}>
@@ -117,7 +118,7 @@ export default function CustomersPage() {
       </section>
 
       <section className={styles.subCta} data-reveal>
-        <Eyebrow icon={Sparkles} dark>Ready when you are</Eyebrow>
+        <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
         <h2>Tell us what you are running <span>on today.</span></h2>
         <p>That one answer tells us most of what we need to know about whether this is worth your time.</p>
         <div>

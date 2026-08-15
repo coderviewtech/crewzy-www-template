@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useRef } from "react";
 import {
   ArrowRight,
+  BookOpen,
   Building2,
   Check,
   KeyRound,
   Layers,
   LockKeyhole,
+  Rocket,
   ScrollText,
   ShieldCheck,
-  Sparkles,
   UserRoundCheck,
   Workflow,
 } from "lucide-react";
@@ -87,7 +88,7 @@ export default function ResourcesPage() {
 
       <section className={styles.subHero}>
         <div className={styles.subHeroInner} data-reveal>
-          <Eyebrow icon={Sparkles}>Resources</Eyebrow>
+          <Eyebrow icon={BookOpen}>Resources</Eyebrow>
           <h1>How Crewzy fits together, and <span>how it is protected.</span></h1>
           <p>Two things worth understanding before you commit a company to a platform: how the modules relate to each other, and what actually guards your data.</p>
           <nav className={styles.subJump} aria-label="Jump to a section">
@@ -138,7 +139,7 @@ export default function ResourcesPage() {
       </section>
 
       <section className={styles.subCta} data-reveal>
-        <Eyebrow icon={Sparkles} dark>Ready when you are</Eyebrow>
+        <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
         <h2>See it running on <span>your own data.</span></h2>
         <p>Start free for up to 10 employees, or ask us to set a workspace up with your people already in it.</p>
         <div>

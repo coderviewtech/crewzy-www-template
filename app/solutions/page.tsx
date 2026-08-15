@@ -11,6 +11,7 @@ import {
   Clock3,
   FileCheck2,
   Landmark,
+  Shapes,
   ShieldCheck,
   Sparkles,
   UserRoundCheck,
@@ -213,7 +214,7 @@ export default function SolutionsPage() {
       <Header />
       <section className={styles.subHero}>
         <div className={styles.subHeroInner} data-reveal>
-          <Eyebrow icon={Sparkles}>Solutions</Eyebrow>
+          <Eyebrow icon={Shapes}>Solutions</Eyebrow>
           <h1>The same platform, shaped to <span>how you actually work.</span></h1>
           <p>Crewzy replaces the same stack everywhere — but what hurts most depends on what you sell. Here is where the disconnected tools cost each kind of company the most.</p>
           <nav className={styles.subJump} aria-label="Jump to a segment">
