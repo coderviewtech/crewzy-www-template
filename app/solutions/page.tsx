@@ -13,13 +13,12 @@ import {
   Landmark,
   Shapes,
   ShieldCheck,
-  Sparkles,
   UserRoundCheck,
   UsersRound,
   WalletCards,
 } from "lucide-react";
 import styles from "../landing.module.css";
-import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
+import { appUrl, CrewzyAiIcon, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 
 type Segment = {
   id: string;
@@ -110,7 +109,7 @@ const SEGMENTS: Segment[] = [
     modules: [
       { label: "People", icon: UsersRound, href: "/#module-people" },
       { label: "Recruitment", icon: UserRoundCheck, href: "/#module-recruitment" },
-      { label: "Crewzy AI", icon: Sparkles, href: "/#module-crewzy-ai" },
+      { label: "Crewzy AI", icon: CrewzyAiIcon, href: "/#module-crewzy-ai" },
     ],
   },
 ];

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
+  BrainCircuit,
   Briefcase,
   CalendarDays,
   ChevronDown,
@@ -14,7 +15,6 @@ import {
   Layers,
   Menu,
   ShieldCheck,
-  Sparkles,
   UserRoundCheck,
   UsersRound,
   WalletCards,
@@ -41,6 +41,14 @@ export const appUrl = (path: string) => `${APP_ORIGIN}${path}`;
    icon the way two of them had drifted onto a lightning bolt. */
 export const BrandIcon = UsersRound;
 
+/* The Crewzy AI mark, defined once for the same reason as BrandIcon above.
+   Every AI surface — nav menu, the Ask button, the insight card, the answer,
+   the module tile, the integration node — reads from here.
+
+   Previously lucide's Sparkles, which is the four-point sparkle people
+   recognise as Gemini's; an AI module should not wear another company's mark. */
+export const CrewzyAiIcon = BrainCircuit;
+
 /* Module labels become URL slugs, so "Platform → Recruitment" survives a full
    page navigation from a sub-page. Keep this the only place slugs are made. */
 export const moduleSlug = (label: string) =>
@@ -56,7 +64,7 @@ export const PLATFORM_MENU: MenuItem[] = [
   { label: "Time & projects", blurb: "Timesheets, projects and approvals", icon: Clock3, href: "/#module-time-projects" },
   { label: "Leave", blurb: "Balances, policy and approvals", icon: CalendarDays, href: "/#module-leave" },
   { label: "Finance", blurb: "Invoices, expenses and reminders", icon: WalletCards, href: "/#module-finance" },
-  { label: "Crewzy AI", blurb: "Ask questions, act with approval", icon: Sparkles, href: "/#module-crewzy-ai" },
+  { label: "Crewzy AI", blurb: "Ask questions, act with approval", icon: CrewzyAiIcon, href: "/#module-crewzy-ai" },
 ];
 
 /* Organised by the shape of the business, because shape is what decides

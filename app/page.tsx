@@ -29,7 +29,6 @@ import {
   Rocket,
   Search,
   ShieldCheck,
-  Sparkles,
   TimerReset,
   UserRoundCheck,
   UsersRound,
@@ -38,7 +37,7 @@ import {
   Zap,
 } from "lucide-react";
 import styles from "./landing.module.css";
-import { appUrl, BrandIcon, Eyebrow, Footer, Header, moduleSlug, useScrollMotion } from "./chrome";
+import { appUrl, BrandIcon, CrewzyAiIcon, Eyebrow, Footer, Header, moduleSlug, useScrollMotion } from "./chrome";
 
 /* Six modules, so this is the full-tour length divided by six. At 5s a visitor
    had to give it 30 seconds to see everything, which nobody does. 3.5s still
@@ -132,7 +131,7 @@ function ProductTopbar() {
     <div className={styles.productTopbar}>
       <div><Search size={13} /> Search people, projects and records</div>
       <button type="button" aria-label="Notifications"><Bell size={15} /></button>
-      <button type="button"><Sparkles size={14} /> Ask Crewzy AI</button>
+      <button type="button"><CrewzyAiIcon size={14} /> Ask Crewzy AI</button>
     </div>
   );
 }
@@ -164,7 +163,7 @@ function DashboardPreview() {
               <ActivityRow icon={CalendarDays} title="Leave request submitted" detail="Sophie Harris · 2 working days" time="24 min" />
               <ActivityRow icon={ReceiptText} title="Expense ready for review" detail="Emily Carter · £184.20" time="1 hr" />
             </section>
-            <section className={styles.aiInsight}><div><Sparkles size={16} /><strong>Crewzy AI</strong></div><p>Four employees have not submitted last week&apos;s timesheet.</p><small>Timesheet Compliance</small><button type="button">Review results <ArrowRight size={13} /></button></section>
+            <section className={styles.aiInsight}><div><CrewzyAiIcon size={16} /><strong>Crewzy AI</strong></div><p>Four employees have not submitted last week&apos;s timesheet.</p><small>Timesheet Compliance</small><button type="button">Review results <ArrowRight size={13} /></button></section>
           </div>
         </div>
       </div>
@@ -365,7 +364,7 @@ function AiVisual() {
   return (
     <div className={styles.aiVisual}>
       <div className={styles.aiPrompt}>Who has not submitted a timesheet last week?</div>
-      <div className={styles.aiResponse}><span><Sparkles size={17} /></span><div><strong>4 employees are missing a submission.</strong><p>Two records are drafts and two have no entries.</p></div></div>
+      <div className={styles.aiResponse}><span><CrewzyAiIcon size={17} /></span><div><strong>4 employees are missing a submission.</strong><p>Two records are drafts and two have no entries.</p></div></div>
       <div className={styles.aiSources}><span><Clock3 size={15} /> Timesheet compliance</span><span><UsersRound size={15} /> Employee directory</span><b>Live sources</b></div>
     </div>
   );
@@ -429,7 +428,7 @@ function Features() {
       title: "An assistant that answers — and acts, with your confirmation.",
       description: "Ask operational questions in plain language, or ask it to raise an invoice or onboard a new hire. Crewzy shows exactly what it will create and waits for your yes, with every action recorded.",
       highlights: ["Confirms before it acts", "Runs with your permissions", "Every action audited"],
-      icon: Sparkles,
+      icon: CrewzyAiIcon,
       tone: "violet",
       visual: <AiVisual />,
     },
@@ -550,7 +549,7 @@ function MoreSection() {
           <IntegrationNode icon={FolderKanban} label="Projects" position="Projects" />
           <IntegrationNode icon={WalletCards} label="Finance" position="Finance" />
           <IntegrationNode icon={ShieldCheck} label="Audit" position="Audit" />
-          <IntegrationNode icon={Sparkles} label="Crewzy AI" position="Ai" />
+          <IntegrationNode icon={CrewzyAiIcon} label="Crewzy AI" position="Ai" />
         </div>
       </div>
     </section>
