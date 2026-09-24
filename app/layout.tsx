@@ -23,7 +23,7 @@ const SITE_URL = "https://crewzy.io";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Crewzy — Everything your team runs on, in one workspace",
+    default: "Crewzy — People, work and compliance. Connected.",
     template: "%s — Crewzy",
   },
   description:
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     title: "Stop running your business across a dozen disconnected tools",
     description: "One platform instead of six subscriptions.",
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false },
   alternates: { canonical: "/" },
 };
 

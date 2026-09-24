@@ -15,6 +15,23 @@ body {
 
 html {
   -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+}
+
+:root {
+  --preview-ink: #172a46;
+  --preview-muted: #637189;
+  --preview-blue: #3261ec;
+  --preview-line: #e6ebf3;
+  --preview-surface: #f7f9fd;
+  --preview-green: #138966;
+  --preview-ui-text: #24364c;
+  --preview-ui-muted: #53657b;
+  --preview-ui-border: #dce3ec;
+  --preview-ui-surface: #f6f8fb;
+  --preview-compliance-accent: #23664f;
+  --preview-compliance-active: #f3faf6;
+  --preview-compliance-outline: #c6ded2;
 }
 
 /* Lenis smooth-scroll hooks. Lenis adds these classes to <html> while active;
