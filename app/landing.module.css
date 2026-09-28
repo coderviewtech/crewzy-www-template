@@ -99,7 +99,6 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   font-size: 22px;
 }
 
@@ -110,7 +109,8 @@
   place-items: center;
   border-radius: 8px;
   color: #fff;
-  background: var(--purple);
+  margin-right: 10px;
+  background: var(--preview-brand-accent);
 }
 
 .desktopNav,

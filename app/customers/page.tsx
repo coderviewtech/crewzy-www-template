@@ -15,6 +15,8 @@ import {
   Wrench,
 } from "lucide-react";
 import styles from "../landing.module.css";
+import secondary from "../secondary-page.module.css";
+import typeStyles from "../content-typography.module.css";
 import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 
 /* No logos, quotes or case studies here until they are real ones from real
@@ -55,28 +57,28 @@ export default function CustomersPage() {
   useScrollMotion(pageRef, styles.revealed, styles.motionReady);
 
   return (
-    <main className={styles.page} ref={pageRef}>
+    <main className={`${styles.page} ${secondary.page} ${typeStyles.page}`} ref={pageRef}>
       <Header />
 
       <section className={styles.subHero}>
-        <div className={styles.subHeroInner} data-reveal>
+        <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={DoorOpen}>Early access</Eyebrow>
           <h1>We are picking our <span>first customers carefully.</span></h1>
           <p>Crewzy is live and in use, and we are onboarding a small group of design partners rather than opening the doors to everyone at once. That way the platform gets shaped by companies actually running on it.</p>
-          <div className={styles.subHeroActions}>
+          <div className={`${styles.subHeroActions} ${typeStyles.actions}`}>
             <Link href="mailto:sales@crewzy.io?subject=Design%20partner%20enquiry">Apply as a design partner <ArrowRight size={18} /></Link>
             <Link href={appUrl("/signup")}>Or just start free</Link>
           </div>
-          <small className={styles.subHeroNote}>No case studies here yet — we would rather show you none than show you invented ones. Ask us and we will introduce you to a team already using it.</small>
+          <small className={`${styles.subHeroNote} ${typeStyles.note}`}>No case studies here yet — we would rather show you none than show you invented ones. Ask us and we will introduce you to a team already using it.</small>
         </div>
       </section>
 
       <section className={styles.subSection}>
-        <div className={styles.subSectionHead} data-reveal>
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={Wrench}>What a design partner gets</Eyebrow>
           <h2>Early is only worth it if <span>you get something for it.</span></h2>
         </div>
-        <div className={styles.subCards}>
+        <div className={`${styles.subCards} ${typeStyles.cards}`}>
           {PARTNER_GETS.map(({ icon: ItemIcon, title, text }, index) => (
             <article key={title} data-reveal data-reveal-delay={String((index % 2) + 1)} data-scroll-zoom="card">
               <span><ItemIcon size={19} /></span>
@@ -88,12 +90,12 @@ export default function CustomersPage() {
       </section>
 
       <section className={styles.subSection}>
-        <div className={styles.subSectionHead} data-reveal>
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={Users}>Who it suits</Eyebrow>
           <h2>Companies running day to day on <span>too many tools.</span></h2>
           <p>If you employ people, track their time and bill for their work, the fit is usually obvious within one conversation.</p>
         </div>
-        <div className={styles.subFit} data-reveal>
+        <div className={`${styles.subFit} ${typeStyles.audience}`} data-reveal>
           {FIT.map(({ icon: FitIcon, label, text }) => (
             <div key={label}>
               <span><FitIcon size={18} /></span>
@@ -105,11 +107,11 @@ export default function CustomersPage() {
       </section>
 
       <section className={styles.subSection}>
-        <div className={styles.subSectionHead} data-reveal>
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={Check}>How it works</Eyebrow>
           <h2>Four steps, and you can stop <span>at any of them.</span></h2>
         </div>
-        <ol className={styles.subSteps} data-reveal>
+        <ol className={`${styles.subSteps} ${typeStyles.steps}`} data-reveal>
           <li><strong>A short call</strong><span>Twenty minutes on what you run today and where it hurts. If Crewzy is not the answer, we will say so.</span></li>
           <li><strong>A workspace with your data</strong><span>We set up a workspace with your people and projects in it, so you are judging your own operation rather than a demo.</span></li>
           <li><strong>One team, one month</strong><span>Run a single team on it for a month. Real timesheets, real approvals, real invoices.</span></li>
@@ -117,13 +119,13 @@ export default function CustomersPage() {
         </ol>
       </section>
 
-      <section className={styles.subCta} data-reveal>
+      <section className={`${styles.subCta} ${typeStyles.closing}`} data-reveal>
         <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
         <h2>Tell us what you are running <span>on today.</span></h2>
         <p>That one answer tells us most of what we need to know about whether this is worth your time.</p>
         <div>
           <Link href="mailto:sales@crewzy.io?subject=Design%20partner%20enquiry">Apply as a design partner <ArrowRight size={18} /></Link>
-          <Link href={"/#features"}>See the platform first</Link>
+          <Link href="/platform">See the platform first</Link>
         </div>
       </section>
       <Footer />

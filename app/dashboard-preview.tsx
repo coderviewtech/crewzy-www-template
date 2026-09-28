@@ -1,21 +1,23 @@
-import { CalendarDays, Check, ChevronDown, Clock3, LayoutDashboard, Search, ShieldCheck, UsersRound } from "lucide-react";
+import { CalendarDays, Check, ChevronDown, Clock3, LayoutDashboard, Search, ShieldCheck, UserRound, UsersRound } from "lucide-react";
 import { modules, IconTile } from "./platform-tour";
 import { weeklyHours, totalWeeklyHours, maxDailyHours } from "./dashboard-data";
+import { previewIdentity } from "./preview-identity";
+import { Brand } from "./brand";
 import ui from "./dashboard-preview.module.css";
 
 export function DashboardPreview() {
   return <div className={ui.dashboard} aria-label="Crewzy sample workspace" data-dashboard-ui>
     <aside className={ui.sidebar}>
-      <div className={ui.brand}><span><UsersRound size={21} /></span>crewzy<span>.</span></div>
-      <div className={ui.workspace}><span>N</span><div><strong>Northstar Studio</strong><small>Team workspace</small></div><ChevronDown size={14} /></div>
+      <Brand className={ui.brand} />
+      <div className={ui.workspace}><span>{previewIdentity.workspaceMark}</span><div><strong>{previewIdentity.workspace}</strong><small>Team workspace</small></div><ChevronDown size={14} /></div>
       <div className={ui.navigation} aria-label="Illustrative workspace navigation">
         <div className={ui.current}><LayoutDashboard size={18} /><span>Overview</span></div>
         {modules.map((module, index) => <div key={module.name}><IconTile index={index} small /><span>{module.name}</span></div>)}
       </div>
-      <div className={ui.account}><span className={ui.avatar}>EW</span><div><strong>Emma Wilson</strong><small>Workspace owner</small></div></div>
+      <div className={ui.account}><span className={ui.avatar}><UserRound size={17} aria-hidden="true" /></span><div><strong>{previewIdentity.owner}</strong><small>{previewIdentity.ownerRole}</small></div></div>
     </aside>
     <div className={ui.main}>
-      <div className={ui.topbar}><span>Workspace <span>/</span><strong>Overview</strong></span><div><Search size={17} /><span className={ui.workspaceName}>Northstar Studio</span><span className={ui.avatar}>EW</span></div></div>
+      <div className={ui.topbar}><span>Workspace <span aria-hidden="true">/</span><strong>Overview</strong></span><div><Search size={17} /><span className={ui.workspaceName}>{previewIdentity.workspace}</span><span className={ui.avatar} role="img" aria-label={previewIdentity.owner}><UserRound size={17} aria-hidden="true" /></span></div></div>
       <div className={ui.content}>
         <div className={ui.heading}><div><h2>Workspace overview</h2><p>People, time and documents</p></div><span className={ui.period}><CalendarDays size={15} />This week</span></div>
         <div className={ui.metrics}>
@@ -46,7 +48,7 @@ export function DashboardPreview() {
             <div className={ui.queueFooter}><Check size={14} />Linked to employee records</div>
           </section>
         </div>
-        <div className={ui.footer}><ShieldCheck size={14} />Workspace access is role-based<span>Northstar Studio</span></div>
+        <div className={ui.footer}><ShieldCheck size={14} />Workspace access is role-based<span>{previewIdentity.workspace}</span></div>
       </div>
     </div>
   </div>;

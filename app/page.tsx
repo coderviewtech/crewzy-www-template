@@ -1,25 +1,28 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCheck, Clock3, FileText, Menu, Plus, ShieldCheck, UsersRound, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { ArrowDown, ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCheck, Clock3, FileText, Plus, ShieldCheck, UsersRound } from "lucide-react";
 import previewStyles from "./preview.module.css";
 import connectionStyles from "./connections.module.css";
 import narrativeStyles from "./narrative.module.css";
+import editorial from "./editorial.module.css";
 import { ComplianceWorkspace } from "./compliance-workspace";
 import { DashboardPreview } from "./dashboard-preview";
 import { modules, IconTile, PlatformExplorer } from "./platform-tour";
 import { usePreviewMotion } from "./use-preview-motion";
+import { SectionHeading } from "./section-heading";
+import { Brand } from "./brand";
+import { SiteHeader, SiteFooter } from "./site-shell";
+import { appUrl, demoHref, moduleHref } from "./site-config";
 
 const styles = { ...previewStyles, ...connectionStyles };
 
-const appOrigin = (process.env.NEXT_PUBLIC_APP_ORIGIN ?? "https://dev.crewzy.io").replace(/\/$/, "");
-function Brand() { return <span className={styles.brand}><span className={styles.brandMark}><UsersRound size={22} strokeWidth={2.2} aria-hidden="true" /></span>crewzy</span>; }
 
 
 
 const connectionPaths = [
-  { desktop: "M200 53 H275 Q340 53 340 118 Q340 160 420 160", mobile: "M167 66 V83 Q167 113 197 113 H470 Q500 113 500 140", color: "#3261ec" },
+  { desktop: "M200 53 H275 Q340 53 340 118 Q340 160 420 160", mobile: "M167 66 V83 Q167 113 197 113 H470 Q500 113 500 140", color: "var(--preview-brand-accent)" },
   { desktop: "M200 160 H420", mobile: "M500 66 V140", color: "#8960d7" },
   { desktop: "M200 267 H275 Q340 267 340 202 Q340 160 420 160", mobile: "M833 66 V83 Q833 113 803 113 H530 Q500 113 500 140", color: "#b37d18" },
   { desktop: "M800 53 H725 Q660 53 660 118 Q660 160 580 160", mobile: "M167 254 V237 Q167 207 197 207 H470 Q500 207 500 180", color: "#c75171" },
@@ -27,17 +30,15 @@ const connectionPaths = [
   { desktop: "M800 267 H725 Q660 267 660 202 Q660 160 580 160", mobile: "M833 254 V237 Q833 207 803 207 H530 Q500 207 500 180", color: "#258b64" },
 ];
 
-function ConnectedWorkspace({ onSelect }: { onSelect: (index: number) => boolean }) {
+function ConnectedWorkspace() {
   return (
     <section className={styles.connectionSection} aria-labelledby="connection-title" data-connection-section>
       <div className={styles.connectionCopy}>
-        <span className={styles.eyebrow}>THE CREWZY WORKSPACE</span>
-        <h2 id="connection-title">One record.<br /><span>Everyone connected.</span></h2>
-        <p>Your people, permissions and context flow across every module.</p>
+        <SectionHeading label="The Crewzy workspace" title="One record." emphasis="Everyone connected." description="Your people, permissions and context flow across every module." id="connection-title" />
       </div>
-      <div className={styles.connectionDiagram}>
+      <div className={styles.connectionDiagram} data-connection-diagram>
         {(["desktop", "mobile"] as const).map(layout => (
-          <svg key={layout} className={`${styles.connectionLines} ${layout === "desktop" ? styles.connectionDesktop : styles.connectionMobile}`} viewBox="0 0 1000 320" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <svg key={layout} className={`${styles.connectionLines} ${layout === "desktop" ? styles.connectionDesktop : styles.connectionMobile}`} viewBox="0 0 1000 320" preserveAspectRatio="none" fill="none" aria-hidden="true" data-connection-links>
             {connectionPaths.map((path, index) => (
               <g key={index}>
                 <path d={path[layout]} stroke="#e4ebf5" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
@@ -47,17 +48,13 @@ function ConnectedWorkspace({ onSelect }: { onSelect: (index: number) => boolean
           </svg>
         ))}
         {modules.map((item, index) => (
-          <a key={item.name} className={`${styles.connectionNode} ${styles[`connectionNode${index}`]}`} href={index === 5 ? "#compliance" : "#platform"} onClick={event => {
-            if (index < 5 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && onSelect(index)) {
-              event.preventDefault(); event.stopPropagation();
-            }
-          }} data-connection-node data-connection-side={index < 3 ? "left" : "right"}>
+          <a key={item.name} className={`${styles.connectionNode} ${styles[`connectionNode${index}`]}`} href={index === 5 ? "#compliance" : moduleHref(index)} data-connection-node data-connection-side={index < 3 ? "left" : "right"}>
             <IconTile index={index} small /><strong>{item.name}</strong><ArrowRight size={14} />
           </a>
         ))}
         <a href="#platform" className={styles.connectionHub} aria-label="Explore Crewzy’s connected platform">
           <div className={styles.connectionCore} data-connection-core>
-            <Brand />
+            <Brand className={styles.brand} markClassName={styles.brandMark} />
             <strong>One employee record</strong>
             <span>Shared by every module</span>
             <span className={styles.connectionReady} data-connection-ready><CheckCheck size={14} /> Connected</span>
@@ -79,38 +76,26 @@ const faqs = [
 
 export default function Home() {
   const root = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeModule, setActiveModule] = useState(0);
   const [storyStep, setStoryStep] = useState(0);
   const navigateStep = useRef<((index: number) => void) | null>(null);
-  const navigateModule = useRef<((index: number) => void) | null>(null);
-  const menuButton = useRef<HTMLButtonElement>(null);
+  const navigateModule = useRef<((index: number, immediate?: boolean) => void) | null>(null);
   usePreviewMotion(root, setStoryStep, navigateStep, setActiveModule, navigateModule);
   const selectModule = (index: number) => {
     if (navigateModule.current) { navigateModule.current(index); return true; }
     setActiveModule(index);
     return false;
   };
-  useEffect(() => {
-    if (!menuOpen) return;
-    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") { setMenuOpen(false); menuButton.current?.focus(); } };
-    document.addEventListener("keydown", escape);
-    return () => document.removeEventListener("keydown", escape);
-  }, [menuOpen]);
-  return <div className={styles.preview} ref={root}>
+  return <div className={`${styles.preview} ${editorial.page}`} ref={root}>
     <div className={styles.pageProgress} data-page-progress aria-hidden="true" />
     <a className={styles.skipLink} href="#main">Skip to content</a>
-    <header className={styles.header}><a href="#top" aria-label="Crewzy home"><Brand /></a>
-      <nav aria-label="Main navigation" className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`} id="main-navigation" onClick={() => setMenuOpen(false)}><a href="#platform">Platform</a><a href="#compliance">Compliance <span className={styles.navDot} /></a><a href="#teams">Who it’s for</a><a href="#questions">FAQs</a></nav>
-      <div className={styles.navActions}><a className={styles.login} href={`${appOrigin}/login`}>Sign in</a><a href="mailto:sales@crewzy.io?subject=Crewzy%20demo" className={styles.button}>Book a demo <ArrowRight size={16} /></a><button ref={menuButton} className={styles.menuToggle} aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-controls="main-navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button></div>
-    </header>
+    <SiteHeader />
     <main id="main">
       <section className={styles.hero} id="top"><div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroContent}>
-          <a className={styles.eyebrowPill} href="#compliance" data-hero-enter><ShieldCheck size={15} /><span>People-first. Compliance-connected.</span><ArrowRight size={14} /></a>
           <h1 data-hero-enter>A clearer way to run<br /><span>your people and work.</span></h1>
           <p className={styles.heroDescription} data-hero-enter>HR, hiring, time, finance and compliance.<br className={styles.desktopBreak} /> Finally connected, in one beautifully simple workspace.</p>
-          <div className={styles.heroActions} data-hero-enter><a href="mailto:sales@crewzy.io?subject=Crewzy%20demo" className={`${styles.button} ${styles.largeButton}`}>Let’s meet your new workspace <ArrowRight size={18} /></a><a href="#platform" className={styles.textButton}>Explore the platform <ArrowDown size={17} /></a></div>
+          <div className={styles.heroActions} data-hero-enter><a href={appUrl("/signup")} className={`${styles.button} ${styles.largeButton}`}>Forever free for up to 10 employees <ArrowRight size={18} /></a><a href="#platform" className={styles.textButton}>Explore the platform <ArrowDown size={17} /></a></div>
           <ul className={styles.benefitHighlights} aria-label="Why teams choose Crewzy" data-hero-enter>
             <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.blue}`}><UsersRound size={19} /></span><strong>One employee record</strong></li>
             <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.violet}`}><CheckCheck size={19} /></span><strong>Connected workflows</strong></li>
@@ -121,18 +106,36 @@ export default function Home() {
           <div className={styles.productFrame} data-product-frame><DashboardPreview /></div>
         </div>
       </section>
-      <ConnectedWorkspace onSelect={selectModule} />
-      <section className={`${styles.section} ${styles.sectionIntro}`} id="platform" data-reveal><span className={styles.eyebrow}>BUILT TO WORK TOGETHER</span><h2>Less switching tabs.<br /><span>More moving forward.</span></h2><p>Bring the work around your people into one place, with context that stays connected from one team to the next.</p></section>
-      <PlatformExplorer active={activeModule} onSelect={selectModule} />
-      <ComplianceWorkspace step={storyStep} onStep={index => { if (navigateStep.current) navigateStep.current(index); else setStoryStep(index); }} />
-      <section className={`${styles.section} ${styles.teamSection} ${narrativeStyles.zigTeam}`} id="teams" data-zoom-section>
-        <div className={styles.teamPhoto}><Image src="/images/crewzy-team-workshop.png" alt="A team planning work together around a whiteboard" width={1672} height={941} sizes="(max-width: 760px) 100vw, 50vw" data-scroll-zoom="image" /><div className={styles.photoCaption}><UsersRound size={19} /><span>Built around people.<br /><strong>Not around paperwork.</strong></span></div></div>
-        <div className={styles.teamCopy} data-reveal><span className={styles.eyebrow}>FOR PEOPLE-DRIVEN BUSINESSES</span><h2>Big plans.<br /><span>A little less busywork.</span></h2><p>When your people are your business, disconnected tools get in the way. Crewzy brings the everyday work together, so your team can focus on what comes next.</p><div className={styles.industryList}><span><BriefcaseBusiness size={18} /> Agencies & consultancies</span><span><ShieldCheck size={18} /> Document-led businesses</span><span><UsersRound size={18} /> Growing teams</span></div><a href="mailto:sales@crewzy.io?subject=Is%20Crewzy%20right%20for%20our%20team%3F" className={styles.textButton}>Let’s talk about your team <ArrowRight size={17} /></a></div>
+      <ConnectedWorkspace />
+      <section className={editorial.platformSection} id="platform" aria-labelledby="platform-title">
+        <div className={editorial.platformStory} data-module-story>
+          <header className={`${styles.section} ${editorial.platformIntro}`} data-module-intro><SectionHeading label="Built to work together" title="Less switching tabs." emphasis="More moving forward." description="Bring the work around your people into one place, with context that stays connected from one team to the next." id="platform-title" /></header>
+          <PlatformExplorer active={activeModule} onSelect={selectModule} />
+        </div>
       </section>
-      <section className={`${styles.aiSection} ${narrativeStyles.zigAI}`} data-reveal data-zoom-section><div className={styles.aiCopy}><span className={`${styles.iconTile} ${styles.violet}`}><BrainCircuit size={24} /></span><span className={styles.eyebrow}>MEET CREWZY AI</span><h2>Less digging.<br /><span>Better-informed decisions.</span></h2><p>Ask questions about your workspace. Get source-linked answers from the information you’re authorised to access, with human review where it matters.</p></div><div className={styles.aiExample} data-scroll-zoom="frame"><div className={styles.aiQuestion}>Which documents need my attention?</div><div className={styles.aiAnswer}><BrainCircuit size={21} /><div><strong>Here’s a useful place to start.</strong><p>Three records in your workspace need review. Check their expiry dates and supporting documents before you take action.</p><div className={styles.sourceChip}><FileText size={14} /> Source: document records</div></div></div><small>Illustrative AI response · Source-linked, permission-aware</small></div></section>
-      <section className={`${styles.section} ${styles.faqSection}`} id="questions"><div data-reveal><span className={styles.eyebrow}>A LITTLE MORE CLARITY</span><h2>Good questions.<br /><span>Straight answers.</span></h2><p>Still wondering if Crewzy fits?<br /><a href="mailto:sales@crewzy.io">We’re happy to talk. <ArrowRight size={15} /></a></p></div><div className={styles.faqList} data-reveal>{faqs.map(item => <details key={item.question}><summary>{item.question}<Plus size={19} /></summary><p>{item.answer}</p></details>)}</div></section>
-      <section className={styles.closingSection} data-reveal><span className={`${styles.iconTile} ${styles.blue}`}><UsersRound size={28} /></span><span className={styles.eyebrow}>ONE WORKSPACE. A CLEARER DAY.</span><h2>Make room for<br /><span>your next chapter.</span></h2><p>Let’s bring your people, work and compliance together.</p><a className={`${styles.button} ${styles.largeButton}`} href="mailto:sales@crewzy.io?subject=Crewzy%20demo">Book a Crewzy demo <ArrowRight size={18} /></a><a className={styles.closingSecondary} href={`${appOrigin}/signup`}>Small team? Start free for up to 10 employees <ArrowRight size={14} /></a></section>
+      <ComplianceWorkspace step={storyStep} onStep={index => { if (navigateStep.current) navigateStep.current(index); else setStoryStep(index); }} />
+      <section className={`${styles.section} ${styles.teamSection} ${narrativeStyles.zigTeam} ${editorial.teamSection}`} id="teams" data-zoom-section>
+        <div className={`${styles.teamPhoto} ${editorial.teamPhoto}`}><Image src="/images/crewzy-team-editorial-v2.png" alt="Illustrative scene of three colleagues reviewing creative work in a sunlit studio" width={1448} height={1086} sizes="(max-width: 760px) 100vw, 50vw" data-scroll-zoom="image" /><div className={`${styles.photoCaption} ${editorial.photoCaption}`}><UsersRound size={19} /><span>Built around people.<br /><strong>Not around paperwork.</strong></span></div></div>
+        <div className={styles.teamCopy} data-reveal>
+          <SectionHeading label="For people-driven businesses" title="Big plans." emphasis="A little less busywork." description="When your people are your business, disconnected tools get in the way. Crewzy brings the everyday work together, so your team can focus on what comes next." />
+          <ul className={editorial.audienceList}>
+            <li><BriefcaseBusiness size={18} /><span>Agencies & consultancies</span></li>
+            <li><ShieldCheck size={18} /><span>Document-led businesses</span></li>
+            <li><UsersRound size={18} /><span>Growing teams</span></li>
+          </ul>
+          <a href="/solutions" className={`${styles.textButton} ${editorial.sectionLink}`}>Find the right fit for your team <ArrowRight size={17} /></a>
+        </div>
+      </section>
+      <section className={`${styles.aiSection} ${narrativeStyles.zigAI} ${editorial.aiSection}`} id="crewzy-ai" data-reveal data-zoom-section>
+        <SectionHeading label="Meet Crewzy AI" title="Less digging." emphasis="Better-informed decisions." description="Ask questions about your workspace. Get source-linked answers from the information you’re authorised to access, with human review where it matters." />
+        <div className={`${styles.aiExample} ${editorial.aiExample}`} data-scroll-zoom="frame"><div className={editorial.assistantHeader}><BrainCircuit size={19} /><strong>Crewzy AI</strong><span>Workspace assistant</span></div><div className={styles.aiQuestion}>Which documents need my attention?</div><div className={styles.aiAnswer}><BrainCircuit size={21} /><div><strong>Three document reviews need attention.</strong><p>Start with Daniel’s professional certificate, which expires in 14 days. Amelia’s insurance document and Sophie’s training certificate are also coming up for renewal.</p><div className={styles.sourceChip}><FileText size={14} /> Source: document records</div></div></div><small>Illustrative response · Review source records before acting</small></div>
+      </section>
+      <section className={`${styles.section} ${styles.faqSection}`} id="questions">
+        <div data-reveal><SectionHeading label="A little more clarity" title="Good questions." emphasis="Straight answers." description="Still wondering if Crewzy fits?" /><a className={editorial.sectionLink} href="/contact">We’re happy to talk. <ArrowRight size={15} /></a></div>
+        <div className={styles.faqList} data-reveal>{faqs.map(item => <details key={item.question}><summary>{item.question}<Plus size={19} /></summary><p>{item.answer}</p></details>)}</div>
+      </section>
+      <section className={`${styles.closingSection} ${editorial.closingSection}`} data-reveal><SectionHeading label="One workspace. A clearer day." title="Make room for" emphasis="your next chapter." description="Let’s bring your people, work and compliance together." /><div className={editorial.closingActions}><a className={`${styles.button} ${styles.largeButton}`} href={demoHref}>Book a Crewzy demo <ArrowRight size={18} /></a><a className={styles.closingSecondary} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={14} /></a></div></section>
     </main>
-    <footer className={styles.footer}><a href="#top" aria-label="Back to the top"><Brand /></a><p>People. Work. Together.</p><nav aria-label="Footer navigation"><a href="#platform">Platform</a><a href="#compliance">Compliance</a><a href="mailto:sales@crewzy.io">Contact</a></nav><span>© {new Date().getFullYear()} Crewzy</span></footer>
+    <SiteFooter />
   </div>;
 }

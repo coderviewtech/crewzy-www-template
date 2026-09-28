@@ -7,9 +7,11 @@ const SITE_URL = "https://crewzy.io";
 
 const ROUTES = [
   { path: "", priority: 1.0 },
+  { path: "/platform", priority: 0.9 },
   { path: "/solutions", priority: 0.8 },
   { path: "/resources", priority: 0.7 },
   { path: "/customers", priority: 0.6 },
+  { path: "/contact", priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

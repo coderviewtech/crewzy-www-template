@@ -25,7 +25,41 @@ network access at build time; Next.js serves the downloaded fonts locally.
 
 ## Interaction design
 
+The original centred hero and three benefit highlights are retained, without
+the small hero badge. The primary action reads “Forever free for up to 10
+employees” and links to the existing signup destination. The
+editorial refinement layer in `app/editorial.module.css` strengthens text contrast
+and varies the rhythm of the lower sections. Product text stays native HTML.
+Entrances use small, one-time movements without fading readable content; the
+platform and compliance stacks remain reversible with shorter scrub catch-up.
+Reduced-motion fallbacks remain in place. Anchor links use the existing CSS
+scroll margin without a duplicate Lenis offset. The illustrative team photograph
+and its generation provenance are documented in `ASSETS.md`. Published template
+code and the reasoning behind these refinements are recorded in
+`DESIGN-RESEARCH.md`.
+
+Marketing sections share `SectionHeading` and `section-heading.module.css`:
+13px uppercase labels with a short accent rule, 48px maximum responsive
+headings at weight 650, 17px body copy, and consistent 18px text spacing.
+Mobile uses 12px labels, 34px headings and 16px body copy. All marketing sections,
+including compliance, use shared navy/cobalt tokens. Product UI typography is
+independent. Platform explanatory copy sits immediately below its heading.
+
+Compliance carries the same cobalt selected tabs, chapter icons and heading
+accents, with crisp white product surfaces against a pale blue canvas. Green
+and amber are reserved for success and attention states inside the product UI;
+they do not establish a separate section theme. The page's secondary
+headlines use brand colour or deep ink instead of faded grey. This treatment
+does not change the hero layout, chapter copy, timing or pinning behaviour.
+The standalone compliance disclaimer has been removed from the section as
+requested; the FAQ still explains the scope of the compliance tools.
+
 - GSAP + ScrollTrigger: entrance sequences, chart reveal and reading progress.
+- Connected-workspace diagram: the central Crewzy identity and Connected
+  status remain stationary. The six outer cards expand outward and zoom to
+  native size as the section enters; scrolling back reverses the motion.
+  Connector geometry expands with the cards. The mobile displacement is
+  gentler, and reduced-motion mode shows the fully expanded static diagram.
 - The hero dashboard is real HTML at native size, with no continuous scaling,
   perspective or floating callouts. A short entrance clears its transforms.
   Daily chart values, bar heights and the total use one shared sample dataset.
@@ -40,9 +74,14 @@ network access at build time; Next.js serves the downloaded fonts locally.
   The tour pins only above 760px wide, at least 680px high, and when the entire
   frame fits below the header. Other layouts retain direct manual tabs;
   reduced-motion mode removes transitions as well as pinning.
+  On taller screens the section introduction stays with the slideshow, keeping
+  the heading visible instead of leaving a large empty area under a top-aligned
+  stage. Shorter screens pin just the cards. The next section follows with 32px
+  separation (24px on mobile), replacing the old 110px/70px tour margin.
 - Compliance sequence: three full-width, content-height cards combine their
   explanation with the relevant oversight, renewal-review or audit-history data.
-  The introduction scrolls away; the named chapter menu and complete card stage
+  The introduction stays with the cards when the combined content fits; on
+  shorter screens it scrolls away and only the chapter menu and card stage
   remain below the site header. Card height follows the content instead of
   expanding with the viewport; tighter vertical padding keeps both columns
   compact without reducing text sizes or changing the animation. The shared
@@ -83,14 +122,59 @@ on [Razorpay](https://razorpay.com/#build-ai-native). Crewzy adds reversible
 depth scaling with the preview's existing GSAP setup; this is a custom
 adaptation, not copied template code or a claim about Razorpay's exact animations.
 
-Product examples use fictional Northstar Studio records. Workspace names,
+Product examples use fictional records in the branded Crewzy HQ demo workspace.
+The shared `preview-identity.ts` supplies the workspace and role-based account
+labels (Workspace admin / People Operations) without invented account initials.
+Workspace names,
 headings and benefit labels use stronger typography and contrast; all three
 shared benefits remain visible on small screens. This is a marketing
-preview, not the working HR application. Demo links open an email draft to
-sales@crewzy.io. Sign-in and signup keep the existing product destination,
-https://dev.crewzy.io, configurable with NEXT_PUBLIC_APP_ORIGIN.
+preview, not the working HR application. Demo links go to `/contact#demo`,
+where a clearly labelled email action opens a draft to sales@crewzy.io. There
+is no booking calendar or form backend. Sign-in and signup keep the existing
+product destination, https://dev.crewzy.io, configurable with
+`NEXT_PUBLIC_APP_ORIGIN` in `app/site-config.ts`.
 
-Existing secondary routes were retained as reference content, not redesigned.
+## Navigation, pages and shared identity
+
+`app/site-shell.tsx` supplies the same responsive header and footer on all six
+pages: Home, Platform, Solutions, Customers, Resources and Contact. Menu and
+footer destinations live in `app/site-navigation.ts`; brand wording, portal
+origin and contact destinations are centralised in `app/site-config.ts`.
+The simple supporting caption is **People, work and compliance. Connected.**
+The approved homepage headline is unchanged.
+
+The Platform overview gives each module an addressable detail card. Module
+links into the homepage select the corresponding card and settled scroll
+chapter, including on direct arrival, history navigation and the mobile tab
+fallback. Selection is restored after ScrollTrigger refreshes so visible and
+accessible panels agree. Existing Solutions, Customers and Resources copy is
+retained, with the shared blue typography and navigation treatment.
+
+Home anchors share one handler for same-page clicks, direct arrivals and hash
+history. Before scrolling, `app/anchor-navigation.ts` remeasures Lenis after
+GSAP pin spacers have expanded the document. This avoids cross-page AI/FAQ
+links being clamped to the old page height. Section CSS is the single source
+of header clearance; no extra root padding or numeric Lenis offset is added.
+Initial hashes wait for fonts and window load; a new link cancels an unfinished
+programmatic scroll so rapid selections cannot continue toward an old target.
+The link audit checks routes and IDs; actual landing positions are verified
+separately in the browser, including cross-page and mobile navigation.
+
+All five secondary pages use `app/content-typography.module.css` for the
+approved Solutions text hierarchy: 400 body, 500 supporting links and labels,
+and 600 headings and primary actions. Shared roles cover hero and section
+headings, cards, notes, audience tiles and steps, with consistent line-height
+and navy/blue emphasis. Page-specific layouts and responsive card sizes stay
+in their own stylesheets. The homepage, wordmark, navigation and product UI
+keep their approved treatments.
+
+The footer includes product, audience, resource and contact links. Customer
+content remains explicitly early-access; no customer quotes, certifications,
+registered address or company number have been invented. Public Privacy and
+Terms URLs returned 404 during this review, so legal links are omitted until
+approved pages are supplied. Add those before a production release. A supplied
+booking URL can replace the email-based demo flow centrally.
+
 Compliance copy is based on the original site and makes no certification or
 regulatory-compliance guarantee. Review all product claims before publication.
 
@@ -108,5 +192,9 @@ robots and sitemap routes are retained; noindex is not access control.
 
 ## Validation
 
-Run `npm run build`, `npx tsc --noEmit` and `npm audit` before handoff. Browser
-interaction and visual testing remain a separate review step.
+Run `npm run build`, `npx tsc --noEmit` and `node --test tests/*.test.mjs`.
+With the local preview running, `node scripts/check-site-links.mjs` checks
+all internal routes and anchors on the six public pages. Pass a preview URL
+as the first argument to audit a different origin. Browser interaction and visual testing
+remain a separate review step. Do not rebuild `.next` while checking a loaded
+production preview; restart the server and reload after each build.

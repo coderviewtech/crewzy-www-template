@@ -4,18 +4,20 @@ import { useRef } from "react";
 import { ArrowRight, BriefcaseBusiness, CalendarDays, Check, CheckCheck, Clock3, FileCheck2, LockKeyhole, ShieldCheck, UsersRound, WalletCards } from "lucide-react";
 import styles from "./preview.module.css";
 import tour from "./platform-tour.module.css";
+import { previewIdentity } from "./preview-identity";
+import { moduleSlugs } from "./site-config";
 
 export const modules = [
-  { name: "People", icon: UsersRound, color: "blue", title: "People, not paperwork.", description: "Employee records, onboarding and documents. A shared source of truth for every stage of the employee journey." },
-  { name: "Recruitment", icon: BriefcaseBusiness, color: "violet", title: "From first hello to first day.", description: "Bring candidates, interviews and hiring decisions into the same workspace as the team they will join." },
-  { name: "Time & projects", icon: Clock3, color: "amber", title: "Make every hour easier to manage.", description: "Connect projects, timesheets and approvals so work moves forward without the weekly spreadsheet chase." },
-  { name: "Leave", icon: CalendarDays, color: "rose", title: "Time off, without the back-and-forth.", description: "Keep leave requests, balances and approvals connected to each employee record." },
-  { name: "Finance", icon: WalletCards, color: "teal", title: "Keep work and money connected.", description: "Manage invoices, expenses and reminders alongside the people and projects behind them." },
-  { name: "Compliance", icon: ShieldCheck, color: "green", title: "Stay ahead of what needs attention.", description: "Bring documents, expiry dates, reviews and audit history together. Less searching. More visibility." },
+  { name: "People", icon: UsersRound, color: "blue", title: "People, not paperwork.", emphasis: "not paperwork.", description: "Employee records, onboarding and documents. A shared source of truth for every stage of the employee journey." },
+  { name: "Recruitment", icon: BriefcaseBusiness, color: "violet", title: "From first hello to first day.", emphasis: "to first day.", description: "Bring candidates, interviews and hiring decisions into the same workspace as the team they will join." },
+  { name: "Time & projects", icon: Clock3, color: "amber", title: "Make every hour easier to manage.", emphasis: "easier to manage.", description: "Connect projects, timesheets and approvals so work moves forward without the weekly spreadsheet chase." },
+  { name: "Leave", icon: CalendarDays, color: "rose", title: "Time off, without the back-and-forth.", emphasis: "without the back-and-forth.", description: "Keep leave requests, balances and approvals connected to each employee record." },
+  { name: "Finance", icon: WalletCards, color: "teal", title: "Keep work and money connected.", emphasis: "money connected.", description: "Manage invoices, expenses and reminders alongside the people and projects behind them." },
+  { name: "Compliance", icon: ShieldCheck, color: "green", title: "Stay ahead of what needs attention.", emphasis: "what needs attention.", description: "Bring documents, expiry dates, reviews and audit history together. Less searching. More visibility." },
 ];
 
 export function IconTile({ index, small = false }: { index: number; small?: boolean }) { const item = modules[index]; return <span className={`${styles.iconTile} ${styles[item.color]} ${small ? styles.smallIcon : ""}`}><item.icon size={small ? 17 : 23} strokeWidth={1.8} /></span>; }
-const moduleExamples = [
+export const moduleExamples = [
   { label: "Your people", caption: "Employee records · 3 shown", columns: ["TEAM MEMBER", "TEAM", "STATUS"], rows: [["Sophie Harris", "Design", "Active"], ["Daniel Brooks", "Engineering", "Active"], ["Amelia Khan", "Operations", "Onboarding"]], notes: ["A shared employee record", "Connected onboarding and offboarding", "Documents where you need them"] },
   { label: "Hiring pipeline", caption: "3 active applications", columns: ["CANDIDATE", "ROLE", "STAGE"], rows: [["Alex Morgan", "Designer", "Interview"], ["Jamie Patel", "Developer", "Review"], ["Charlie Lee", "Operations", "Offer"]], notes: ["Candidates and applications together", "Interviews with shared context", "A clearer handover into onboarding"] },
   { label: "Time & projects", caption: "Recorded time by project", columns: ["PROJECT", "HOURS", "STATUS"], rows: [["Project Atlas", "32 hours", "Approved"], ["Brand refresh", "18 hours", "In review"], ["Website launch", "24 hours", "Submitted"]], notes: ["Projects connected to your people", "Timesheets without spreadsheet chasing", "Clear approval workflows"] },
@@ -80,6 +82,7 @@ function ModuleScreen({ index }: { index: number }) {
 export function PlatformExplorer({ active, onSelect }: { active: number; onSelect: (index: number) => void }) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   return <div className={tour.tour}>
+    {moduleSlugs.map(slug => <span key={slug} id={`module-${slug}`} className={tour.anchor} aria-hidden="true" />)}
     <div className={tour.pin} data-module-pin>
       <div className={tour.tabs} role="tablist" aria-label="Explore Crewzy modules">
         {modules.map((module, index) => <button className={tour[accents[index]]} key={module.name} ref={node => { tabRefs.current[index] = node; }} role="tab" id={`module-tab-${index}`} aria-controls={`module-panel-${index}`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} onClick={() => onSelect(index)} onKeyDown={event => {
@@ -97,13 +100,13 @@ export function PlatformExplorer({ active, onSelect }: { active: number; onSelec
           {modules.map((item, index) => <div className={`${tour.panel} ${tour[accents[index]]}`} style={{ zIndex: index + 1 }} key={item.name} role="tabpanel" id={`module-panel-${index}`} aria-labelledby={`module-tab-${index}`} aria-hidden={active !== index} inert={active !== index} tabIndex={active === index ? 0 : -1} data-module-page data-active={active === index}>
             <div className={tour.copy}>
               <span className={tour.chapterLabel}>{item.name}</span>
-              <h3>{item.title}</h3><p>{item.description}</p>
+              <h3>{item.title.slice(0, -item.emphasis.length)}<span>{item.emphasis}</span></h3><p>{item.description}</p>
               <ul>{moduleExamples[index].notes.map(note => <li key={note}><Check size={15} />{note}</li>)}</ul>
-              <a className={tour.moduleAction} href={index === 5 ? "#compliance" : "mailto:sales@crewzy.io?subject=Crewzy%20platform%20demo"}>{index === 5 ? "Explore the compliance workflow" : `See ${item.name.toLowerCase()} in action`}<ArrowRight size={16} /></a>
+              <a className={tour.moduleAction} href={index === 5 ? "#compliance" : `/platform#${moduleSlugs[index]}`}>{index === 5 ? "Explore the compliance workflow" : `Explore ${item.name.toLowerCase()}`}<ArrowRight size={16} /></a>
             </div>
             <div className={tour.canvas}>
               <div className={tour.window}>
-                <div className={tour.windowBar}><span><span className={tour.workspaceDot} />{item.name}</span><strong className={tour.workspaceName}>Northstar Studio</strong></div>
+                <div className={tour.windowBar}><span><span className={tour.workspaceDot} />{item.name}</span><strong className={tour.workspaceName}>{previewIdentity.workspace}</strong></div>
                 <div className={tour.windowHeading}><IconTile index={index} small /><h4>{moduleExamples[index].label}</h4><span>Overview</span></div>
                 <p>{moduleExamples[index].caption}</p>
                 <ModuleScreen index={index} />

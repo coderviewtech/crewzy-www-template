@@ -1,0 +1,30 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand .wordmark {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: inherit;
+  font-weight: 750;
+  letter-spacing: -.055em;
+  line-height: 1;
+  color: #1d3353;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+  margin-right: .25em;
+  border-radius: .34em;
+  background: var(--preview-brand-accent);
+  color: #fff;
+}
+
+.mark > svg { width: 60%; height: 60%; }

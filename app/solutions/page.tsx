@@ -18,6 +18,8 @@ import {
   WalletCards,
 } from "lucide-react";
 import styles from "../landing.module.css";
+import secondary from "../secondary-page.module.css";
+import typeStyles from "../content-typography.module.css";
 import { appUrl, CrewzyAiIcon, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 
 type Segment = {
@@ -153,12 +155,12 @@ const INDUSTRY_SHAPES = [
 function IndustryGrid() {
   return (
     <section className={styles.subSection} id="industries">
-      <div className={styles.subSectionHead} data-reveal>
+      <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
         <Eyebrow icon={UsersRound}>Who it is for</Eyebrow>
         <h2>Find the shape of your business, <span>not your industry code.</span></h2>
         <p>Crewzy is not built for one sector. It is built for a way of operating — and most companies recognise themselves in one of these three within a few seconds.</p>
       </div>
-      <div className={styles.shapeGrid}>
+      <div className={`${styles.shapeGrid} ${typeStyles.industries}`}>
         {INDUSTRY_SHAPES.map(({ id, icon: ShapeIcon, shape, breaks, industries, anchor, linkLabel }, index) => (
           <article id={id} key={id} data-reveal data-reveal-delay={String((index % 3) + 1)} data-scroll-zoom="card">
             <span><ShapeIcon size={19} /></span>
@@ -177,12 +179,12 @@ function SegmentBlock({ segment }: { segment: Segment }) {
   const { icon: SegmentIcon } = segment;
   return (
     <section className={styles.subSegment} id={segment.id}>
-      <div className={styles.subSegmentHead} data-reveal>
+      <div className={`${styles.subSegmentHead} ${typeStyles.heading}`} data-reveal>
         <Eyebrow icon={SegmentIcon}>{segment.eyebrow}</Eyebrow>
         <h2>{segment.title} <span>{segment.titleTail}</span></h2>
         <p>{segment.lead}</p>
       </div>
-      <div className={styles.subCompare} data-reveal="scale" data-scroll-zoom="panel">
+      <div className={`${styles.subCompare} ${typeStyles.comparison}`} data-reveal="scale" data-scroll-zoom="panel">
         <div className={styles.subCompareToday}>
           <h3>Running on a stack of tools</h3>
           <ul>{segment.today.map(item => <li key={item}>{item}</li>)}</ul>
@@ -192,7 +194,7 @@ function SegmentBlock({ segment }: { segment: Segment }) {
           <ul>{segment.instead.map(item => <li key={item}><Check size={15} />{item}</li>)}</ul>
         </div>
       </div>
-      <div className={styles.subModules} data-reveal>
+      <div className={`${styles.subModules} ${typeStyles.modules}`} data-reveal>
         <small>Modules that carry this</small>
         <div>
           {segment.modules.map(({ label, icon: ModuleIcon, href }) => (
@@ -209,14 +211,14 @@ export default function SolutionsPage() {
   useScrollMotion(pageRef, styles.revealed, styles.motionReady);
 
   return (
-    <main className={styles.page} ref={pageRef}>
+    <main className={`${styles.page} ${secondary.page} ${typeStyles.page}`} ref={pageRef}>
       <Header />
       <section className={styles.subHero}>
-        <div className={styles.subHeroInner} data-reveal>
+        <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={Shapes}>Solutions</Eyebrow>
           <h1>The same platform, shaped to <span>how you actually work.</span></h1>
           <p>Crewzy replaces the same stack everywhere — but what hurts most depends on what you sell. Here is where the disconnected tools cost each kind of company the most.</p>
-          <nav className={styles.subJump} aria-label="Jump to a segment">
+          <nav className={`${styles.subJump} ${typeStyles.jumpLinks}`} aria-label="Jump to a segment">
             <Link href="#industries">All industries</Link>
             {SEGMENTS.map(segment => <Link href={`#${segment.id}`} key={segment.id}>{segment.eyebrow.replace("For ", "")}</Link>)}
           </nav>
@@ -229,7 +231,7 @@ export default function SolutionsPage() {
 
       {SEGMENTS.map(segment => <SegmentBlock key={segment.id} segment={segment} />)}
 
-      <section className={styles.subCta} data-reveal>
+      <section className={`${styles.subCta} ${typeStyles.closing}`} data-reveal>
         <Eyebrow icon={FileCheck2} dark>Not on this list?</Eyebrow>
         <h2>Any company with employees runs <span>most of this already.</span></h2>
         <p>IT services, construction, healthcare staffing, professional services — if you employ people, track their time and bill for their work, the same stack of tools is costing you the same admin.</p>

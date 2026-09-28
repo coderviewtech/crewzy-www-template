@@ -1,7 +1,7 @@
 export const complianceChapters = [
-  { label: "oversight", time: .35, title: "See it before it’s urgent", description: "Documents and expiry dates, with a clear view of what needs attention.", shortTitle: "Document oversight" },
-  { label: "review", time: 4.05, title: "Give every review an owner", description: "Keep the renewal, reviewer and decision together in one workspace.", shortTitle: "Renewal review" },
-  { label: "evidence", time: 7.65, title: "Leave a clear trail", description: "Follow the people, actions and decisions behind every record.", shortTitle: "Audit history" },
+  { label: "oversight", time: .35, title: "See it before it’s urgent", emphasis: "before it’s urgent", description: "Documents and expiry dates, with a clear view of what needs attention.", shortTitle: "Document oversight" },
+  { label: "review", time: 4.05, title: "Give every review an owner", emphasis: "an owner", description: "Keep the renewal, reviewer and decision together in one workspace.", shortTitle: "Renewal review" },
+  { label: "evidence", time: 7.65, title: "Leave a clear trail", emphasis: "a clear trail", description: "Follow the people, actions and decisions behind every record.", shortTitle: "Audit history" },
 ] as const;
 
 export const complianceDuration = 10.8;

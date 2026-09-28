@@ -19,19 +19,31 @@ html {
 }
 
 :root {
+  /* Colour control: change this one value to recolour the preview's brand
+     accents, buttons, charts, focus rings and their derived tints. */
+  --preview-brand-accent: #2854d6;
+  --preview-brand-hover: color-mix(in srgb, var(--preview-brand-accent) 82%, #14243c);
+  --preview-brand-soft: color-mix(in srgb, var(--preview-brand-accent) 72%, white);
+  --preview-brand-surface: color-mix(in srgb, var(--preview-brand-accent) 3%, white);
+  --preview-brand-glow: color-mix(in srgb, var(--preview-brand-accent) 12%, white);
+  --preview-brand-ink: #14243c;
+  --preview-brand-copy: #40516a;
+  --preview-brand-tint: color-mix(in srgb, var(--preview-brand-accent) 8%, white);
+  --preview-brand-outline: color-mix(in srgb, var(--preview-brand-accent) 22%, white);
+  --preview-brand-outline-hover: color-mix(in srgb, var(--preview-brand-accent) 36%, white);
   --preview-ink: #172a46;
   --preview-muted: #637189;
-  --preview-blue: #3261ec;
+  --preview-blue: var(--preview-brand-accent); /* Legacy component alias. */
   --preview-line: #e6ebf3;
-  --preview-surface: #f7f9fd;
+  --preview-surface: var(--preview-brand-surface);
   --preview-green: #138966;
   --preview-ui-text: #24364c;
   --preview-ui-muted: #53657b;
   --preview-ui-border: #dce3ec;
   --preview-ui-surface: #f6f8fb;
-  --preview-compliance-accent: #23664f;
-  --preview-compliance-active: #f3faf6;
-  --preview-compliance-outline: #c6ded2;
+  --preview-compliance-accent: var(--preview-brand-accent);
+  --preview-compliance-active: var(--preview-brand-tint);
+  --preview-compliance-outline: var(--preview-brand-outline);
 }
 
 /* Lenis smooth-scroll hooks. Lenis adds these classes to <html> while active;

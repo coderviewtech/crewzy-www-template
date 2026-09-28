@@ -1,0 +1,90 @@
+/* Marketing art direction only. Product UI and scroll timing keep their
+   own components; readable foreground dashboards are never scaled here. */
+.page {
+  --ink: #14243c;
+  --muted: #3e5067;
+  --line: #dfe5eb;
+}
+
+.page [data-product-frame] { border-radius: 10px; box-shadow: 0 24px 64px -32px #20394b40, 0 2px 4px #20394b08; }
+.page h1 { text-wrap: balance; }
+
+.platformSection { padding-block: 58px 32px; }
+.platformStory { display: flow-root; background: #fff; }
+.page .platformIntro {
+  display: block;
+  text-align: left;
+  padding-block: 24px 28px;
+}
+.page .platformIntro > div { max-width: 780px; }
+
+.page .teamSection { gap: 72px; padding-block: 96px; }
+.page .teamPhoto { min-height: 440px; border-radius: 10px; background: #e8e4da; }
+.page .teamPhoto > img { object-position: 50% 45%; }
+.page .photoCaption {
+  inset: auto 0 0;
+  border: 0;
+  border-top: 1px solid #ffffff70;
+  border-radius: 0;
+  padding: 15px 22px;
+  background: #fffffff0;
+  box-shadow: none;
+  color: #52606d;
+}
+.page .photoCaption strong { color: #273e4c; }
+.page .aiSection { border: 0; border-block: 1px solid var(--line); border-radius: 0; padding: 56px 0; background: #fff; gap: 72px; }
+.page .aiExample { background: #f5f6f8; border: 1px solid #dde3ec; border-radius: 10px; padding: 24px; }
+.page .aiExample p, .page .aiExample > small { color: #536278; }
+.page [id="questions"] summary { color: #293d54; }
+.page [id="questions"] details > p { color: #536278; }
+.assistantHeader { display: flex; align-items: center; gap: 9px; margin-bottom: 24px; color: #685080; font-size: 14px; }
+.assistantHeader strong { color: #293c51; font-weight: 600; }
+.assistantHeader > span { margin-left: auto; color: #58687d; font-size: 12px; }
+
+.audienceList { display: grid; gap: 12px; list-style: none; padding: 0; margin: 25px 0; }
+.audienceList > li { display: flex; align-items: center; gap: 12px; color: #243b58; font-size: 1rem; font-weight: 550; line-height: 1.5; }
+.audienceList svg { flex: none; width: 32px; height: 32px; padding: 7px; border-radius: 8px; background: var(--preview-brand-tint); color: var(--preview-brand-accent); }
+.sectionLink { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; color: var(--preview-brand-accent); font-size: 1rem; font-weight: 600; }
+.sectionLink:hover { color: var(--preview-brand-hover); }
+
+.page .closingSection {
+  max-width: 1184px;
+  margin: 0 auto 72px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  text-align: left;
+  background: var(--preview-brand-surface);
+  border: 1px solid #e0e7f0;
+  border-radius: 12px;
+}
+.closingActions { flex: none; text-align: center; }
+
+@media (max-width: 1240px) {
+  .page .closingSection { margin-inline: 36px; }
+  .page .teamSection, .page .aiSection { gap: 44px; }
+}
+@media (max-width: 980px) {
+  .page .teamPhoto { min-height: 400px; }
+  .page .closingSection { padding: 36px; gap: 24px; }
+}
+@media (max-width: 760px) {
+  .page h1 > span { display: inline-block; width: 100%; text-wrap: balance; }
+  .platformSection { padding-block: 40px 24px; }
+  .page .platformIntro { display: block; padding-block: 20px 24px; }
+  .page .teamSection { padding-block: 64px; gap: 30px; }
+  .page .teamPhoto { min-height: 380px; }
+  .page .aiSection { padding-block: 36px; gap: 28px; }
+  .page .aiExample { padding: 18px; }
+  .assistantHeader { gap: 7px; }
+  .assistantHeader > span { font-size: 11px; }
+  .page .closingSection { margin: 0 22px 44px; padding: 28px; align-items: flex-start; flex-direction: column; gap: 26px; }
+  .closingActions { text-align: left; }
+}
+@media (max-width: 420px) {
+  .page .teamPhoto { min-height: 330px; }
+  .page .aiExample { padding: 15px; }
+  .assistantHeader > span { display: none; }
+}

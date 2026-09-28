@@ -17,6 +17,8 @@ import {
   Workflow,
 } from "lucide-react";
 import styles from "../landing.module.css";
+import secondary from "../secondary-page.module.css";
+import typeStyles from "../content-typography.module.css";
 import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 
 const MODULE_FACTS = [
@@ -83,15 +85,15 @@ export default function ResourcesPage() {
   useScrollMotion(pageRef, styles.revealed, styles.motionReady);
 
   return (
-    <main className={styles.page} ref={pageRef}>
+    <main className={`${styles.page} ${secondary.page} ${typeStyles.page}`} ref={pageRef}>
       <Header />
 
       <section className={styles.subHero}>
-        <div className={styles.subHeroInner} data-reveal>
+        <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={BookOpen}>Resources</Eyebrow>
           <h1>How Crewzy fits together, and <span>how it is protected.</span></h1>
           <p>Two things worth understanding before you commit a company to a platform: how the modules relate to each other, and what actually guards your data.</p>
-          <nav className={styles.subJump} aria-label="Jump to a section">
+          <nav className={`${styles.subJump} ${typeStyles.jumpLinks}`} aria-label="Jump to a section">
             <Link href="#modules">How modules work</Link>
             <Link href="#security">Security &amp; trust</Link>
           </nav>
@@ -99,12 +101,12 @@ export default function ResourcesPage() {
       </section>
 
       <section className={styles.subSection} id="modules">
-        <div className={styles.subSectionHead} data-reveal>
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={Layers}>How modules work</Eyebrow>
           <h2>Add a module, not <span>another integration.</span></h2>
           <p>Every module runs on the same employee record and the same permissions, so switching one on adds capability instead of another system to wire up and keep in sync.</p>
         </div>
-        <div className={styles.subCards}>
+        <div className={`${styles.subCards} ${typeStyles.cards}`}>
           {MODULE_FACTS.map(({ icon: FactIcon, title, text }, index) => (
             <article key={title} data-reveal data-reveal-delay={String((index % 2) + 1)} data-scroll-zoom="card">
               <span><FactIcon size={19} /></span>
@@ -116,12 +118,12 @@ export default function ResourcesPage() {
       </section>
 
       <section className={styles.subSection} id="security">
-        <div className={styles.subSectionHead} data-reveal>
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={ShieldCheck}>Security &amp; trust</Eyebrow>
           <h2>Controls that are in the product <span>today.</span></h2>
           <p>Everything below is implemented and running, not on a roadmap. Where we do not yet have something, it says so.</p>
         </div>
-        <div className={styles.subCards}>
+        <div className={`${styles.subCards} ${typeStyles.cards}`}>
           {TRUST_CONTROLS.map(({ icon: ControlIcon, title, text }, index) => (
             <article key={title} data-reveal data-reveal-delay={String((index % 2) + 1)} data-scroll-zoom="card">
               <span><ControlIcon size={19} /></span>
@@ -132,13 +134,13 @@ export default function ResourcesPage() {
         </div>
         {/* Saying this plainly costs nothing a serious buyer would not find out
             in their first security review — and it makes the list above land. */}
-        <div className={styles.trustNote} data-reveal>
+        <div className={`${styles.trustNote} ${typeStyles.note}`} data-reveal>
           <ShieldCheck size={17} />
           <p><strong>What we do not claim yet.</strong> Crewzy is not SOC 2 or ISO 27001 certified — those audits take a trading history we do not have. The controls above are built and running, and we will happily walk your security team through how each one works. If a certificate is a hard requirement for you today, we are not the right choice yet, and we would rather tell you now.</p>
         </div>
       </section>
 
-      <section className={styles.subCta} data-reveal>
+      <section className={`${styles.subCta} ${typeStyles.closing}`} data-reveal>
         <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
         <h2>See it running on <span>your own data.</span></h2>
         <p>Start free for up to 10 employees, or ask us to set a workspace up with your people already in it.</p>
