@@ -115,7 +115,7 @@ export function PlatformExplorer({ active, onSelect }: { active: number; onSelec
             </div>
           </div>)}
         </div>
-        <div className={tour.sharedRail}><span><UsersRound size={16} />One employee record</span><span className={tour.railLine} aria-hidden="true" /><span><CheckCheck size={16} />Connected workflows</span><span className={tour.railLine} aria-hidden="true" /><span><Clock3 size={16} />Less everyday admin</span></div>
+        <div className={tour.sharedRail}><span><UsersRound size={16} />Single source of truth</span><span className={tour.railLine} aria-hidden="true" /><span><CheckCheck size={16} />Cross-module workflows</span><span className={tour.railLine} aria-hidden="true" /><span><ShieldCheck size={16} />Continuous audit trail</span></div>
       </div>
     </div>
   </div>;
