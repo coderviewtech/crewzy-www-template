@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Nunito, Inter } from "next/font/google";
+import { company } from "./company";
 import "./globals.css";
 
 /* Nunito is the platform brand face; Inter is the companion for running text.
@@ -55,29 +56,30 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-/* Organization structured data.
- *
- * This is what lets a search engine treat Crewzy as an entity rather than as
- * an unrelated set of pages — it is the groundwork behind a brand result that
- * carries a logo, and eventually a knowledge panel.
- *
- * `sameAs` is deliberately absent. It is the list of official profiles that
- * corroborate the entity, and there are none yet. Listing profiles that do not
- * exist is worse than listing none: unverifiable claims weaken the match
- * rather than strengthen it. Add the real LinkedIn and X URLs here the day
- * they exist — that single field is the biggest remaining lever on brand
- * recognition, and it needs no other change.
- *
- * Every value below is asserted elsewhere on the site, so nothing here is a
- * claim the pages do not already make. */
+/* Identify the company separately from its product brand. The registration
+   facts share a source with the visible footer and About page. A founder's
+   personal LinkedIn profile is not an official company social profile. */
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Crewzy",
-  url: SITE_URL,
-  logo: `${SITE_URL}/icon.svg`,
+  "@id": `${SITE_URL}/#company`,
+  name: company.displayName,
+  legalName: company.legalName,
+  url: `${SITE_URL}/about`,
+  sameAs: [company.companiesHouseUrl],
+  identifier: {
+    "@type": "PropertyValue",
+    propertyID: "Companies House company number",
+    value: company.number,
+  },
+  address: company.registeredOffice,
+  brand: {
+    "@type": "Brand",
+    name: "Crewzy",
+    logo: `${SITE_URL}/icon.svg`,
+  },
   description:
-    "Crewzy is a modular HR platform for growing companies — core HR, recruitment, time and projects, leave, invoicing and an AI assistant on one employee record.",
+    "coderView develops Crewzy, a connected workspace for people, work and compliance.",
   contactPoint: [
     {
       "@type": "ContactPoint",

@@ -12,6 +12,7 @@ const ROUTES = [
   { path: "/resources", priority: 0.7 },
   { path: "/customers", priority: 0.6 },
   { path: "/contact", priority: 0.6 },
+  { path: "/about", priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

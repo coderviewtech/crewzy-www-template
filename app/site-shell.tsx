@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Mail, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
+import { company } from "./company";
 import { appUrl, demoHref, salesEmail, siteCaption } from "./site-config";
 import {
   footerGroups,
@@ -138,6 +139,9 @@ export function SiteHeader() {
       >
         {dropdown("Platform", platformColumns, s.platformPanel)}
         {dropdown("Solutions", solutionsColumns, s.solutionsPanel)}
+        <a href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={close}>
+          About Crewzy
+        </a>
         <a href="/customers" aria-current={pathname === "/customers" ? "page" : undefined} onClick={close}>
           Customers
         </a>
@@ -176,6 +180,7 @@ export function SiteFooter() {
           <a href="/#top" aria-label="Crewzy home"><Brand className={s.footerBrand} /></a>
           <p>{siteCaption}</p>
           <span>One employee record. Connected workflows. Less everyday admin.</span>
+          <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.displayName}</a>.</span>
         </div>
         <a className={s.footerEmail} href={`mailto:${salesEmail}`}>
           <Mail size={18} aria-hidden="true" />
@@ -193,9 +198,15 @@ export function SiteFooter() {
           </section>
         ))}
       </div>
+      <div className={s.footerLegal}>
+        <p>{company.legalName} · Company number {company.number} · Registered in {company.jurisdiction}.</p>
+        <p>Registered office: {company.registeredOffice}.</p>
+        <a href={company.companiesHouseUrl} target="_blank" rel="noopener noreferrer">View company registration <span className={s.srOnly}>(opens in a new tab)</span></a>
+      </div>
       <div className={s.footerBottom}>
         <span>© {new Date().getFullYear()} Crewzy. All rights reserved.</span>
         <div>
+          <a href="/about">About Crewzy</a>
           <a href="/resources#security">Security & trust</a>
           <a href="/contact">Contact us</a>
         </div>

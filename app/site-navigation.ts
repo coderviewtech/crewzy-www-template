@@ -131,6 +131,7 @@ export const footerGroups = [
     { label: "Customers", href: "/customers" },
   ] },
   { title: "Resources", links: [
+    { label: "About Crewzy", href: "/about" },
     { label: "How modules work", href: "/resources#modules" },
     { label: "Security & trust", href: "/resources#security" },
     { label: "Compliance workflow", href: "/#compliance" },

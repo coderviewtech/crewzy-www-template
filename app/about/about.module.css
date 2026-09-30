@@ -1,0 +1,40 @@
+.content { max-width: 1240px; margin-inline: auto; padding: 64px 28px 72px; }
+.content section[id] { scroll-margin-top: 120px; }
+.storySection, .founderSection, .companySection { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(32px, 6vw, 84px); align-items: start; }
+.storySection, .founderSection { align-items: center; }
+.founderSection { grid-template-columns: 1.25fr 1fr; grid-template-areas: "profile intro"; }
+.founderSection > .sectionIntro { grid-area: intro; }
+.founderProfile { grid-area: profile; }
+.sectionIntro h2 { margin: 20px 0 0; }
+.storyCopy > p, .companyCopy > p { font-size: 17px; line-height: 1.75; color: var(--preview-brand-copy); }
+.storyCopy > p + p { margin-top: 22px; }
+.founderSection, .companySection { margin-top: 56px; padding-top: 56px; border-top: 1px solid var(--preview-line); }
+.companySection { margin-bottom: 56px; }
+.companyCopy > a { margin-top: 20px; flex-wrap: wrap; }
+.founderIdentity { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.monogram { width: 64px; height: 64px; flex: none; display: grid; place-items: center; background: var(--preview-brand-tint); color: var(--preview-brand-accent); border: 1px solid var(--preview-brand-outline); border-radius: 50%; font-size: 21px; font-weight: 500; }
+.founderIdentity h3 { font-size: 24px; font-weight: 600; margin-bottom: 3px; }
+.founderIdentity p { color: var(--preview-brand-accent); font-size: 14px; }
+.founderProfile > p { font-size: 16px; line-height: 1.7; color: var(--preview-brand-copy); margin-bottom: 18px; }
+.founderProfile > a { margin-top: 6px; flex-wrap: wrap; }
+.contactSection { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 36px; border: 1px solid var(--preview-brand-outline); border-radius: 16px; background: var(--preview-brand-surface); }
+.contactSection h2 { font-size: 30px; margin-bottom: 12px; }
+.contactSection p { color: var(--preview-brand-copy); font-size: 15px; line-height: 1.7; }
+.contactSection > a { flex: none; }
+.skipLink { position: fixed; left: 20px; top: -100px; z-index: 100; padding: 12px 20px; background: white; color: var(--preview-brand-accent); border: 2px solid currentColor; border-radius: 8px; }
+.skipLink:focus { top: 12px; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 900px) {
+  .storySection, .companySection, .founderSection { grid-template-columns: 1fr; gap: 28px; }
+  .founderSection { grid-template-areas: "intro" "profile"; }
+  .contactSection { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 760px) {
+  .content { padding: 40px 22px 48px; }
+  .founderSection, .companySection { margin-top: 40px; padding-top: 40px; }
+  .companySection { margin-bottom: 40px; }
+  .contactSection { padding: 24px; gap: 24px; }
+  .contactSection h2 { font-size: 28px; }
+  .founderIdentity h3 { font-size: 22px; }
+  .storyCopy > p, .companyCopy > p { font-size: 16px; }
+}
