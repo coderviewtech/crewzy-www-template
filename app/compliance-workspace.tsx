@@ -89,7 +89,9 @@ export function ComplianceWorkspace({ step, onStep }: { step: number; onStep: (i
                 <span className={s.chapterLabel}>{chapter.shortTitle}</span>
               </div>
               <h3>{chapter.title.slice(0, -chapter.emphasis.length)}<span>{chapter.emphasis}</span></h3>
-              <p>{chapter.description}</p>
+              <ul className={s.chapterPoints} role="list">
+                {chapter.points.map(point => <li key={point}><Check size={18} aria-hidden="true" /><span>{point}</span></li>)}
+              </ul>
             </div>
             <div className={s.workspaceCanvas}>
               <div className={s.workspaceWindow}>

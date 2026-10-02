@@ -44,8 +44,11 @@ and scale are described as engineering considerations, not guarantees or certifi
 
 The story illustration uses HTML, SVG and a finite CSS animation to show separate
 spreadsheet records coming together in a workspace. It is conceptual, not evidence
-of a specific automatic spreadsheet-import feature. It plays once on entering view,
-can be replayed, and remains fully readable without JavaScript or with reduced motion.
+of a specific automatic spreadsheet-import feature. Scroll position controls the
+sequence in both directions, holding its current frame when scrolling stops.
+There is no replay button or timer-driven loop. It remains fully readable without
+JavaScript or with reduced motion. The story is presented as the business challenge,
+the opportunity for a connected workspace, and how that direction shaped Crewzy.
 
 Privacy and Terms pages are not generated here: their content needs confirmed
 operational, contractual and data-handling details, not inferred boilerplate.

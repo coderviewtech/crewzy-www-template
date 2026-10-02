@@ -30,7 +30,7 @@ export default function AboutPage() {
           <div className={`${secondary.heroInner} ${typography.hero}`}>
             <span className={`${secondary.eyebrow} ${typography.label}`}>About Crewzy</span>
             <h1>It started with<br /><span>spreadsheets.</span></h1>
-            <p>Before Crewzy was a platform, it was an idea that kept coming back during Manohar’s time at a small company.</p>
+            <p>Crewzy began with a practical question: how could small and medium-sized businesses manage essential people tasks without relying on scattered spreadsheets and separate subscriptions?</p>
             <div className={secondary.actions}>
               <a className={secondary.textLink} href="#story">How it started <ArrowRight size={16} aria-hidden="true" /></a>
               <a className={secondary.textLink} href="#founder">Meet the founder <ArrowRight size={16} aria-hidden="true" /></a>
@@ -41,14 +41,25 @@ export default function AboutPage() {
         <div className={s.content}>
           <section className={s.storySection} id="story" aria-labelledby="story-heading">
             <div className={`${s.sectionIntro} ${typography.heading}`}>
-              <span className={`${secondary.eyebrow} ${typography.label}`}>How Crewzy started</span>
-              <h2 id="story-heading">The problem<br /><span>behind the idea.</span></h2>
+              <span className={`${secondary.eyebrow} ${typography.label}`}>From problem to platform</span>
+              <h2 id="story-heading">How Crewzy<br /><span>took shape.</span></h2>
               <WorkspaceIllustration />
             </div>
             <div className={s.storyCopy}>
-              <p>While working at a small company, Manohar noticed that passport expiry dates and contractor renewal dates were tracked in spreadsheets. Overtime hours were sometimes recorded that way too.</p>
-              <p>It made him think about what small and medium-sized businesses really needed: one place to manage these everyday tasks, without paying for several separate tools that each did only one job.</p>
-              <p>That became the starting point for Crewzy. He set out to bring the essential, time-saving tasks for employees and HR teams into a single platform, with less manual administration and the information they need at their fingertips.</p>
+              <ol className={s.storySteps}>
+                <li>
+                  <h3>The challenge</h3>
+                  <p>While working at a small company, Manohar saw passport expiry dates and contractor renewal dates managed in separate spreadsheets. Overtime hours were sometimes tracked that way too. Essential people administration depended on keeping those records up to date.</p>
+                </li>
+                <li>
+                  <h3>The opportunity</h3>
+                  <p>For small and medium-sized businesses, the answer wasn’t another subscription for a single task. It was a connected workspace that could bring essential employee and HR administration together.</p>
+                </li>
+                <li>
+                  <h3>That became Crewzy</h3>
+                  <p>Crewzy took shape around that idea: bring employee information and day-to-day workflows into one place, helping teams spend less time on manual administration and find the information they need more easily.</p>
+                </li>
+              </ol>
             </div>
           </section>
 

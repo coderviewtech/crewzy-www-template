@@ -19,6 +19,15 @@ html {
 }
 
 :root {
+  --preview-page-background: #fff;
+  --preview-wordmark-size: 28px;
+  /* One responsive type scale for both scroll-reveal sections. */
+  --preview-slide-heading-size: 30px;
+  --preview-slide-heading-weight: 600;
+  --preview-slide-heading-leading: 1.17;
+  --preview-slide-heading-tracking: -.8px;
+  --preview-slide-copy-size: 16px;
+  --preview-slide-copy-leading: 1.55;
   /* Colour control: change this one value to recolour the preview's brand
      accents, buttons, charts, focus rings and their derived tints. */
   --preview-brand-accent: #2854d6;
@@ -35,7 +44,7 @@ html {
   --preview-muted: #637189;
   --preview-blue: var(--preview-brand-accent); /* Legacy component alias. */
   --preview-line: #e6ebf3;
-  --preview-surface: var(--preview-brand-surface);
+  --preview-surface: var(--preview-page-background);
   --preview-green: #138966;
   --preview-ui-text: #24364c;
   --preview-ui-muted: #53657b;
@@ -44,6 +53,19 @@ html {
   --preview-compliance-accent: var(--preview-brand-accent);
   --preview-compliance-active: var(--preview-brand-tint);
   --preview-compliance-outline: var(--preview-brand-outline);
+}
+
+@media (max-width: 1000px) {
+  :root { --preview-slide-heading-size: 26px; }
+}
+@media (max-width: 760px) {
+  :root { --preview-slide-heading-size: 29px; --preview-wordmark-size: 26px; }
+}
+@media (max-width: 420px) {
+  :root { --preview-slide-heading-size: 27px; }
+}
+@media (max-width: 360px) {
+  :root { --preview-wordmark-size: 24px; }
 }
 
 /* Lenis smooth-scroll hooks. Lenis adds these classes to <html> while active;
@@ -66,6 +88,7 @@ html.lenis body {
 }
 
 body {
+  background: var(--preview-page-background);
   font-family: var(--font-nunito), var(--font-inter), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

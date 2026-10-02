@@ -8,10 +8,10 @@
    stack stable, and content can still grow when users enlarge their text. */
 .pin{max-width:1184px;margin:0 auto;min-height:0;background:var(--compliance-background)}
 .chapters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));min-height:56px;gap:8px;padding:5px;border:1px solid var(--preview-ui-border);border-radius:12px;background:#fff}
-.chapters>button{position:relative;display:flex;justify-content:center;align-items:center;gap:10px;padding:12px 18px;background:transparent;border:0;border-radius:8px;font-size:1rem;font-weight:600;color:var(--preview-ui-muted);cursor:pointer;transition:background .2s,color .2s}
+.chapters>button{position:relative;display:flex;justify-content:center;align-items:center;gap:10px;padding:12px 18px;background:transparent;border:0;border-radius:8px;font-size:14px;font-weight:500;color:var(--preview-ui-muted);cursor:pointer;transition:background .2s,color .2s}
 .chapters>button>svg{flex:none}
 .chapters>button:hover{background:var(--preview-brand-tint);color:var(--preview-brand-accent)}
-.chapters>button[aria-selected=true]{background:var(--preview-compliance-accent);color:#fff;font-weight:650;box-shadow:0 2px 5px color-mix(in srgb, var(--preview-brand-accent) 12.55%, transparent)}
+.chapters>button[aria-selected=true]{background:var(--preview-compliance-accent);color:#fff;box-shadow:0 2px 5px color-mix(in srgb, var(--preview-brand-accent) 12.55%, transparent)}
 .readingTrack{height:2px;margin-top:8px;background:var(--preview-brand-outline);overflow:hidden;visibility:hidden}
 .readingTrack>span{display:block;height:100%;width:100%;background:var(--preview-compliance-accent);transform:scaleX(0);transform-origin:left}
 .pin[data-stack-mode=scroll] .readingTrack{visibility:visible}
@@ -21,11 +21,14 @@
 .chapterCopy{display:flex;align-items:flex-start;flex-direction:column;justify-content:center;padding:28px clamp(28px,4vw,56px)}
 .chapterHeading{display:flex;align-items:center;gap:14px;width:100%;margin-bottom:20px}
 .chapterIcon{display:grid;place-items:center;flex:none;width:48px;height:48px;border:1px solid var(--preview-brand-accent);border-radius:12px;background:var(--preview-compliance-accent);color:#fff;box-shadow:0 5px 12px color-mix(in srgb, var(--preview-brand-accent) 10.98%, transparent)}
-.chapterLabel{font-size:.75rem;line-height:1.5;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--preview-brand-accent)}
+.chapterLabel{font-size:12px;line-height:1.5;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--preview-brand-accent)}
 /* Match the platform card heading sizes without scaling the product UI. */
-.section .chapterCopy h3{width:100%;max-width:none;font-size:30px;line-height:1.12;font-weight:700;letter-spacing:-.04em;text-wrap:balance}
+.section .chapterCopy h3{width:100%;max-width:none;font-size:var(--preview-slide-heading-size);line-height:var(--preview-slide-heading-leading);font-weight:var(--preview-slide-heading-weight);letter-spacing:var(--preview-slide-heading-tracking);text-wrap:balance}
 .chapterCopy h3>span{color:var(--preview-compliance-accent)}
-.chapterCopy>p{width:100%;max-width:none;font-size:clamp(1.125rem,1.4vw,1.25rem);line-height:1.55;margin-top:20px;color:var(--preview-ui-muted);text-wrap:pretty}
+.chapterCopy>p{width:100%;max-width:none;font-size:var(--preview-slide-copy-size);line-height:var(--preview-slide-copy-leading);margin-top:16px;color:var(--preview-ui-muted);text-wrap:pretty}
+.chapterPoints{display:grid;gap:12px;margin:18px 0 0;padding:0;list-style:none;font-size:var(--preview-slide-copy-size);line-height:var(--preview-slide-copy-leading);color:var(--preview-ui-muted)}
+.chapterPoints>li{display:flex;align-items:flex-start;gap:10px}
+.chapterPoints>li>svg{flex:none;margin-top:3px;color:var(--preview-compliance-accent)}
 .workspaceCanvas{display:flex;align-items:center;justify-content:center;min-width:0;padding:24px;background:var(--preview-brand-tint);border-left:1px solid var(--preview-brand-outline)}
 .workspaceWindow{width:100%;max-width:760px;background:#fff;border:1px solid var(--preview-brand-outline);border-top:3px solid var(--preview-compliance-accent);border-radius:10px;box-shadow:0 18px 32px -20px #172a4640,0 2px 5px #172a4608;overflow:hidden}
 .pageChrome{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;padding:10px 18px;background:var(--preview-ui-surface);border-bottom:1px solid var(--preview-ui-border);line-height:1.4}
@@ -81,8 +84,5 @@
   .documentList>div{min-height:52px;padding-block:5px}
 }
 @media(max-width:899px){.intro{display:block;margin-inline:26px;margin-bottom:28px}.intro>p{max-width:600px;margin-top:20px}.pin{min-height:0;margin-inline:22px}.workspacePage{grid-template-columns:1fr;min-height:0}.chapterCopy{padding:28px}.chapterCopy>p{margin-top:16px;max-width:620px}.workspaceCanvas{padding:24px;border-left:0;border-top:1px solid var(--preview-brand-outline)}.workspaceWindow{max-width:680px}.chapters>button{font-size:.875rem;padding:12px 8px;gap:7px}.miniBrand{display:inline-flex}.deckViewport{padding-top:28px}.pageHeading{flex-wrap:nowrap}}
-@media(max-width:600px){.section{padding-top:48px}.intro{margin-inline:22px}.intro>p{font-size:1rem}.pin{margin-inline:18px}.chapters>button{flex-direction:column;gap:6px;line-height:1.4;padding:12px 6px}.chapterCopy{padding:24px}.chapterCopy>p{font-size:1rem}.workspaceCanvas{padding:16px}.pageBody{padding:16px 14px}.miniBrand{display:none}.pageChrome{padding-inline:14px}.section .pageHeading h4{font-size:1.15rem}.pageHeading{flex-wrap:wrap;gap:8px}.metrics{gap:7px}.metrics>div{padding:9px 8px}.metrics strong{font-size:1.6rem}.metrics>div>span{min-height:40px}.metrics svg{display:none}.fileIcon{display:none}.reviewPath{gap:6px}.reviewPath>span{gap:4px}.reviewPath svg{display:none}.reviewFields>div{align-items:flex-start}.reviewFields dd{justify-content:flex-end}.avatar{display:none}.approved{padding:12px;gap:10px}.approved>span{width:34px;height:34px}.evidenceFields{padding:10px;gap:7px}.filePreview{padding:12px;gap:9px}.pdfIcon{width:34px;height:40px}.version{display:none}.deckViewport{padding-top:22px}}
-@media(max-width:1000px){.section .chapterCopy h3{font-size:26px}}
-@media(max-width:760px){.section .chapterCopy h3{font-size:29px}}
-@media(max-width:420px){.section .chapterCopy h3{font-size:27px}}
+@media(max-width:600px){.section{padding-top:48px}.intro{margin-inline:22px}.intro>p{font-size:1rem}.pin{margin-inline:18px}.chapters>button{flex-direction:column;gap:6px;line-height:1.4;padding:12px 6px}.chapterCopy{padding:24px}.workspaceCanvas{padding:16px}.pageBody{padding:16px 14px}.miniBrand{display:none}.pageChrome{padding-inline:14px}.section .pageHeading h4{font-size:1.15rem}.pageHeading{flex-wrap:wrap;gap:8px}.metrics{gap:7px}.metrics>div{padding:9px 8px}.metrics strong{font-size:1.6rem}.metrics>div>span{min-height:40px}.metrics svg{display:none}.fileIcon{display:none}.reviewPath{gap:6px}.reviewPath>span{gap:4px}.reviewPath svg{display:none}.reviewFields>div{align-items:flex-start}.reviewFields dd{justify-content:flex-end}.avatar{display:none}.approved{padding:12px;gap:10px}.approved>span{width:34px;height:34px}.evidenceFields{padding:10px;gap:7px}.filePreview{padding:12px;gap:9px}.pdfIcon{width:34px;height:40px}.version{display:none}.deckViewport{padding-top:22px}}
 @media(prefers-reduced-motion:reduce){.chapters>button{transition:none}.readingTrack{visibility:hidden!important}}

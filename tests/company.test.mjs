@@ -63,16 +63,33 @@ test("founder bio uses the supplied product-building and operational experience"
   assert.ok(!page.includes("Manohar is an AI platform engineer"));
 });
 
-test("story illustration is finite, replayable and has a reduced-motion fallback", () => {
+test("story illustration is scroll-controlled, cleaned up and has a static fallback", () => {
   const component = source("../app/about/workspace-illustration.tsx");
   const css = source("../app/about/workspace-illustration.module.css");
   assert.ok(component.includes("IntersectionObserver"));
-  assert.ok(component.includes("observer.disconnect()"));
+  assert.ok(component.includes("observer?.disconnect()"));
   assert.ok(component.includes("preference.removeEventListener"));
-  assert.ok(component.includes('aria-label="Replay spreadsheet-to-workspace animation"'));
+  assert.ok(component.includes('window.removeEventListener("scroll", onScroll)'));
+  assert.ok(component.includes('window.removeEventListener("resize", schedule)'));
+  assert.ok(component.includes("window.cancelAnimationFrame(frame)"));
+  assert.ok(component.includes("delete visual.dataset.scrollMotion"));
+  assert.ok(!component.includes("Replay"));
+  assert.ok(!component.includes("<button"));
   assert.ok(component.includes('aria-hidden="true"'));
   assert.ok(component.includes("figcaption"));
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(css, /animation: none !important/);
+  assert.equal((css.match(/both paused/g) || []).length, 5);
+  assert.doesNotMatch(css.match(/@keyframes recordArrives[^\n]+/)?.[0] || "", /opacity:/);
+  assert.match(css, /background: var\(--preview-page-background\)/);
   assert.ok(!css.includes("infinite"));
+});
+
+test("origin story explains the business challenge, opportunity and product direction", () => {
+  const page = source("../app/about/page.tsx");
+  assert.ok(page.includes("How Crewzy"));
+  assert.ok(page.includes("took shape."));
+  for (const heading of ["The challenge", "The opportunity", "That became Crewzy"]) {
+    assert.ok(page.includes(`<h3>${heading}</h3>`));
+  }
 });

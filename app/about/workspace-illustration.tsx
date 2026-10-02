@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
-import { Check, FileSpreadsheet, RotateCcw } from "lucide-react";
+import { useEffect, useId, useRef, type CSSProperties } from "react";
+import { Check, FileSpreadsheet } from "lucide-react";
 import { Brand } from "../brand";
+import { storyDuration, storyProgress } from "./workspace-illustration-motion";
 import s from "./workspace-illustration.module.css";
 
 const records = [
@@ -20,34 +21,63 @@ const itemStyle = (index: number) => ({ "--item": index }) as CSSProperties;
 /** Concept illustration, not a screenshot or an automatic-import promise. */
 export function WorkspaceIllustration() {
   const figure = useRef<HTMLElement>(null);
-  const hasPlayed = useRef(false);
-  const [motionAllowed, setMotionAllowed] = useState(false);
-  const [run, setRun] = useState(0);
+  const stage = useRef<HTMLDivElement>(null);
   const captionId = useId();
 
   useEffect(() => {
+    const element = figure.current;
+    const visual = stage.current;
+    if (!element || !visual) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setMotionAllowed(!preference.matches);
-    update();
-    preference.addEventListener("change", update);
-    return () => preference.removeEventListener("change", update);
-  }, []);
+    let frame: number | null = null;
+    let visible = true;
 
-  useEffect(() => {
-    if (!motionAllowed || hasPlayed.current || !figure.current || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver(entries => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
-      hasPlayed.current = true;
-      setRun(value => value + 1);
-      observer.disconnect();
-    }, { threshold: 0.4 });
-    observer.observe(figure.current);
-    return () => observer.disconnect();
-  }, [motionAllowed]);
+    const render = () => {
+      frame = null;
+      if (preference.matches) return;
+      const { top, height } = element.getBoundingClientRect();
+      const progress = storyProgress(top, height, document.documentElement.clientHeight);
+      visual.style.setProperty("--story-time", `${(progress * storyDuration).toFixed(4)}s`);
+      visual.dataset.scrollMotion = "true";
+    };
+    const schedule = () => {
+      if (!preference.matches && frame === null) frame = window.requestAnimationFrame(render);
+    };
+    const onScroll = () => { if (visible) schedule(); };
+    const updatePreference = () => {
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      frame = null;
+      if (preference.matches) {
+        delete visual.dataset.scrollMotion;
+        visual.style.removeProperty("--story-time");
+      } else schedule();
+    };
+
+    // Only measure during visible scrolling; one final update settles either
+    // endpoint on exit. Browsers without this observer still follow scroll.
+    const observer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+      visible = entries.some(entry => entry.isIntersecting);
+      schedule();
+    }) : null;
+    observer?.observe(element);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", schedule);
+    preference.addEventListener("change", updatePreference);
+    updatePreference();
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", schedule);
+      preference.removeEventListener("change", updatePreference);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      delete visual.dataset.scrollMotion;
+      visual.style.removeProperty("--story-time");
+    };
+  }, []);
 
   return (
     <figure ref={figure} className={s.figure} aria-labelledby={captionId}>
-      <div key={run} className={s.stage} data-playing={motionAllowed && run > 0} aria-hidden="true">
+      <div ref={stage} className={s.stage} aria-hidden="true">
         <div className={s.sheets}>
           {records.map(({ sheet }, index) => (
             <div key={sheet} className={s.sheet} style={itemStyle(index)}>
@@ -77,7 +107,6 @@ export function WorkspaceIllustration() {
       </div>
       <figcaption className={s.captionRow}>
         <span id={captionId}>From spreadsheets to one workspace.<span className={s.srOnly}> Passport expiry dates, contractor renewals and overtime hours, brought together in Crewzy.</span></span>
-        {motionAllowed && <button className={s.replay} type="button" aria-label="Replay spreadsheet-to-workspace animation" onClick={() => setRun(value => value + 1)}><RotateCcw size={13} aria-hidden="true" /><span>Replay</span></button>}
       </figcaption>
     </figure>
   );

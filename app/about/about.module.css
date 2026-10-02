@@ -6,8 +6,12 @@
 .founderSection > .sectionIntro { grid-area: intro; }
 .founderProfile { grid-area: profile; }
 .sectionIntro h2 { margin: 20px 0 0; }
-.storyCopy > p, .companyCopy > p { font-size: 17px; line-height: 1.75; color: var(--preview-brand-copy); }
-.storyCopy > p + p { margin-top: 22px; }
+.storyCopy { min-width: 0; }
+.storySteps { display: grid; gap: 24px; list-style: none; }
+.storySteps > li { padding-left: 20px; border-left: 2px solid var(--preview-brand-outline); }
+.storySteps > li:last-child { border-color: var(--preview-brand-accent); }
+.storySteps h3 { margin-bottom: 8px; font-size: 17px; line-height: 1.4; font-weight: var(--content-weight-heading); color: var(--preview-brand-ink); }
+.storySteps p, .companyCopy > p { font-size: 16px; line-height: 1.75; color: var(--preview-brand-copy); }
 .founderSection, .companySection { margin-top: 56px; padding-top: 56px; border-top: 1px solid var(--preview-line); }
 .companySection { margin-bottom: 56px; }
 .companyCopy > a { margin-top: 20px; flex-wrap: wrap; }
@@ -36,5 +40,5 @@
   .contactSection { padding: 24px; gap: 24px; }
   .contactSection h2 { font-size: 28px; }
   .founderIdentity h3 { font-size: 22px; }
-  .storyCopy > p, .companyCopy > p { font-size: 16px; }
+  .storySteps > li { padding-left: 16px; }
 }

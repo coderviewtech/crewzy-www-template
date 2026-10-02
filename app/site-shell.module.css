@@ -33,19 +33,19 @@
 }
 
 .headerBrand {
-  font-size: 32px;
+  font-size: var(--preview-wordmark-size);
 }
 
 .headerMark {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
   margin-right: 9px;
 }
 
 .headerMark > svg {
-  width: 24px;
-  height: 24px;
+  width: 21px;
+  height: 21px;
 }
 
 .navigation {
@@ -299,7 +299,7 @@
 
 .footer {
   border-top: 1px solid var(--preview-line);
-  background: var(--preview-brand-surface);
+  background: var(--preview-page-background);
   padding: 52px max(28px, calc((100% - 1184px) / 2)) 24px;
 }
 
@@ -313,7 +313,7 @@
 }
 
 .footerBrand {
-  font-size: 30px;
+  font-size: var(--preview-wordmark-size);
 }
 
 .footerIntro p {
@@ -528,17 +528,14 @@
     gap: 8px;
     border-radius: 12px;
   }
-  .headerBrand {
-    font-size: 28px;
-  }
   .headerMark {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 10px;
   }
   .headerMark > svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
   .headerActions {
     gap: 8px;
@@ -574,17 +571,11 @@
     flex-direction: column;
     gap: 14px;
   }
-  .footerBrand {
-    font-size: 28px;
-  }
 }
 
 @media (max-width: 360px) {
   .header {
     padding-inline: 10px;
-  }
-  .headerBrand {
-    font-size: 26px;
   }
   .headerMark {
     width: 30px;

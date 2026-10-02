@@ -3,7 +3,7 @@
   padding: 18px 16px 10px;
   border: 1px solid var(--preview-brand-outline);
   border-radius: 14px;
-  background: var(--preview-brand-surface);
+  background: var(--preview-page-background);
   font-family: var(--font-inter), Arial, sans-serif;
 }
 .stage { display: grid; grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1.15fr); align-items: center; min-height: 218px; }
@@ -21,27 +21,26 @@
 .brand { font-size: 20px; }
 .workspaceLabel { display: block; color: var(--preview-brand-copy); font-size: 10px; line-height: 1.5; margin: 8px 0 12px; }
 .records { display: grid; gap: 6px; }
-.record { display: flex; justify-content: space-between; align-items: center; gap: 5px; padding: 8px; min-height: 33px; border-radius: 5px; background: var(--preview-brand-surface); color: var(--preview-brand-ink); font-size: 11px; font-weight: 500; line-height: 1.4; }
+.record { display: flex; justify-content: space-between; align-items: center; gap: 5px; padding: 8px; min-height: 33px; border: 1px solid var(--preview-ui-border); border-radius: 5px; background: #fff; color: var(--preview-brand-ink); font-size: 11px; font-weight: 500; line-height: 1.4; }
 .check { color: var(--preview-brand-accent); flex: none; }
 .shared { display: flex; align-items: center; gap: 5px; margin-top: 12px; color: var(--preview-brand-copy); font-size: 10px; line-height: 1.4; }
 .shared > span { width: 5px; height: 5px; border-radius: 50%; background: var(--preview-brand-accent); flex: none; }
 .captionRow { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0 8px; margin-top: 10px; min-height: 36px; }
 .captionRow > span { color: var(--preview-brand-copy); font-size: 11px; line-height: 1.5; }
-.replay { display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 0 4px 6px; border: 0; background: transparent; color: var(--preview-brand-accent); font-size: 11px; font-weight: 500; cursor: pointer; }
-.replay:hover { text-decoration: underline; text-underline-offset: 3px; }
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
-/* One finite sequence on entry (under four seconds), with an explicit replay.
-   Labels stay native-sized; only small translations and highlights animate. */
-.stage[data-playing="true"] .sheet { animation: sheetHighlight 2s ease-out both; animation-delay: calc(var(--item) * .4s); }
-.stage[data-playing="true"] .signal { animation: transfer 1.5s ease-in-out both; animation-delay: calc(.3s + var(--item) * .4s); }
-.stage[data-playing="true"] .record { animation: recordArrives .65s ease-out both; animation-delay: calc(.9s + var(--item) * .4s); }
-.stage[data-playing="true"] .check { animation: checkArrives .35s ease-out both; animation-delay: calc(1.3s + var(--item) * .4s); }
-.stage[data-playing="true"] .shared { animation: checkArrives .45s ease-out both; animation-delay: 2.35s; }
+/* A paused 2.8-second timeline is scrubbed by scroll position. No timer or
+   loop runs when scrolling stops. Without JS the complete diagram is shown. */
+.stage[data-scroll-motion="true"] .sheet { animation: sheetHighlight 2s ease-out both paused; animation-delay: calc(var(--item) * .4s - var(--story-time)); }
+.stage[data-scroll-motion="true"] .signal { animation: transfer 1.5s ease-in-out both paused; animation-delay: calc(.3s + var(--item) * .4s - var(--story-time)); }
+.stage[data-scroll-motion="true"] .record { animation: recordArrives .65s ease-out both paused; animation-delay: calc(.9s + var(--item) * .4s - var(--story-time)); }
+.stage[data-scroll-motion="true"] .check { animation: checkArrives .35s ease-out both paused; animation-delay: calc(1.3s + var(--item) * .4s - var(--story-time)); }
+.stage[data-scroll-motion="true"] .shared { animation: checkArrives .45s ease-out both paused; animation-delay: calc(2.35s - var(--story-time)); }
 
 @keyframes sheetHighlight { 0%, 100% { border-color: var(--preview-ui-border); } 25%, 65% { border-color: var(--preview-brand-accent); } }
 @keyframes transfer { 0% { stroke-dashoffset: 1; opacity: 0; } 15%, 80% { opacity: 1; } 100% { stroke-dashoffset: -1; opacity: 0; } }
-@keyframes recordArrives { from { opacity: .3; transform: translateX(6px); } to { opacity: 1; transform: translateX(0); } }
+/* Records stay readable even when a visitor stops midway through the story. */
+@keyframes recordArrives { from { transform: translateX(6px); } to { transform: translateX(0); } }
 @keyframes checkArrives { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 900px) { .figure { max-width: 480px; } }
@@ -55,6 +54,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .figure *, .figure *::before, .figure *::after { animation: none !important; transition: none !important; }
-  .signal, .replay { display: none; }
+  .signal { display: none; }
   .record, .check, .shared { opacity: 1; transform: none; }
 }
