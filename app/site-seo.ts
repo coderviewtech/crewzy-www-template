@@ -2,7 +2,31 @@ import type { Metadata } from "next";
 
 export const siteUrl = "https://crewzy.io";
 export const homeDescription =
-  "HR software for small and medium-sized businesses. Connect employee records, document compliance, time tracking, leave and invoicing in one Crewzy workspace.";
+  "HR and compliance software for growing teams. Manage employee records, document expiry, time tracking, leave and invoicing in one connected Crewzy workspace.";
+
+// Stable raster URL for search engines, alongside Next's existing SVG icon.
+// Generated from app/icon.svg with scripts/generate-favicon.mjs.
+export const siteIcons: Metadata["icons"] = {
+  icon: [{ url: "/favicon.png", type: "image/png", sizes: "96x96" }],
+};
+
+// Explicit topic metadata requested for the site. Google does not use the
+// meta-keywords tag for rankings; keep titles, descriptions and visible copy useful.
+export const siteKeywords = [
+  "HR software",
+  "compliance",
+  "HR compliance",
+  "document compliance management",
+  "document expiry tracking",
+  "renewal review workflows",
+  "compliance audit history",
+  "employee records",
+  "time tracking",
+  "timesheets",
+  "leave management",
+  "invoicing software",
+  "recruitment software",
+];
 
 // Netlify sets CONTEXT at build time. Local, branch and PR previews stay noindex.
 export function isProductionSite(context = process.env.CONTEXT): boolean {
@@ -37,6 +61,7 @@ export function createPageMetadata({ title, description, canonical, shareTitle =
   return {
     title,
     description,
+    keywords: siteKeywords,
     alternates: { canonical },
     openGraph: {
       type: "website",

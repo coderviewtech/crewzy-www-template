@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { siteCaption } from "../app/site-config.ts";
-import { siteUrl } from "../app/site-seo.ts";
+import { homeDescription, siteKeywords, siteUrl } from "../app/site-seo.ts";
 
 // Read-only checks of the server-rendered HTML a crawler receives; no submission.
 const origin = process.argv[2] ?? "http://127.0.0.1:3018";
@@ -34,7 +34,12 @@ for (const route of routes) {
   assert.ok(description.length > 70 && description.length < 200, `${route}: useful description`);
   assert.ok(!descriptions.has(description), `${route}: unique description`);
   descriptions.add(description);
-  const canonical = [...head.matchAll(/<link\b[^>]*>/g)].map(([tag]) => attributes(tag)).filter(tag => tag.rel === "canonical");
+  const links = [...head.matchAll(/<link\b[^>]*>/g)].map(([tag]) => attributes(tag));
+  const canonical = links.filter(tag => tag.rel === "canonical");
+  const rasterIcon = links.filter(tag => tag.rel === "icon" && new URL(tag.href, origin).pathname === "/favicon.png");
+  assert.equal(rasterIcon.length, 1, `${route}: one stable PNG favicon`);
+  assert.equal(rasterIcon[0].type, "image/png");
+  assert.equal(rasterIcon[0].sizes, "96x96");
   assert.equal(canonical.length, 1, `${route}: one canonical`);
   assert.equal(new URL(canonical[0].href).href, new URL(route, siteUrl).href);
   assert.equal(new URL(meta("og:url")).href, new URL(route, siteUrl).href);
@@ -49,14 +54,24 @@ for (const route of routes) {
     assert.equal(image.pathname, "/opengraph-image");
   }
   assert.match(meta("robots"), production ? /^index, follow/ : /noindex, nofollow/);
-  assert.doesNotMatch(head, /Stop running your business|name="keywords"/);
+  assert.deepEqual(meta("keywords").split(",").map(term => term.trim()), siteKeywords);
+  assert.doesNotMatch(head, /Stop running your business/);
   if (route === "/") {
+    assert.equal(description, homeDescription);
+    assert.match(description, /^HR and compliance software/);
     assert.equal(meta("og:title"), siteCaption);
     const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, json]) => JSON.parse(json));
     assert.ok(schemas.some(schema => schema["@type"] === "WebSite" && schema.name === "Crewzy" && schema.url === siteUrl));
     assert.ok(schemas.some(schema => schema["@type"] === "Organization" && schema.legalName === "CODER VIEW LTD"));
   }
 }
+
+const faviconResponse = await fetch(new URL("/favicon.png", origin), { headers: { "User-Agent": "Googlebot-Image" } });
+assert.equal(faviconResponse.status, 200);
+assert.match(faviconResponse.headers.get("content-type"), /image\/png/);
+const favicon = Buffer.from(await faviconResponse.arrayBuffer());
+assert.equal(favicon.readUInt32BE(16), 96);
+assert.equal(favicon.readUInt32BE(20), 96);
 
 const robotsResponse = await fetch(new URL("/robots.txt", origin));
 assert.equal(robotsResponse.status, 200);
@@ -81,4 +96,4 @@ assert.match(imageResponse.headers.get("content-type"), /image\/png/);
 const image = Buffer.from(await imageResponse.arrayBuffer());
 assert.equal(image.readUInt32BE(16), 1200);
 assert.equal(image.readUInt32BE(20), 630);
-console.log(`SEO checks passed: ${routes.length} pages, ${mode} indexing, canonical URLs, social metadata, JSON-LD, sitemap and 1200×630 share image.`);
+console.log(`SEO checks passed: ${routes.length} pages, ${mode} indexing, canonical URLs, social metadata, JSON-LD, sitemap, blue PNG favicon and 1200×630 share image.`);

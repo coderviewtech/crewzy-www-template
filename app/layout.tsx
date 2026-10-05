@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Nunito, Inter } from "next/font/google";
 import { company } from "./company";
 import { siteCaption } from "./site-config";
-import { createPageMetadata, homeDescription, indexingMetadata, siteUrl as SITE_URL } from "./site-seo";
+import { createPageMetadata, homeDescription, indexingMetadata, siteIcons, siteUrl as SITE_URL } from "./site-seo";
 import "./globals.css";
 
 /* Nunito is the platform brand face; Inter is the companion for running text.
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     template: "%s — Crewzy",
   },
   applicationName: "Crewzy",
+  icons: siteIcons,
   robots: indexingMetadata(),
 };
 

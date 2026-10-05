@@ -192,8 +192,20 @@ policy. Each public page defines its own title, description and canonical, with
 matching Open Graph and Twitter metadata. The homepage uses the shared
 `siteCaption` from `app/site-config.ts` as its share title and social-image
 headline. The search title describes HR, compliance, time tracking and invoicing.
-Google ignores meta keywords; relevant topics belong in useful page content and
-descriptions, not lists of repeated terms or unsupported “best” claims.
+The homepage description starts with “HR and compliance software” to make the
+compliance offering clear even in a shortened snippet. Google may choose text
+from the page instead of using the meta description verbatim.
+The shared `siteKeywords` list also explicitly names compliance, document expiry
+tracking, renewal reviews and audit history alongside HR and operational topics.
+Google ignores this meta-keywords tag; relevant topics must still appear in useful
+page content and descriptions. It is not a ranking guarantee or a “best” claim.
+
+The blue search favicon uses the stable `/favicon.png` URL (96×96 PNG), declared
+through `siteIcons` in the root metadata alongside the existing SVG. Its artwork
+comes directly from `app/icon.svg`; regenerate with `node scripts/generate-favicon.mjs`
+after changing the SVG. Google must recrawl the homepage and icon before its old
+purple search-result icon can refresh; clearing a browser cache does not update
+Google's stored result. See [Google favicon guidance](https://developers.google.com/search/docs/appearance/favicon-in-search).
 
 Only Netlify's `CONTEXT=production` builds allow indexing. Local builds, branch
 deploys and deploy previews keep `noindex, nofollow`, even with
