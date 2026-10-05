@@ -180,19 +180,47 @@ regulatory-compliance guarantee. Review all product claims before publication.
 
 ## Deployment and review status
 
-This branch is for design review, not a production release. The existing
-`netlify.toml` is unchanged: it builds with `npm run build`, publishes `.next`,
-uses Node.js 20 and retains `NEXT_PUBLIC_APP_ORIGIN=https://dev.crewzy.io`.
-Any branch-preview deployment depends on the repository's Netlify settings.
-Do not merge into the production branch or replace crewzy.io until approved.
+Netlify serves `codex/crewzy-light-compliance-redesign` as the production branch
+for crewzy.io. Pushing to it triggers deployment. `netlify.toml` builds with
+`npm run build`, publishes `.next`, uses Node.js 20 and retains
+`NEXT_PUBLIC_APP_ORIGIN=https://dev.crewzy.io`. Do not push without approval.
 
-The preview deliberately retains `robots: { index: false, follow: false }` in
-`app/layout.tsx`. Review that setting before a production release. The existing
-robots and sitemap routes are retained; noindex is not access control.
+## Search and link previews
+
+`app/site-seo.ts` owns the canonical site URL, shared metadata helper and indexing
+policy. Each public page defines its own title, description and canonical, with
+matching Open Graph and Twitter metadata. The homepage uses the shared
+`siteCaption` from `app/site-config.ts` as its share title and social-image
+headline. The search title describes HR, compliance, time tracking and invoicing.
+Google ignores meta keywords; relevant topics belong in useful page content and
+descriptions, not lists of repeated terms or unsupported “best” claims.
+
+Only Netlify's `CONTEXT=production` builds allow indexing. Local builds, branch
+deploys and deploy previews keep `noindex, nofollow`, even with
+`NODE_ENV=production`. Robots.txt permits crawling so those tags can be read.
+Only production advertises a sitemap, containing the seven public marketing
+pages and no portal URLs. Sitemap modification dates are omitted rather than
+invented at every build. Noindex is not access control.
+
+After an approved deployment, confirm no `X-Robots-Tag: noindex` override is set
+at the hosting layer. Submit `https://crewzy.io/sitemap.xml` in the verified
+Google Search Console property and request homepage indexing. Google controls
+recrawl timing and ranking; these changes do not guarantee search placement.
+Social platforms may cache older previews; use their URL inspection/re-scrape
+tools after publishing if an old card persists.
+
+References: [Google meta tags](https://developers.google.com/search/docs/crawling-indexing/special-tags),
+[Google noindex](https://developers.google.com/search/docs/crawling-indexing/block-indexing),
+[Netlify deploy context](https://docs.netlify.com/build/configure-builds/environment-variables/).
 
 ## Validation
 
 Run `npm run build`, `npx tsc --noEmit` and `node --test tests/*.test.mjs`.
+Run `node scripts/check-site-seo.mjs http://127.0.0.1:3018 preview` against a local
+production server to verify rendered tags, social images and preview exclusion.
+For production-mode verification, build with `CONTEXT=production npm run build`,
+restart the server and pass `production` instead of `preview`. This local check
+does not deploy anything. Rebuild without CONTEXT afterwards to restore noindex.
 With the local preview running, `node scripts/check-site-links.mjs` checks
 all internal routes and anchors on the six public pages. Pass a preview URL
 as the first argument to audit a different origin. Browser interaction and visual testing

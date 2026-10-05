@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito, Inter } from "next/font/google";
 import { company } from "./company";
+import { siteCaption } from "./site-config";
+import { createPageMetadata, homeDescription, indexingMetadata, siteUrl as SITE_URL } from "./site-seo";
 import "./globals.css";
 
 /* Nunito is the platform brand face; Inter is the companion for running text.
@@ -19,41 +21,20 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const SITE_URL = "https://crewzy.io";
-
 export const metadata: Metadata = {
+  ...createPageMetadata({
+    title: "HR, Compliance, Time Tracking & Invoicing Software",
+    description: homeDescription,
+    canonical: "/",
+    shareTitle: siteCaption,
+  }),
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Crewzy — People, work and compliance. Connected.",
+    default: "Crewzy | HR, Compliance, Time Tracking & Invoicing Software",
     template: "%s — Crewzy",
   },
-  description:
-    "Crewzy replaces the stack of tools you pay for and stitch together — core HR, recruitment, time and projects, leave, invoicing and an AI assistant. One login, one bill, far less admin.",
-  keywords: [
-    "HR software",
-    "timesheets",
-    "leave management",
-    "recruitment",
-    "invoicing",
-    "agencies",
-    "consultancies",
-    "insurance teams",
-  ],
-  openGraph: {
-    type: "website",
-    url: SITE_URL,
-    siteName: "Crewzy",
-    title: "Stop running your business across a dozen disconnected tools",
-    description:
-      "One platform instead of six subscriptions. Core HR, recruitment, time, leave, finance and AI on one employee record.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Stop running your business across a dozen disconnected tools",
-    description: "One platform instead of six subscriptions.",
-  },
-  robots: { index: false, follow: false },
-  alternates: { canonical: "/" },
+  applicationName: "Crewzy",
+  robots: indexingMetadata(),
 };
 
 /* Identify the company separately from its product brand. The registration
@@ -79,7 +60,7 @@ const organizationSchema = {
     logo: `${SITE_URL}/icon.svg`,
   },
   description:
-    "coderView develops Crewzy, a connected workspace for people, work and compliance.",
+    `${company.displayName} develops Crewzy, a connected workspace for people, work and compliance.`,
   contactPoint: [
     {
       "@type": "ContactPoint",
@@ -96,6 +77,17 @@ const organizationSchema = {
   ],
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: "Crewzy",
+  url: SITE_URL,
+  description: homeDescription,
+  inLanguage: "en-GB",
+  publisher: { "@id": `${SITE_URL}/#company` },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${nunito.variable} ${inter.variable}`}>
@@ -104,7 +96,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           // Serialised from a literal we control — no user input reaches this.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema]).replace(/</g, "\\u003c") }}
         />
       </body>
     </html>

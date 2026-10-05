@@ -5,7 +5,7 @@
  * The founder supplied the LinkedIn biography after its public view was blocked.
  */
 export const company = {
-  displayName: "coderView",
+  displayName: "CoderView",
   legalName: "CODER VIEW LTD",
   number: "14561510",
   jurisdiction: "England and Wales",

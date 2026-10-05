@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-export const metadata: Metadata = { title: "Contact Crewzy and arrange a demo", description: "Talk to Crewzy about your team, arrange a platform demo or get help with an existing workspace.", alternates: { canonical: "/contact" } };
+import { createPageMetadata } from "../site-seo";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Contact Us & Book an HR Platform Demo",
+  description: "Book a Crewzy demo to explore HR, compliance, time tracking and invoicing for your team. Contact sales or get help with an existing workspace.",
+  canonical: "/contact",
+});
 export default function ContactLayout({ children }: { children: ReactNode }) { return children; }

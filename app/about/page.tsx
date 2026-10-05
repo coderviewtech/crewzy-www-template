@@ -2,23 +2,18 @@ import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiteHeader, SiteFooter } from "../site-shell";
 import { company, founder } from "../company";
+import { createPageMetadata } from "../site-seo";
 import { WorkspaceIllustration } from "./workspace-illustration";
 import base from "../landing.module.css";
 import secondary from "../secondary-page.module.css";
 import typography from "../content-typography.module.css";
 import s from "./about.module.css";
 
-export const metadata: Metadata = {
-  title: "Our story and the founder behind Crewzy",
+export const metadata: Metadata = createPageMetadata({
+  title: "About Crewzy, Our Story & Founder",
   description: "How tracking passport expiries, contractor renewals and overtime in spreadsheets inspired Manohar Nunna to build Crewzy for small and medium-sized businesses.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    url: "/about",
-    title: "Crewzy: it started with spreadsheets",
-    description: "The small-company experience that inspired Crewzy, and the founder who decided to build it.",
-    images: ["/opengraph-image"],
-  },
-};
+  canonical: "/about",
+});
 
 export default function AboutPage() {
   return (

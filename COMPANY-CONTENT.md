@@ -33,7 +33,7 @@ that account in third person. No employer name, start date, customer incident,
 savings figure, launch milestone or direct quotation has been invented.
 
 The page now leads with this story, followed by the founder's background and a
-short coderView introduction. Full company registration details remain in the
+short CoderView introduction. Full company registration details remain in the
 shared footer instead of being repeated in a separate About-page fact card.
 
 The founder subsequently described a decade of DevOps, DevSecOps and platform

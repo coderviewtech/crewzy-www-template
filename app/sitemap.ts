@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
+import { isProductionSite, siteUrl } from "./site-seo";
 
 /* Generated at build time into /sitemap.xml, and pointed at by /robots.ts.
    Keep this list in step when a route is added — it is the only place that
    tells a crawler the full set of pages, since the site has no other index. */
-const SITE_URL = "https://crewzy.io";
-
 const ROUTES = [
   { path: "", priority: 1.0 },
   { path: "/platform", priority: 0.9 },
@@ -16,10 +15,11 @@ const ROUTES = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  if (!isProductionSite()) return [];
+  // Omit lastModified until we have real per-page modification dates.
+  // Rebuilding unrelated code does not mean every page's content changed.
   return ROUTES.map(({ path, priority }) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified,
+    url: `${siteUrl}${path || "/"}`,
     changeFrequency: "monthly" as const,
     priority,
   }));

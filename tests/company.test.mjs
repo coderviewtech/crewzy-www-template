@@ -6,6 +6,7 @@ import { company, founder } from "../app/company.ts";
 const source = path => readFileSync(new URL(path, import.meta.url), "utf8");
 
 test("company disclosure retains the registered name and official record", () => {
+  assert.equal(company.displayName, "CoderView");
   assert.equal(company.legalName, "CODER VIEW LTD");
   assert.equal(company.number, "14561510");
   assert.equal(company.companiesHouseUrl, `https://find-and-update.company-information.service.gov.uk/company/${company.number}`);
