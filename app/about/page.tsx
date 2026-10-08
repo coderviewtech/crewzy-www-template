@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiteHeader, SiteFooter } from "../site-shell";
 import { company, founder } from "../company";
@@ -65,7 +66,14 @@ export default function AboutPage() {
             </div>
             <article className={s.founderProfile}>
               <div className={s.founderIdentity}>
-                <span className={s.monogram} aria-hidden="true">MN</span>
+                <Image
+                  className={s.founderPortrait}
+                  src="/images/manohar-nunna.jpeg"
+                  alt={`${founder.name}, founder of Crewzy`}
+                  width={400}
+                  height={400}
+                  sizes="(max-width: 760px) 104px, 128px"
+                />
                 <div><h3>{founder.name}</h3><p>{founder.role}</p></div>
               </div>
               <p>Manohar looks for real-world problems and builds practical solutions to them. His experience spans creating products and solutions for organisations ranging from small businesses to enterprises.</p>

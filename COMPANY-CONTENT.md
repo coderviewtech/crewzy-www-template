@@ -12,7 +12,11 @@ experience in AI platforms, cloud engineering, DevOps, infrastructure automation
 Kubernetes and security-focused engineering. No employers, years of experience,
 personal quotes or profile photograph were invented. Detailed performance metrics
 and certification claims are omitted from the short marketing bio.
-The initials on the About page are a monogram, not a generated portrait.
+On 8 October 2026, the founder supplied `1785682206166.jpeg` from Downloads and
+asked for it to appear in the founder section. The unaltered 400×400 photograph
+is stored as `public/images/manohar-nunna.jpeg` and replaces the initials monogram.
+The supplied file contains no EXIF or XMP metadata. Next.js serves appropriately
+sized versions; the photograph is not AI-generated or retouched.
 Birth details, nationality and officer identity-verification information are not
 included in the website. The office address is labelled as a registered office,
 not an invitation to visit or a claim about where the team works.

@@ -16,7 +16,7 @@
 .companySection { margin-bottom: 56px; }
 .companyCopy > a { margin-top: 20px; flex-wrap: wrap; }
 .founderIdentity { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
-.monogram { width: 64px; height: 64px; flex: none; display: grid; place-items: center; background: var(--preview-brand-tint); color: var(--preview-brand-accent); border: 1px solid var(--preview-brand-outline); border-radius: 50%; font-size: 21px; font-weight: 500; }
+.founderPortrait { width: 128px; height: 128px; flex: none; display: block; object-fit: cover; border: 1px solid var(--preview-line); border-radius: 18px; }
 .founderIdentity h3 { font-size: 24px; font-weight: 600; margin-bottom: 3px; }
 .founderIdentity p { color: var(--preview-brand-accent); font-size: 14px; }
 .founderProfile > p { font-size: 16px; line-height: 1.7; color: var(--preview-brand-copy); margin-bottom: 18px; }
@@ -40,5 +40,6 @@
   .contactSection { padding: 24px; gap: 24px; }
   .contactSection h2 { font-size: 28px; }
   .founderIdentity h3 { font-size: 22px; }
+  .founderPortrait { width: 104px; height: 104px; border-radius: 14px; }
   .storySteps > li { padding-left: 16px; }
 }

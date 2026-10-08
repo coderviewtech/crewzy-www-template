@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readFileSync } from "node:fs";
+import sharp from "sharp";
 import { company, founder } from "../app/company.ts";
 
 const source = path => readFileSync(new URL(path, import.meta.url), "utf8");
@@ -17,6 +18,22 @@ test("company disclosure retains the registered name and official record", () =>
 test("founder link uses the exact profile supplied by the founder", () => {
   assert.equal(founder.name, "Manohar Nunna");
   assert.equal(founder.linkedInUrl, "https://www.linkedin.com/in/manohar-nunna/");
+});
+
+test("founder section uses the supplied portrait with accessible, responsive sizing", async () => {
+  const page = source("../app/about/page.tsx");
+  assert.match(page, /src="\/images\/manohar-nunna\.jpeg"/);
+  assert.ok(page.includes('alt={`${founder.name}, founder of Crewzy`}'));
+  assert.match(page, /width=\{400\}/);
+  assert.match(page, /height=\{400\}/);
+  assert.match(page, /sizes="\(max-width: 760px\) 104px, 128px"/);
+  assert.ok(!page.includes("s.monogram"));
+  const photo = await sharp(readFileSync(new URL("../public/images/manohar-nunna.jpeg", import.meta.url))).metadata();
+  assert.equal(photo.format, "jpeg");
+  assert.equal(photo.width, 400);
+  assert.equal(photo.height, 400);
+  assert.equal(photo.exif, undefined);
+  assert.equal(photo.xmp, undefined);
 });
 
 test("footer and structured data share the full legal company facts", () => {
