@@ -434,3 +434,17 @@ was executed, and no live deployment or customer acceptance occurred.
   `crewzy-privacy-simplified-20261021.jpg` in this task’s artifact directory.
   Existing preview tab retained on `/privacy`; server left running on port 3001.
 - No production publication, cloud/payment/data-handling change, commit or push.
+
+
+## Business included employees — 22 October 2026
+
+The owner changed Business seat pricing: the first 10 managed employees remain
+included and only employees above 10 are billable. This supersedes the earlier
+all-seat Business examples. The website calculator, displayed regional examples
+and Terms now use that rule; the rates and Free feature limits are unchanged.
+The Terms update date is 22 October 2026. Online payments remain unconnected.
+Canonical application billing/count presentation changes are prepared separately
+and require coordinated Common, company-service and frontend release. The
+Free cap remains 10 managed employees; zero-quantity paid checkout is blocked.
+A self-service upgrade path at the 10-employee cap requires an explicit launch
+decision before enabling payment checkout; no free Business activation was added.

@@ -14,26 +14,31 @@ test("employee counts reject empty, fractional, negative and nonnumeric entries"
   }
 });
 
-test("monthly Business pricing bills every employee, including the first ten", () => {
-  assert.deepEqual(calculateBusinessPrice(10, "monthly", "UK"), {
+test("monthly Business pricing includes the first ten and bills only additional employees", () => {
+  assert.deepEqual(calculateBusinessPrice(15, "monthly", "UK"), {
     unitMonthly: 8,
-    monthlyEquivalent: 80,
-    invoiceTotal: 80,
-    annualSaving: 240,
+    includedEmployees: 10,
+    billableEmployees: 5,
+    monthlyEquivalent: 40,
+    invoiceTotal: 40,
+    annualSaving: 120,
   });
-  assert.equal(calculateBusinessPrice(1, "monthly", "UK").invoiceTotal, 8);
-  assert.equal(calculateBusinessPrice(11, "monthly", "UK").invoiceTotal, 88);
+  assert.equal(calculateBusinessPrice(1, "monthly", "UK").invoiceTotal, 0);
+  assert.equal(calculateBusinessPrice(10, "monthly", "UK").invoiceTotal, 0);
+  assert.equal(calculateBusinessPrice(11, "monthly", "UK").invoiceTotal, 8);
 });
 
 test("annual Business pricing separates the monthly equivalent from the yearly invoice", () => {
-  assert.deepEqual(calculateBusinessPrice(10, "annual", "UK"), {
+  assert.deepEqual(calculateBusinessPrice(15, "annual", "UK"), {
     unitMonthly: 6,
-    monthlyEquivalent: 60,
-    invoiceTotal: 720,
-    annualSaving: 240,
+    includedEmployees: 10,
+    billableEmployees: 5,
+    monthlyEquivalent: 30,
+    invoiceTotal: 360,
+    annualSaving: 120,
   });
-  assert.equal(calculateBusinessPrice(1, "annual", "UK").invoiceTotal, 72);
-  assert.equal(calculateBusinessPrice(11, "annual", "UK").invoiceTotal, 792);
+  assert.equal(calculateBusinessPrice(1, "annual", "UK").invoiceTotal, 0);
+  assert.equal(calculateBusinessPrice(11, "annual", "UK").invoiceTotal, 72);
 });
 
 test("annual savings compare twelve monthly invoices with one annual invoice", () => {
@@ -48,8 +53,8 @@ test("annual savings compare twelve monthly invoices with one annual invoice", (
 test("GBP totals use pound symbols, UK thousands separators and no decimal places", () => {
   assert.equal(formatMoney(80, "UK"), "£80");
   assert.equal(formatMoney(720, "UK"), "£720");
-  assert.equal(formatMoney(calculateBusinessPrice(100000, "monthly", "UK").invoiceTotal, "UK"), "£800,000");
-  assert.equal(formatMoney(calculateBusinessPrice(100000, "annual", "UK").invoiceTotal, "UK"), "£7,200,000");
+  assert.equal(formatMoney(calculateBusinessPrice(100000, "monthly", "UK").invoiceTotal, "UK"), "£799,920");
+  assert.equal(formatMoney(calculateBusinessPrice(100000, "annual", "UK").invoiceTotal, "UK"), "£7,199,280");
 });
 
 test("price calculations reject unsupported employee counts", () => {
@@ -69,13 +74,13 @@ test("price calculations reject unsupported billing cycles", () => {
 
 test("approved regional rates calculate independent local annual invoices", () => {
   for (const [market, monthly, annual, saving] of [["UK", 8, 6, 25], ["IN", 149, 119, 20], ["US", 10, 8, 20], ["EU", 9, 7, 22]]) {
-    assert.equal(calculateBusinessPrice(1, "monthly", market).invoiceTotal, monthly);
-    assert.equal(calculateBusinessPrice(20, "annual", market).invoiceTotal, 20 * annual * 12);
-    assert.equal(calculateBusinessPrice(20, "annual", market).annualSaving, 20 * (monthly - annual) * 12);
+    assert.equal(calculateBusinessPrice(11, "monthly", market).invoiceTotal, monthly);
+    assert.equal(calculateBusinessPrice(20, "annual", market).invoiceTotal, 10 * annual * 12);
+    assert.equal(calculateBusinessPrice(20, "annual", market).annualSaving, 10 * (monthly - annual) * 12);
     assert.equal(annualSavingPercent(market), saving);
   }
-  assert.equal(calculateBusinessPrice(20, "monthly", "IN").invoiceTotal, 2980);
-  assert.equal(calculateBusinessPrice(20, "annual", "IN").invoiceTotal, 28560);
+  assert.equal(calculateBusinessPrice(20, "monthly", "IN").invoiceTotal, 1490);
+  assert.equal(calculateBusinessPrice(20, "annual", "IN").invoiceTotal, 14280);
 });
 
 test("country detection assigns only supported billing markets and euro-area members", () => {
@@ -99,5 +104,34 @@ test("regional totals use the correct currency and Indian digit grouping", () =>
 test("a caller cannot silently obtain a price for an unsupported market", () => {
   for (const market of [null, undefined, "", "GBP", "in", "GLOBAL", "toString", "constructor"]) {
     assert.throws(() => calculateBusinessPrice(10, "monthly", market), RangeError);
+  }
+});
+
+
+test("every region and billing cycle keeps teams of up to ten within the free allowance", () => {
+  for (const market of ["UK", "IN", "US", "EU"]) {
+    for (const cycle of ["monthly", "annual"]) {
+      for (const count of [1, 5, 10]) {
+        const estimate = calculateBusinessPrice(count, cycle, market);
+        assert.equal(estimate.includedEmployees, count);
+        assert.equal(estimate.billableEmployees, 0);
+        assert.equal(estimate.invoiceTotal, 0);
+        assert.equal(estimate.annualSaving, 0);
+      }
+    }
+  }
+});
+
+test("employee eleven and larger teams charge only employees beyond ten in every market", () => {
+  for (const [market, monthly, annual] of [["UK", 8, 6], ["IN", 149, 119], ["US", 10, 8], ["EU", 9, 7]]) {
+    for (const [count, billable] of [[11, 1], [15, 5], [25, 15]]) {
+      const m = calculateBusinessPrice(count, "monthly", market);
+      const a = calculateBusinessPrice(count, "annual", market);
+      assert.equal(m.includedEmployees, 10);
+      assert.equal(m.billableEmployees, billable);
+      assert.equal(m.invoiceTotal, billable * monthly);
+      assert.equal(a.invoiceTotal, billable * annual * 12);
+      assert.equal(a.annualSaving, billable * (monthly - annual) * 12);
+    }
   }
 });

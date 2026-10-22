@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, ChevronDown, Mail, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
 import { company } from "./company";
+import { MailtoLink } from "./mailto-link";
 import { appUrl, demoHref, salesEmail, siteCaption } from "./site-config";
 import {
   footerGroups,
@@ -182,11 +183,11 @@ export function SiteFooter() {
           <span>One employee record. Connected workflows. Less everyday admin.</span>
           <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.legalName}</a>, registered in {company.jurisdiction}.</span>
         </div>
-        <a className={s.footerEmail} href={`mailto:${salesEmail}`}>
+        <MailtoLink className={s.footerEmail} href={`mailto:${salesEmail}`}>
           <Mail size={18} aria-hidden="true" />
           <span>Let’s talk about your team<strong>{salesEmail}</strong></span>
           <ArrowRight size={18} aria-hidden="true" />
-        </a>
+        </MailtoLink>
       </div>
       <div className={s.footerGroups}>
         {footerGroups.map(group => (

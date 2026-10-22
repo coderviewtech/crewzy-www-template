@@ -13,6 +13,7 @@ export const PRICING_MARKETS = {
 // EU euro-area members as of 2026, including Bulgaria. Other European countries
 // are not silently assigned euro billing. Keep in step with the app's country map.
 export const EURO_AREA_COUNTRIES = ["AT", "BE", "BG", "HR", "CY", "EE", "FI", "FR", "DE", "GR", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PT", "SK", "SI", "ES"] as const;
+export const FREE_EMPLOYEE_ALLOWANCE = 10;
 const MAX_EMPLOYEES = 100_000;
 
 export function isPricingMarket(value: unknown): value is PricingMarket {
@@ -41,12 +42,16 @@ export function calculateBusinessPrice(employeeCount: number, cycle: BillingCycl
   if (!isPricingMarket(market)) throw new RangeError("Unknown pricing market.");
   const rates = PRICING_MARKETS[market];
   const unitMonthly = rates[cycle];
-  const monthlyEquivalent = employeeCount * unitMonthly;
+  const includedEmployees = Math.min(employeeCount, FREE_EMPLOYEE_ALLOWANCE);
+  const billableEmployees = Math.max(0, employeeCount - FREE_EMPLOYEE_ALLOWANCE);
+  const monthlyEquivalent = billableEmployees * unitMonthly;
   return {
     unitMonthly,
+    includedEmployees,
+    billableEmployees,
     monthlyEquivalent,
     invoiceTotal: monthlyEquivalent * (cycle === "annual" ? 12 : 1),
-    annualSaving: employeeCount * (rates.monthly - rates.annual) * 12,
+    annualSaving: billableEmployees * (rates.monthly - rates.annual) * 12,
   };
 }
 

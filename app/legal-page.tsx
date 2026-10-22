@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import { SiteHeader, SiteFooter } from "./site-shell";
 import styles from "./legal-page.module.css";
 
-type LegalPageProps = { title: string; summary: string; children: ReactNode };
+type LegalPageProps = { title: string; summary: string; children: ReactNode; updatedOn?: { iso: string; label: string } };
 
-export function LegalPage({ title, summary, children }: LegalPageProps) {
+export function LegalPage({ title, summary, children, updatedOn = { iso: "2026-10-21", label: "21 October 2026" } }: LegalPageProps) {
   return (
     <div className={styles.page}>
       <SiteHeader />
@@ -14,7 +14,7 @@ export function LegalPage({ title, summary, children }: LegalPageProps) {
           <p className={styles.eyebrow}>Crewzy privacy &amp; trust</p>
           <h1>{title}</h1>
           <p className={styles.summary}>{summary}</p>
-          <p className={styles.date}>Last updated <time dateTime="2026-10-21">21 October 2026</time></p>
+          <p className={styles.date}>Last updated <time dateTime={updatedOn.iso}>{updatedOn.label}</time></p>
           <nav className={styles.links} aria-label="Privacy and trust documents">
             <Link href="/privacy">Privacy policy</Link>
             <Link href="/terms">Terms and conditions</Link>

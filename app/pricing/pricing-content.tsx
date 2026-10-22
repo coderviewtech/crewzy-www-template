@@ -67,7 +67,7 @@ const FEATURES = [
 ];
 
 const LIMITS = [
-  { label: "Managed employees", free: "Up to 10", business: "Pay per employee seat" },
+  { label: "Managed employees", free: "Up to 10", business: "First 10 included; pay from employee 11" },
   { label: "Clients & projects", free: "10 of each", business: "No plan record caps" },
   { label: "Invoice records", free: "50 total", business: "No plan record cap" },
   { label: "Expense records", free: "100 total", business: "No plan record cap" },
@@ -84,7 +84,7 @@ const QUESTIONS = [
   },
   {
     question: "Does Business charge only for employees above the free 10?",
-    answer: "No. Free and Business are separate plans. Free supports up to 10 managed employees within its allowances. Business charges for every managed employee seat in your workspace, including the first 10, with no minimum seat purchase or separate platform fee.",
+    answer: "Yes. Your first 10 managed employees remain included on Business. You pay only for employees above 10, with no separate platform fee. For example, a team of 15 has 10 included employees and 5 billable employees. Free and Business keep their separate feature allowances.",
   },
   {
     question: "Who counts as a managed employee?",
@@ -92,7 +92,7 @@ const QUESTIONS = [
   },
   {
     question: "What happens when our employee numbers change?",
-    answer: "Business pricing is based on managed employee count, whether or not every paid seat is used. The intended policy does not give discretionary refunds for unused time or seats; statutory cancellation and refund rights still apply. Online payments and provider-specific seat adjustments are not yet connected. The calculator estimates a steady team size before applicable taxes.",
+    answer: "Business pricing counts managed employees above the first 10, whether or not every billable employee signs in. The intended policy does not give discretionary refunds for unused time or seats; statutory cancellation and refund rights still apply. Online payments and provider-specific seat adjustments are not yet connected. The calculator estimates a steady team size before applicable taxes.",
   },
   {
     question: "Do invoice, expense and AI allowances reset monthly?",
@@ -116,12 +116,12 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
   const estimate = employeeCount === null || !market ? null : calculateBusinessPrice(employeeCount, cycle, market);
   const annual = cycle === "annual";
   const rates = market ? PRICING_MARKETS[market] : null;
-  const unitPrice = market ? calculateBusinessPrice(1, cycle, market).unitMonthly : 0;
+  const unitPrice = rates ? rates[cycle] : 0;
   const money = (amount: number) => market ? formatMoney(amount, market) : "";
   const countLabel = (count: number) => count.toLocaleString(rates?.locale ?? "en-GB");
   const questions = QUESTIONS.map(item => item.question === "How does annual billing work?" && market && rates ? {
     ...item,
-    answer: `Business costs ${money(rates.monthly)} per employee seat per month on monthly billing. Annual billing costs ${money(rates.annual)} per employee per month, paid as ${money(rates.annual * 12)} per employee for the year upfront. That saves ${annualSavingPercent(market)}% compared with 12 monthly payments. For 10 employees, that is ${money(rates.monthly * 10)} per month or ${money(rates.annual * 120)} per year, excluding applicable taxes.`,
+    answer: `Your first 10 employees are included. Business costs ${money(rates.monthly)} per additional employee per month on monthly billing. Annual billing costs ${money(rates.annual)} per additional employee per month, paid as ${money(rates.annual * 12)} per additional employee for the year upfront. That saves ${annualSavingPercent(market)}% compared with 12 monthly payments. For a team of 15, only 5 employees are billable: ${money(rates.monthly * 5)} per month or ${money(rates.annual * 60)} per year, excluding applicable taxes.`,
   } : item);
   useScrollMotion(root, base.revealed, base.motionReady);
 
@@ -134,7 +134,7 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
             <div className={`${s.heroCopy} ${typography.hero}`} data-reveal>
               <Eyebrow icon={Sparkles}>Simple pricing. Room to grow.</Eyebrow>
               <h1 id="pricing-title">One connected workspace.<br /><span>A plan for your team.</span></h1>
-              <p>Start free with up to 10 employees. Choose Business for more capacity, recruitment and the complete set of Crewzy services.</p>
+              <p>Start free with up to 10 employees. On Business, your first 10 stay included. Pay only for the employees you add beyond 10.</p>
             </div>
             {market && rates ? <div className={s.planControls} data-reveal>
               <div className={s.billingToggle} role="group" aria-label="Billing period">
@@ -168,9 +168,9 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
 
               <article className={`${s.planCard} ${s.businessCard}`} aria-labelledby="business-plan-title" data-reveal data-reveal-delay="1">
                 <div className={s.planLabel}><h2 id="business-plan-title">Business</h2><span className={s.planBadge}>All available services</span></div>
-                <p className={s.planDescription}>More capacity. Your whole team connected.</p>
-                <div className={s.priceLine}><strong className={!market ? s.pricePending : undefined}>{market ? money(unitPrice) : "Let’s talk"}</strong>{market && <span>per employee<br />per month</span>}</div>
-                <p className={s.billingNote}>{!rates ? "Get the price for your company’s billing country." : annual ? `${money(rates.annual * 12)} per employee / year. Billed annually upfront.` : "Billed monthly. No minimum seat purchase."}</p>
+                <p className={s.planDescription}>For teams growing beyond 10 employees.</p>
+                <div className={s.priceLine}><strong className={!market ? s.pricePending : undefined}>{market ? money(unitPrice) : "Let’s talk"}</strong>{market && <span>per additional employee<br />per month</span>}</div>
+                <p className={s.billingNote}>{!rates ? "Get the price for your company’s billing country." : annual ? `${money(rates.annual * 12)} per additional employee / year. Billed annually upfront.` : "Billed monthly for employees above 10. No platform fee."}</p>
                 {market && rates && <div className={s.calculator}>
                   <div className={s.calculatorInput}>
                     <div><label htmlFor="employees">How big is your team?</label><p>All managed employees</p></div>
@@ -183,13 +183,14 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
                   <div aria-live="polite" aria-atomic="true" className={s.estimate}>
                     {estimate && employeeCount !== null ? <>
                       <div className={s.estimateTotal}><span>Your team of {countLabel(employeeCount)}</span><strong>{money(estimate.invoiceTotal)}<small> / {annual ? "year" : "month"}</small></strong></div>
-                      <p>{annual ? `${money(estimate.monthlyEquivalent)} monthly equivalent · billed annually` : `${countLabel(employeeCount)} ${employeeCount === 1 ? "employee" : "employees"} × ${money(unitPrice)} per month`}</p>
-                      {annual && <p className={s.annualSaving}>Save {money(estimate.annualSaving)} per year compared with monthly billing.</p>}
+                      <p>{countLabel(estimate.includedEmployees)} included · {countLabel(estimate.billableEmployees)} billable {estimate.billableEmployees === 1 ? "employee" : "employees"}</p>
+                      <p>{estimate.billableEmployees === 0 ? "No employee charge within your first 10." : annual ? `${money(estimate.monthlyEquivalent)} monthly equivalent · billed annually` : `${countLabel(estimate.billableEmployees)} ${estimate.billableEmployees === 1 ? "employee" : "employees"} × ${money(unitPrice)} per month`}</p>
+                      {annual && estimate.billableEmployees > 0 && <p className={s.annualSaving}>Save {money(estimate.annualSaving)} per year compared with monthly billing.</p>}
                     </> : <p id="employee-count-error" className={s.inputError}>Enter a whole number from 1 to 100,000 to calculate your price.</p>}
                   </div>
                   <p className={s.taxNote}>{rates.currency} ({rates.symbol}), excluding applicable taxes.</p>
                 </div>}
-                <p className={s.seatNote} id="seat-definition">Business charges for every managed employee, including the first 10. <a href="#pricing-questions">How seats work <ArrowDown size={12} aria-hidden="true" /></a></p>
+                <p className={s.seatNote} id="seat-definition">Your first 10 employees stay included on Business. Charges start with employee 11. <a href="#pricing-questions">How seats work <ArrowDown size={12} aria-hidden="true" /></a></p>
                 <a className={`${secondary.button} ${s.signup}`} href={demoHref}>Get Business <ArrowRight size={17} aria-hidden="true" /></a>
                 <p className={s.cardNote}>Online payments are not connected yet. Contact us about Business for your billing country.</p>
                 <div className={s.cardDivider} />

@@ -13,7 +13,7 @@ export const metadata = createLegalMetadata({
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms and conditions" summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
+    <LegalPage title="Terms and conditions" updatedOn={{ iso: "2026-10-22", label: "22 October 2026" }} summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
       <section id="agreement">
         <h2>1. Who provides Crewzy</h2>
         <p>Crewzy is provided by {company.legalName}, registered in England and Wales under company number {company.number}, at {company.registeredOffice} (“we” or “us”). Contact <a href={`mailto:${supportEmail}`}>{supportEmail}</a> or write to that address.</p>
@@ -33,7 +33,7 @@ export default function TermsPage() {
       <section id="billing">
         <h2>4. Plans and billing</h2>
         <p><strong>Online payments are not currently integrated into the live service.</strong> The paid-plan terms below apply when a subscription is offered and agreed. Creating a free account or viewing prices does not authorise a charge or renewal.</p>
-        <p>Free supports up to 10 employees. Business is charged per managed employee, including the first 10, whether or not each employee signs in. Monthly plans renew monthly. Annual plans are paid for 12 months upfront and renew annually; the displayed monthly equivalent is not a monthly payment option.</p>
+        <p>Free supports up to 10 employees. Your first 10 managed employees remain included on Business. Charges apply only to managed employees above 10, whether or not those employees sign in. Monthly plans renew monthly. Annual plans are paid for 12 months upfront and renew annually; the displayed monthly equivalent is not a monthly payment option.</p>
         <p>Before payment, your order will identify the plan, employee quantity, currency, billing period, applicable taxes, total and renewal terms. It will also explain when employee-count changes affect charges, including any authorised mid-period adjustment.</p>
         <p>Regional pricing uses INR for India, GBP for the UK, USD for the US and EUR for supported euro-area countries. Eligibility uses an accurate declared billing country and available payment checks. Do not misrepresent your country or organisation to obtain another market’s rate. Contact support to change billing country; these checks are not incorporation verification.</p>
         <p>Price changes apply only to future renewals, with advance notice and an opportunity to cancel before renewal. We do not retrospectively alter an agreed paid period or impose undisclosed charges.</p>
