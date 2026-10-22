@@ -18,7 +18,7 @@ test("AI, compliance, FAQ and legacy links resolve to real home sections", () =>
   assert.equal(resolveHomeHash("#module-unknown"), null);
 });
 test("product destinations use one configured portal origin", () => {
-  const origin = (process.env.NEXT_PUBLIC_APP_ORIGIN ?? "https://dev.crewzy.io").replace(/\/+$/, "");
+  const origin = (process.env.NEXT_PUBLIC_APP_ORIGIN ?? "https://app.crewzy.io").replace(/\/+$/, "");
   assert.equal(appUrl("/login"), `${origin}/login`);
   assert.equal(appUrl("signup"), `${origin}/signup`);
 });

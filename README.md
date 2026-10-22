@@ -131,7 +131,7 @@ shared benefits remain visible on small screens. This is a marketing
 preview, not the working HR application. Demo links go to `/contact#demo`,
 where a clearly labelled email action opens a draft to sales@crewzy.io. There
 is no booking calendar or form backend. Sign-in and signup keep the existing
-product destination, https://dev.crewzy.io, configurable with
+product destination, https://app.crewzy.io, configurable with
 `NEXT_PUBLIC_APP_ORIGIN` in `app/site-config.ts`.
 
 ## Navigation, pages and shared identity
@@ -183,7 +183,7 @@ regulatory-compliance guarantee. Review all product claims before publication.
 Netlify serves `codex/crewzy-light-compliance-redesign` as the production branch
 for crewzy.io. Pushing to it triggers deployment. `netlify.toml` builds with
 `npm run build`, publishes `.next`, uses Node.js 20 and retains
-`NEXT_PUBLIC_APP_ORIGIN=https://dev.crewzy.io`. Do not push without approval.
+`NEXT_PUBLIC_APP_ORIGIN=https://app.crewzy.io`. Do not push without approval.
 
 ## Search and link previews
 
@@ -238,3 +238,18 @@ all internal routes and anchors on the six public pages. Pass a preview URL
 as the first argument to audit a different origin. Browser interaction and visual testing
 remain a separate review step. Do not rebuild `.next` while checking a loaded
 production preview; restart the server and reload after each build.
+
+## App address switch — 22 October 2026
+
+The owner confirmed that `https://app.crewzy.io` uses the separate production
+application, which is being provisioned independently. The website's shared
+app destination now uses that address for sign-in, signup and product CTAs;
+both the code fallback and Netlify build environment agree. Local and preview
+builds can still override `NEXT_PUBLIC_APP_ORIGIN`.
+
+This is a source-only link change. It does not deploy the application, change
+DNS, move development data, or alter cookies, OAuth or workspace routing.
+Production infrastructure setup remains with the separate provisioning work.
+The owner approved publishing these links to the existing Codex website branch.
+Its push triggers Netlify; the separate production app still requires its own
+release. Link tests pass, and this change does not deploy the application.

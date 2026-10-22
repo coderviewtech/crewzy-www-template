@@ -1,5 +1,5 @@
-/** Change the public environment variable when the production portal is ready. */
-const appOrigin = (process.env.NEXT_PUBLIC_APP_ORIGIN ?? "https://dev.crewzy.io").replace(/\/+$/, "");
+/** Public portal destination; local or preview builds may override the origin. */
+const appOrigin = (process.env.NEXT_PUBLIC_APP_ORIGIN ?? "https://app.crewzy.io").replace(/\/+$/, "");
 export const appUrl = (path: string) => `${appOrigin}/${path.replace(/^\/+/, "")}`;
 
 export const siteCaption = "People, work and compliance. Connected.";

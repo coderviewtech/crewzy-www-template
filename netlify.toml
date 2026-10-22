@@ -10,9 +10,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # Where "Start free" and "Sign in" send people. Change to
-  # https://app.crewzy.io when the production host exists — one line, no code.
-  NEXT_PUBLIC_APP_ORIGIN = "https://dev.crewzy.io"
+  # Shared destination for "Start free" and "Sign in".
+  # The production application is provisioned and released separately.
+  NEXT_PUBLIC_APP_ORIGIN = "https://app.crewzy.io"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
