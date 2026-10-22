@@ -28,12 +28,13 @@ export const siteKeywords = [
   "recruitment software",
 ];
 
-// Netlify sets CONTEXT at build time. Local, branch and PR previews stay noindex.
-export function isProductionSite(context = process.env.CONTEXT): boolean {
+// next.config.js embeds Netlify’s build context for static and dynamic routes.
+// Runtime functions need not receive CONTEXT. Local, branch and PR previews stay noindex.
+export function isProductionSite(context = process.env.CREWZY_SITE_BUILD_CONTEXT): boolean {
   return context === "production";
 }
 
-export function indexingMetadata(context = process.env.CONTEXT): Metadata["robots"] {
+export function indexingMetadata(context = process.env.CREWZY_SITE_BUILD_CONTEXT): Metadata["robots"] {
   const index = isProductionSite(context);
   return {
     index,

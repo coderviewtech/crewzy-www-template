@@ -11,6 +11,9 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  // Public build context must survive in dynamic server routes on Netlify.
+  // CONTEXT itself is only guaranteed during the build. This value is not secret.
+  env: { CREWZY_SITE_BUILD_CONTEXT: process.env.CONTEXT ?? "local" },
   images: {
     // Keep default quality for small assets; use 90 for the editorial photo.
     qualities: [75, 85, 90],
