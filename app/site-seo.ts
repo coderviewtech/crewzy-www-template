@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const siteUrl = "https://crewzy.io";
 export const homeDescription =
-  "HR and compliance software for growing teams. Manage employee records, document expiry, time tracking, leave and invoicing in one connected Crewzy workspace.";
+  "People, work and compliance. Connected. People management and employee lifecycle workflows with employee records, document expiry tracking, time tracking, leave and invoicing.";
 
 // Stable raster URL for search engines, alongside Next's existing SVG icon.
 // Generated from app/icon.svg with scripts/generate-favicon.mjs.
@@ -13,9 +13,9 @@ export const siteIcons: Metadata["icons"] = {
 // Explicit topic metadata requested for the site. Google does not use the
 // meta-keywords tag for rankings; keep titles, descriptions and visible copy useful.
 export const siteKeywords = [
-  "HR software",
+  "people management software",
   "compliance",
-  "HR compliance",
+  "people management compliance",
   "document compliance management",
   "document expiry tracking",
   "renewal review workflows",
@@ -73,5 +73,14 @@ export function createPageMetadata({ title, description, canonical, shareTitle =
       images,
     },
     twitter: { card: "summary_large_image", title: shareTitle, description, images },
+  };
+}
+
+
+/** Ordinary legal titles, withheld from search until launch adoption is complete. */
+export function createLegalMetadata(input: PageMetadata): Metadata {
+  return {
+    ...createPageMetadata(input),
+    robots: { index: false, follow: false, googleBot: { index: false, follow: false } },
   };
 }

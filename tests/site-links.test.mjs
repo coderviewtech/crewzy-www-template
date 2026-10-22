@@ -12,6 +12,7 @@ test("AI, compliance, FAQ and legacy links resolve to real home sections", () =>
   assert.deepEqual(resolveHomeHash("#crewzy-ai"), { section: "crewzy-ai" });
   assert.deepEqual(resolveHomeHash("#module-crewzy-ai"), { section: "crewzy-ai" });
   assert.deepEqual(resolveHomeHash("#compliance"), { section: "compliance" });
+  assert.equal(resolveHomeHash("#walkthrough"), null);
   assert.deepEqual(resolveHomeHash("#faq"), { section: "questions" });
   assert.deepEqual(resolveHomeHash("#features"), { section: "platform" });
   assert.equal(resolveHomeHash("#module-unknown"), null);

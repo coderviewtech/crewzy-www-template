@@ -22,7 +22,7 @@
 }
 
 .benefitHighlights strong {
-  color: #344d72;
+  color: var(--preview-ui-text);
   font-size: .875rem;
   font-weight: 600;
   letter-spacing: -.015em;
@@ -80,7 +80,7 @@
   transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
-.connectionNode strong { flex: 1; color: #243b58; font-size: .875rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.4; }
+.connectionNode strong { flex: 1; color: var(--preview-ui-text); font-size: .875rem; font-weight: 600; letter-spacing: -.025em; line-height: 1.4; }
 .connectionNode > svg { flex: none; width: 12px; opacity: 0; margin-left: -10px; color: var(--blue); transition: opacity .2s, margin .2s; }
 .connectionNode:hover, .connectionNode:focus-visible { border-color: var(--preview-brand-outline-hover); background: var(--preview-brand-surface); box-shadow: 0 6px 22px color-mix(in srgb, var(--preview-brand-accent) 4.71%, transparent); }
 .connectionNode:hover > svg, .connectionNode:focus-visible > svg { opacity: 1; margin-left: -5px; }
@@ -95,8 +95,8 @@
 .connectionHub:hover .connectionCore { border-color: var(--preview-brand-outline-hover); box-shadow: 0 13px 40px color-mix(in srgb, var(--preview-brand-accent) 10.2%, transparent), 0 0 0 7px color-mix(in srgb, var(--preview-brand-tint) 65.88%, transparent); }
 .connectionCore > span:first-child { font-size: 26px; }
 .connectionCore > span:first-child > span:first-child { width: 30px; height: 30px; border-radius: 9px; }
-.connectionCore > strong { font-size: .8125rem; font-weight: 600; color: #3d587c; margin-top: 17px; }
-.connectionCore > span:nth-of-type(2) { color: #53657b; font-size: .75rem; margin-top: 3px; }
+.connectionCore > strong { font-size: .875rem; font-weight: 600; color: var(--preview-ui-text); margin-top: 17px; }
+.connectionCore > span:nth-of-type(2) { color: var(--preview-ui-muted); font-size: .75rem; margin-top: 3px; }
 .connectionCore .connectionReady { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; margin-top: 12px; background: #eff8f3; border: 1px solid #c6ded2; border-radius: 6px; color: #23664f; font-size: .75rem; font-weight: 500; }
 
 @media (max-width: 1240px) {

@@ -1,0 +1,119 @@
+import Link from "next/link";
+import { company } from "../company";
+import { privacyEmail } from "../site-config";
+import { LegalPage, LegalTable } from "../legal-page";
+import { createLegalMetadata } from "../site-seo";
+import { customerDataCategories } from "../privacy-data";
+import { inactiveWorkspaceRetentionDays } from "../legal-policy";
+
+export const metadata = createLegalMetadata({
+  title: "Privacy policy",
+  description: "How Crewzy handles account, workspace, billing and website information, including AI features, service providers and your privacy rights.",
+  canonical: "/privacy",
+});
+
+export default function PrivacyPolicyPage() {
+  return (
+    <LegalPage title="Privacy policy" summary="Understand what information Crewzy uses, why it is needed and the choices available to you.">
+      <section id="responsibility">
+        <h2>1. Who we are and our role</h2>
+        <p>Crewzy is a product of {company.legalName}, registered in England and Wales under company number {company.number}. Our registered office is {company.registeredOffice}. References to “Crewzy”, “we” and “us” in this policy mean that company.</p>
+        <p>Crewzy connects people management, employee lifecycle workflows, everyday work, document expiry tracking and compliance evidence. Individuals can use Crewzy for personal expenses, and businesses can use it for business expenses and team workflows. Paid plans, when introduced, are priced by managed employee count.</p>
+        <p>We are responsible as a data controller for information used to manage our own accounts, enquiries, customer relationships, subscription billing and service security. Where an organisation manages workforce or recruitment information in Crewzy, it usually decides why that information is used and acts as controller; Crewzy processes it on its instructions. That relationship is covered by the agreed <Link href="/dpa">data processing terms</Link>.</p>
+        <p>For a workspace used solely for your personal or household purposes, Crewzy acts as controller for the personal information it processes to provide that service. Information about you that is necessary to provide the requested service is processed to perform our contract with you. Ordinary information about other people supplied for a lawful personal use is processed on the basis of our legitimate interests in providing that requested service, balanced against their rights. A household exemption for your own activity does not exempt Crewzy’s processing. Sensitive information still requires an additional applicable legal condition and an agreed service scope.</p>
+        <p>Crewzy is provided as software as a service: customers use the application and do not need access to Crewzy’s AWS accounts. Customers manage their own records and workspace permissions. Crewzy personnel hold AWS administrative access; that does not mean customers’ records are routinely read. The exact permissions, personnel and access countries are still being documented. Hosting, storing records, running workflows and sending relevant information to AI are processing activities even without manual viewing. Paying personally does not automatically make someone the controller of their employer’s records.</p>
+        <p>If an employer, recruiter or another organisation supplied your information, read its privacy notice as well. It is responsible for explaining its purposes, legal grounds, access decisions and retention instructions.</p>
+      </section>
+      <section id="information">
+        <h2>2. Information Crewzy handles</h2>
+        <p>The information depends on the features used, workspace settings and what people supply. The table describes supported categories; every field is not required from every person.</p>
+        <LegalTable label="Information supported by Crewzy and its purpose">
+          <table>
+            <caption>Workspace information</caption>
+            <thead><tr><th scope="col">Area</th><th scope="col">Information</th><th scope="col">Purpose</th></tr></thead>
+            <tbody>{customerDataCategories.map(item => <tr key={item.category}><th scope="row">{item.category}</th><td>{item.data}</td><td>{item.purpose}</td></tr>)}</tbody>
+          </table>
+        </LegalTable>
+        <p>We also handle account contacts, personal or work email addresses, organisation details, declared billing country, enquiries and support correspondence. Billing addresses and subscription-payment references may be handled when paid billing is introduced; online payment providers are not currently integrated into the live service. Connection and security information can include IP addresses, browser details, requested pages and event times.</p>
+        <p>Information may come directly from you, your organisation’s administrators, employees, candidates, recruitment clients, imports or enabled connected services. Any future payment provider’s information flows must be disclosed before that integration is used. The service also generates workflow status, extracted fields, summaries and activity records.</p>
+        <p>Health information can appear in leave evidence, blood-group fields, files or free text. Supply sensitive information only when necessary, permitted for the agreed service and supported by an appropriate legal ground and any additional required condition. Do not upload unrelated sensitive information, passwords or authentication codes into documents or chat.</p>
+      </section>
+      <section id="purposes">
+        <h2>3. Why information is used</h2>
+        <p>For information controlled by Crewzy, the UK and EU legal grounds, where applicable, depend on the purpose:</p>
+        <ul>
+          <li><strong>Account setup, an individual subscription and requested support:</strong> performing a contract with you, or taking steps you request before entering it, where the information is necessary for that purpose.</li>
+          <li><strong>Organisation contacts and enquiries:</strong> our legitimate interests in responding to requests and managing customer relationships. An employer’s contract does not itself provide a contractual legal ground for all employee information.</li>
+          <li><strong>Account protection and abuse prevention:</strong> our legitimate interests in protecting people, accounts and the service, balanced against the effect on individuals.</li>
+          <li><strong>Subscription administration, accounting and legal matters:</strong> contractual necessity for individual customers, legitimate interests in administering organisational accounts and resolving disputes, and legal obligations where applicable.</li>
+          <li><strong>Consent-based activities:</strong> consent where required and actually obtained. You can withdraw it without affecting processing that was lawful before withdrawal.</li>
+        </ul>
+        <p>For customer-controlled workspace information, the customer determines the purposes and legal grounds. This policy does not replace its employment, recruitment or other privacy notices, or supply a lawful basis for unnecessary data collection.</p>
+        <p>Some account and security details are necessary to provide access; without them, we may be unable to create or protect an account. Workspace administrators should explain which other fields they require and why.</p>
+      </section>
+      <section id="ai">
+        <h2>4. AI and document expiry tracking</h2>
+        <p>Where enabled, AI features can answer workspace questions using relevant permission-scoped results, extract document fields, summarise CVs, assist candidate-fit reviews and prepare notes from uploaded interview transcripts. Inputs and relevant context are sent to Amazon Bedrock for processing. The model and inference configuration determine the relevant provider routing.</p>
+        <p>Document extraction can send a complete document image or extracted text, including personal information within it, rather than expiry dates alone. Recruitment outputs can include skill matches, scores, strengths, gaps and explanations. Outputs may be inaccurate or incomplete and should receive meaningful human review before decisions affecting people.</p>
+        <p><strong>Crewzy tracks document dates and expiry. It does not verify a document’s authenticity.</strong> Its records and reminders support a customer’s compliance work; they do not guarantee regulatory compliance.</p>
+        <p>Amazon Bedrock is the confirmed AI service. Its selected models, inference routing, account settings, retention and applicable terms still need to be recorded. We do not infer a blanket no-retention or no-training commitment from the presence of a model integration. See <Link href="/subprocessors">service provider information</Link> for selection status and <Link href="/resources#ai-safeguards">AI safeguards</Link> for the scope and release status of the credential and chat-history protections.</p>
+      </section>
+      <section id="sharing">
+        <h2>5. Who information may be shared with</h2>
+        <ul>
+          <li><strong>Workspace participants:</strong> administrators, managers and other authorised users, according to permissions and workflow participation.</li>
+          <li><strong>Service providers:</strong> database and infrastructure, AI processing, Crewzy mailboxes and website hosting, together with identity, security or notification services where enabled. Their roles and information flows differ. No live payment provider is currently integrated; a future provider must be disclosed when selected.</li>
+          <li><strong>Recipients chosen by a customer:</strong> connected communication services and recruitment clients receiving shared profiles, selected documents or assessments.</li>
+          <li><strong>Legal and professional recipients:</strong> authorities where disclosure is legally required, professional advisers, or parties to a genuine business transaction where disclosure is necessary and subject to appropriate protections.</li>
+        </ul>
+        <p>The confirmed services are AWS RDS for the database, Amazon Bedrock for AI, Zoho for Crewzy mailboxes and Netlify for the marketing website. The <Link href="/subprocessors">provider page</Link> separates those services from optional integrations. Exact contracting entities, other enabled services, processing locations and relevant agreements still need to be recorded. We do not sell personal information as a service feature.</p>
+      </section>
+      <section id="locations">
+        <h2>6. Data locations and international processing</h2>
+        <p>The AWS RDS database is in London, as confirmed by Crewzy. Document-storage and backup regions, Bedrock inference routing, Zoho data-centre settings, Netlify processing and staff access countries have not yet been confirmed in this notice. The London database location does not establish that all information stays in the UK.</p>
+        <p>Where an international transfer needs a legal safeguard, the applicable arrangements must be established for that transfer. We have not confirmed a complete transfer schedule or the applicable safeguards for each selected service. This policy does not assert UK-only or EU-only processing. Contact us to request the relevant transfer information once those arrangements are selected.</p>
+      </section>
+      <section id="retention">
+        <h2>7. How long information is kept</h2>
+        <h3>{inactiveWorkspaceRetentionDays} days after workspace deactivation</h3>
+        <p>Crewzy’s intended policy is to retain workspace data for {inactiveWorkspaceRetentionDays} days after the workspace is deactivated, including where deactivation follows non-payment. The period starts on deactivation, not on the first missed payment date. Cancelling renewal alone is not the same as workspace deactivation.</p>
+        <p>Complete return, export and deletion coverage across database records, uploaded files, AI-related data, providers and backups still needs implementation and verification. The {inactiveWorkspaceRetentionDays}-day policy is not a statement that every copy is automatically erased on day {inactiveWorkspaceRetentionDays + 1}. Earlier valid deletion or return requests and applicable legal retention duties must be addressed separately.</p>
+        <p>Other retention depends on the purpose and the information involved:</p>
+        <ul>
+          <li><strong>Account and subscription information:</strong> for the active relationship and afterwards to the extent needed for applicable accounting duties, disputes, fraud prevention or other justified legal purposes.</li>
+          <li><strong>Enquiries and support:</strong> for the time needed to respond and resolve the issue, with additional retention only where a continuing relationship, dispute or legal requirement justifies it.</li>
+          <li><strong>Customer workspace records and files:</strong> for the active service and the intended inactive-workspace period above, subject to lawful customer instructions, agreed return or deletion arrangements and applicable retention duties or holds.</li>
+          <li><strong>Security and activity information:</strong> for proportionate investigation, security and evidence needs, taking account of event sensitivity and applicable duties.</li>
+          <li><strong>Provider copies and backups:</strong> according to the selected provider terms and agreed deletion or overwrite arrangements, which are still being finalised.</li>
+        </ul>
+        <p>A document’s expiry date is not its deletion date. Cancelling billing, disabling access or removing a record from a screen does not establish erasure from every system. Export and permanent deletion coverage is still being completed, so we do not promise that one action automatically removes every copy or that all records are deleted within a fixed number of days.</p>
+      </section>
+      <section id="rights">
+        <h2>8. Your privacy rights</h2>
+        <p>Depending on the applicable law and circumstances, you may have rights to access, correct, erase or restrict use of your information, obtain a portable copy, and withdraw consent. Rights have legal conditions and exceptions. Where applicable, you may also challenge qualifying automated decisions and request human involvement.</p>
+        <h3>Your right to object</h3>
+        <p>Where UK or EU data protection law applies, you may object to processing based on legitimate interests for reasons relating to your situation. You may object to direct marketing at any time.</p>
+        <p>For employer or recruiter-controlled records, contact that organisation first. Crewzy assists under the applicable processing agreement. For information Crewzy controls, contact <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>, or write to {company.legalName}, Privacy, {company.registeredOffice}. We may need proportionate identity information to handle a request; do not send passwords, codes or complete identity documents in an initial message.</p>
+        <p>You may complain to the <a href="https://ico.org.uk/make-a-complaint/">UK Information Commissioner’s Office</a> or the competent authority in your country. This policy does not limit mandatory local rights, including applicable US state privacy rights.</p>
+      </section>
+      <section id="india">
+        <h2>9. Information for people in India</h2>
+        <p>Applicable Indian privacy requirements are assessed separately from UK and EU legal grounds. The Digital Personal Data Protection Act and Rules are commencing in phases; publication does not make every provision operational at once. The principal processing and individual-rights provisions are scheduled to commence eighteen months after the November 2025 notification.</p>
+        <p>Where applicable, the organisation deciding the purposes and means acts as Data Fiduciary, and Crewzy may act as its Data Processor. Crewzy has separate responsibilities for its own purposes. Applicable notice, consent or other permitted-use requirements, grievance arrangements and protections for children must be addressed for the processing concerned. The UK concept of legitimate interests is not presented as an Indian statutory ground.</p>
+        <p>You can raise an India-related privacy or grievance enquiry using the privacy contact or postal address above. Crewzy does not claim that a named Indian grievance officer or a completed local compliance programme has already been established. See the <a href="https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf">official commencement notification</a> for the phased timetable.</p>
+      </section>
+      <section id="storage">
+        <h2>10. Cookies, browser storage and local pricing</h2>
+        <p>The application uses authentication cookies and browser storage for session metadata and interface preferences. A remembered-account hint can retain an email, display name and workspace after sign-out; a different-account action clears it, and hints older than 90 days are rejected when read. This is separate from chat transcript storage.</p>
+        <p>Google sign-in and signup protection can load provider scripts when enabled. The application also includes an ipapi.co country-lookup fallback, which can expose a visitor IP address to that service. Some email templates reference Google Fonts; loading those resources in an email client can disclose connection metadata.</p>
+        <p>Netlify hosts the marketing website. Its pricing implementation uses Netlify’s approximate country signal when configured and available. That display does not request GPS access or add a separate IP-lookup service. Future paid billing will be governed separately by the declared billing country and the selected payment checks; the public pricing display does not verify a billing country or take payment. No advertising or analytics tags were found in the reviewed marketing source; deployed hosting scripts and enabled integrations still require confirmation.</p>
+      </section>
+      <section id="updates">
+        <h2>11. Security, younger users and updates</h2>
+        <p>The <Link href="/resources#security">security and trust page</Link> explains application controls and distinguishes locally tested improvements from verified live settings. No system can guarantee absolute security.</p>
+        <p>Account holders must meet the age and legal-capacity requirements in the <Link href="/terms">Terms and conditions</Link>. If an organisation manages information about young workers or apprentices, it must assess the lawful purpose and relevant child-data protections; an adult account holder does not make every person in the workspace an adult.</p>
+        <p>We will update this policy when the service or its data uses change. The date above identifies this version. Material changes should be brought to affected users’ attention through an appropriate service or contact notice before a new use begins where required.</p>
+      </section>
+    </LegalPage>
+  );
+}

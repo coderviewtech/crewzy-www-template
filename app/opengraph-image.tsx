@@ -48,14 +48,14 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 62, fontWeight: 800, color: "#1d3353", lineHeight: 1.15, letterSpacing: -1.5 }}>
+          <div style={{ fontSize: 62, fontWeight: 800, color: "#000", lineHeight: 1.15, letterSpacing: -1.5 }}>
             {`${lead}.`}
           </div>
-          <div style={{ fontSize: 76, fontWeight: 800, color: "#2854d6", lineHeight: 1.15, letterSpacing: -1.5 }}>
+          <div style={{ fontSize: 76, fontWeight: 800, color: "#000", lineHeight: 1.15, letterSpacing: -1.5 }}>
             {payoff}
           </div>
           <div style={{ fontSize: 28, color: "#46546b", marginTop: 26, lineHeight: 1.4 }}>
-            HR, time tracking, invoicing and document workflows.
+            people management, time tracking, invoicing and document workflows.
             One connected workspace for growing teams.
           </div>
         </div>

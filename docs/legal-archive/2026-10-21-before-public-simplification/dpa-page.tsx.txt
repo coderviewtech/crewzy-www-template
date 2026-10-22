@@ -1,0 +1,81 @@
+import Link from "next/link";
+import { company } from "../company";
+import { privacyEmail } from "../site-config";
+import { LegalPage, LegalTable } from "../legal-page";
+import { createLegalMetadata } from "../site-seo";
+import { inactiveWorkspaceRetentionDays } from "../legal-policy";
+
+export const metadata = createLegalMetadata({
+  title: "Data processing agreement",
+  description: "How Crewzy agrees data processing terms for customer workspaces, including security, subprocessors, data rights and return or deletion.",
+  canonical: "/dpa",
+});
+
+const protections = [
+  ["Instructions", "Process on documented lawful instructions; identify instructions that may breach data protection law."],
+  ["Confidentiality", "Restrict authorised personnel to necessary access and bind them to confidentiality."],
+  ["Security", "Agree measures appropriate to risk, including access, availability, recovery and regular assessment."],
+  ["Subprocessors", "Obtain prior written authorisation, apply equivalent obligations and retain responsibility. Changes under general authorisation allow advance notice and an opportunity to object."],
+  ["Individual rights", "Assist the customer with applicable access, correction, deletion, portability and other rights requests."],
+  ["Incidents and assistance", "Notify the customer without undue delay after awareness of a personal data breach; assist with security, impact assessments and required regulatory consultation."],
+  ["Return or deletion", "At the customer’s choice, return or delete data and copies when services end, subject to legally required retention."],
+  ["Accountability", "Provide relevant compliance information and allow and contribute to customer audits and inspections."],
+] as const;
+
+export default function DpaPage() {
+  return (
+    <LegalPage title="Data processing agreement" summary="Data processing terms for organisations that use Crewzy to manage personal information on behalf of their people and customers.">
+      <section>
+        <h2>1. When a DPA applies</h2>
+        <p>Crewzy is a product of {company.legalName}, registered in {company.jurisdiction} under company number {company.number}. An organisation or sole trader using Crewzy to decide how and why personal data is used will generally be the controller; Crewzy processes the agreed workspace data on that customer’s instructions. A customer acting for another controller must have authority to appoint Crewzy.</p>
+        <p>Buying personally does not automatically make someone a business controller. A private individual using Crewzy solely for personal or household purposes is not required to enter a controller–processor DPA merely because they open an account. Our <Link href="/privacy">privacy policy</Link> and <Link href="/terms">terms and conditions</Link> explain the wider relationship.</p>
+        <p>This distinction depends on the actual use of personal information. See the <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/controllers-and-processors/controllers-and-processors/what-are-controllers-and-processors/">ICO’s explanation of controllers and processors</a>.</p>
+      </section>
+
+      <section>
+        <h2>2. Agreeing the processing terms</h2>
+        <p>A written DPA with completed processing, security, retention, provider and transfer schedules must be agreed before Crewzy processes live customer personal data on an organisation’s behalf. Opening this page does not execute a DPA or incorporate an incomplete supplier list.</p>
+        <p>The agreement identifies the customer, authorised contacts, applicable services, effective date and duration. It also records instructions, responsibilities and applicable data protection law for the agreed processing. Customer account, billing and security information used for Crewzy’s own purposes is addressed separately in the <Link href="/privacy">privacy policy</Link>.</p>
+        <p>For the written-contract requirement, see the <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/when-is-a-contract-needed-and-why-is-it-important/">ICO’s controller–processor contract guidance</a>.</p>
+      </section>
+
+      <section>
+        <h2>3. Processing covered by the agreement</h2>
+        <dl>
+          <dt>Services</dt><dd>People management and employee lifecycle workflows; documents and expiry dates; leave, time and projects; expenses and invoices; recruitment; compliance evidence and audit history, as enabled for the workspace.</dd>
+          <dt>Activities</dt><dd>Receiving, storing, organising, retrieving and displaying information; authorised sharing, extraction, analysis and support; agreed return or deletion.</dd>
+          <dt>People whose information may be included</dt><dd>Workspace users, employees, contractors, emergency contacts, candidates, interviewers and client or supplier contacts.</dd>
+          <dt>Information</dt><dd>Account and contact details; employment and onboarding records; uploaded documents, identifiers and dates; time and leave entries; receipts and financial records; recruitment material; activity history; and AI inputs and outputs where used.</dd>
+          <dt>Duration</dt><dd>The service term and the return, deletion, backup expiry and lawful retention periods recorded in the completed agreement. Crewzy’s intended inactive-workspace period is {inactiveWorkspaceRetentionDays} days from workspace deactivation, including deactivation after non-payment; complete deletion coverage still requires verification.</dd>
+        </dl>
+        <p>Document expiry tracking concerns dates and renewals. It does not verify authenticity. Health information, identity documents and other sensitive records need an assessed purpose, lawful handling and appropriate safeguards. AI features can receive relevant document images or text, prompts and workspace results; their scope and provider must be agreed before use.</p>
+      </section>
+
+      <section>
+        <h2>4. Required protections</h2>
+        <LegalTable label="Data processing agreement protections">
+          <table>
+            <caption>Subjects covered by the completed controller–processor agreement</caption>
+            <thead><tr><th scope="col">Area</th><th scope="col">Protection</th></tr></thead>
+            <tbody>{protections.map(([area, protection]) => <tr key={area}><th scope="row">{area}</th><td>{protection}</td></tr>)}</tbody>
+          </table>
+        </LegalTable>
+        <p>These are the core contract protections described in the <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/">ICO’s Article 28 guidance</a>. This summary is not an executed agreement.</p>
+      </section>
+
+      <section>
+        <h2>5. Providers, locations and security schedules</h2>
+        <p>Confirmed services are AWS RDS in London, Amazon Bedrock, Zoho for Crewzy mailboxes and Netlify for the public website. Further storage, backup, AI-routing and support-access locations and contractual details still need to be recorded. The planned service markets are the UK, India, US and euro area; a customer’s billing currency does not determine where their data is processed.</p>
+        <p>The completed schedules must identify approved providers, processing and access countries, actual security measures, international-transfer safeguards where required, retention periods and the practical return or deletion arrangements. Subprocessor notice and objection arrangements will be agreed in the DPA; no fixed notice period is offered on this page.</p>
+        <p>The intended {inactiveWorkspaceRetentionDays}-day period does not override an earlier lawful customer instruction to return or delete data, a valid individual-rights request or mandatory legal retention. The completed agreement must specify scope, export/return arrangements, backup treatment, legal holds and evidence of deletion. This page does not warrant that a complete automatic deletion process already exists.</p>
+        <p>Read our <Link href="/subprocessors">service provider information</Link> and <Link href="/resources#security">security and trust page</Link> for the current scope. Neither this page nor the presence of a provider integration represents a certification or a UK-only hosting commitment.</p>
+      </section>
+
+      <section>
+        <h2>6. Request processing terms</h2>
+        <p>For a DPA request or a question about organisational processing, contact <a href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></a>. Include your organisation’s name, the services you intend to use and your contact details. Please do not send employee records or identity documents with an initial enquiry.</p>
+        <p>You can also write to: Privacy enquiries, {company.legalName}, {company.registeredOffice}.</p>
+      </section>
+    </LegalPage>
+  );
+}

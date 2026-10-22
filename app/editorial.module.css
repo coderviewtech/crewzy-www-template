@@ -9,6 +9,26 @@
 .page [data-product-frame] { border-radius: 10px; box-shadow: 0 24px 64px -32px #20394b40, 0 2px 4px #20394b08; }
 .page h1 { text-wrap: balance; }
 
+
+.page .hero { padding-top: 156px; }
+.page .hero h1 { margin-block: 20px 22px; }
+.page .heroDescription { max-width: 780px; text-wrap: pretty; }
+.page .heroActions { margin-top: 28px; }
+.page .heroActions > a:first-child { min-width: 174px; }
+.productCaption {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 15px;
+  color: #596a7f;
+  font-size: .75rem;
+  line-height: 1.6;
+  text-align: left;
+}
+.productCaption a { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--preview-brand-accent); }
+.productCaption a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
 .platformSection { padding-block: 58px 32px; }
 .platformStory { display: flow-root; background: #fff; }
 .page .platformIntro {
@@ -29,20 +49,20 @@
   padding: 15px 22px;
   background: #fffffff0;
   box-shadow: none;
-  color: #52606d;
+  color: var(--preview-ui-muted);
 }
-.page .photoCaption strong { color: #273e4c; }
+.page .photoCaption strong { color: var(--preview-ui-text); }
 .page .aiSection { border: 0; border-block: 1px solid var(--line); border-radius: 0; padding: 56px 0; background: #fff; gap: 72px; }
 .page .aiExample { background: #f5f6f8; border: 1px solid #dde3ec; border-radius: 10px; padding: 24px; }
-.page .aiExample p, .page .aiExample > small { color: #536278; }
+.page .aiExample p, .page .aiExample > small { color: var(--preview-ui-muted); }
 .page [id="questions"] summary { color: #293d54; }
 .page [id="questions"] details > p { color: #536278; }
 .assistantHeader { display: flex; align-items: center; gap: 9px; margin-bottom: 24px; color: #685080; font-size: 14px; }
-.assistantHeader strong { color: #293c51; font-weight: 600; }
-.assistantHeader > span { margin-left: auto; color: #58687d; font-size: 12px; }
+.assistantHeader strong { color: var(--preview-ui-text); font-weight: 600; }
+.assistantHeader > span { margin-left: auto; color: var(--preview-ui-muted); font-size: 12px; }
 
 .audienceList { display: grid; gap: 12px; list-style: none; padding: 0; margin: 25px 0; }
-.audienceList > li { display: flex; align-items: center; gap: 12px; color: #243b58; font-size: 1rem; font-weight: 550; line-height: 1.5; }
+.audienceList > li { display: flex; align-items: center; gap: 12px; color: var(--preview-ui-text); font-size: 1rem; font-weight: 600; line-height: 1.5; }
 .audienceList svg { flex: none; width: 32px; height: 32px; padding: 7px; border-radius: 8px; background: var(--preview-brand-tint); color: var(--preview-brand-accent); }
 .sectionLink { display: inline-flex; align-items: center; gap: 9px; margin-top: 12px; color: var(--preview-brand-accent); font-size: 1rem; font-weight: 600; }
 .sectionLink:hover { color: var(--preview-brand-hover); }
@@ -60,6 +80,10 @@
   border: 1px solid #e0e7f0;
   border-radius: 12px;
 }
+.page .closingSection [data-section-heading] > p:last-child {
+  color: #000;
+  font-weight: 700;
+}
 .closingActions { flex: none; text-align: center; }
 
 @media (max-width: 1240px) {
@@ -71,6 +95,10 @@
   .page .closingSection { padding: 36px; gap: 24px; }
 }
 @media (max-width: 760px) {
+  .page .hero { padding-top: 118px; }
+  .page .hero h1 { margin-top: 18px; }
+  .productCaption { flex-direction: column; align-items: flex-start; gap: 6px; }
+
   .page h1 > span { display: inline-block; width: 100%; text-wrap: balance; }
   .platformSection { padding-block: 40px 24px; }
   .page .platformIntro { display: block; padding-block: 20px 24px; }

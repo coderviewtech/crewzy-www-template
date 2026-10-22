@@ -1,0 +1,124 @@
+import Link from "next/link";
+import { company } from "../company";
+import { privacyEmail } from "../site-config";
+import { LegalDraftPage, Confirmation, LegalTable } from "../legal-draft";
+import { createDraftMetadata } from "../legal-draft-metadata";
+import { customerDataCategories } from "../privacy-data";
+
+export const metadata = createDraftMetadata({
+  title: "Data processing agreement",
+  description: "Proposed Crewzy data processing terms and schedules for review, with unconfirmed operational and contractual items identified.",
+  canonical: "/dpa",
+});
+
+export default function DpaPage() {
+  return (
+    <LegalDraftPage title="Data processing agreement" summary="Proposed terms for Crewzy’s processing of personal data on a customer’s instructions, with processing and security schedules.">
+      <section>
+        <h2>1. Parties, scope and entry into force</h2>
+        <p>This proposed agreement is between the customer identified in the service agreement (“Customer”) and {company.legalName}, company number {company.number}, registered at {company.registeredOffice} (“Crewzy”). It covers personal data processed to provide the agreed Crewzy services (“Customer Personal Data”).</p>
+        <p>Planned Crewzy privacy and DPA contact: <strong>{privacyEmail}</strong>. Mailbox setup and monitoring are pending.</p>
+        <p>Customer acts as controller and Crewzy as processor. Where Customer acts as a processor for another controller, it must have authority to give the relevant instructions and appoint Crewzy as a subprocessor. Data protection terms take precedence over conflicting service terms for this processing, subject to mandatory law and any applicable approved transfer clauses.</p>
+        <p>“Data Protection Law” means the UK GDPR and Data Protection Act 2018, as amended, and EU GDPR where applicable to the agreed processing. For the planned Indian service, it also includes applicable provisions of India’s Information Technology Act and SPDI Rules, and the DPDP Act 2023 and final Rules 2025 as and when in force. EU obligations are not presumed solely because UK and India are the launch markets. Statutory terms such as controller, processor and personal data breach have their applicable legal meanings.</p>
+        <Confirmation>Confirm CODER VIEW LTD as the customer-contracting entity, Customer identification, the UK, India, US and euro-area service scope, underlying service agreement, execution or online acceptance process, authorised signatories and effective date. This draft is not an executed agreement and adds no acceptance checkbox.</Confirmation>
+      </section>
+      <section>
+        <h2>2. Documented instructions</h2>
+        <p>Crewzy shall process Customer Personal Data only on Customer’s documented lawful instructions, including instructions about international transfers, unless applicable law requires otherwise. Where legally permitted, Crewzy shall inform Customer of that requirement before processing. The agreed service configuration and authorised support requests may form part of those instructions.</p>
+        <p>Crewzy shall immediately inform Customer if it considers an instruction infringes applicable data protection law. The parties shall resolve that issue before the affected processing continues. Customer remains responsible for the purposes, legal grounds, required notices and authority for supplying data, including third-party, health and recruitment information.</p>
+        <p>Processing for Crewzy’s separate business purposes must be identified in the privacy notice and supported by its own legal basis; this DPA does not authorise unrelated reuse of Customer Personal Data.</p>
+      </section>
+      <section>
+        <h2>3. Authorised people and confidentiality</h2>
+        <p>Crewzy shall limit access to people who need it for the agreed service, ensure they are bound by an appropriate confidentiality duty, and maintain access controls proportionate to the information. Personnel and contractor access, including access from other countries, must be covered by the agreed safeguards and instructions.</p>
+        <Confirmation>Confirm who can access customer data, their working countries, confidentiality commitments, training, access reviews and the process for granting and removing access.</Confirmation>
+      </section>
+      <section>
+        <h2>4. Security</h2>
+        <p>Crewzy shall maintain technical and organisational measures appropriate to the risk, taking account of the processing, state of the art and implementation costs. These shall address confidentiality, integrity, availability, recovery and regular assessment of effectiveness. Schedule B must describe the measures actually provided for the agreed environment.</p>
+        <p>Security changes shall not materially reduce the agreed protection. Customer shall manage its authorised users, permissions, lawful configuration and use of exported or shared information. Neither a source review nor a test count is a substitute for operating the agreed controls.</p>
+      </section>
+      <section>
+        <h2>5. Subprocessors</h2>
+        <p>Crewzy shall obtain Customer’s prior specific or general written authorisation before appointing subprocessors. Under general authorisation, the agreed list shall identify approved providers and processing. Crewzy shall give advance written notice of an intended addition or replacement, allowing Customer a meaningful opportunity to object on data protection grounds before the change takes effect.</p>
+        <p>Crewzy shall impose equivalent applicable data protection obligations on each subprocessor and remain responsible to Customer for the subprocessor’s performance of those obligations. A brand appearing in the source is not authorisation to use it. The <Link href="/subprocessors">current review inventory</Link> is not yet an approved contractual list.</p>
+        <Confirmation>Proposal for review: 30 calendar days’ advance notice, {privacyEmail} as the planned objection address once activated, and a process to resolve objections through an alternative provider, disabled affected feature or agreed termination remedy. Approve the period, recipients, remedies and notice mechanism; no automated notice service is assumed.</Confirmation>
+      </section>
+      <section>
+        <h2>6. Locations and transfers</h2>
+        <p>Crewzy shall process and permit access only in the locations and through the providers authorised under the completed schedules. Where a restricted transfer occurs, the parties shall put in place the applicable lawful transfer mechanism, required assessments and supplementary measures before that transfer. Any approved transfer instrument takes precedence to the extent required by its terms.</p>
+        <Confirmation>Complete the hosting, backup, AI routing and support-access map; identify the actual exporter/importer roles and any adequacy decision, UK IDTA or Addendum, EU standard contractual clauses or other applicable mechanism. No transfer instrument is incorporated by this incomplete draft.</Confirmation>
+      </section>
+      <section>
+        <h2>7. Individual rights and regulatory assistance</h2>
+        <p>Taking account of the processing, Crewzy shall assist Customer with appropriate measures for requests concerning access, correction, deletion, restriction, portability and other applicable rights. Crewzy shall promptly refer a request relating to Customer Personal Data to Customer and shall not decide the substantive response except on instructions or where law requires it.</p>
+        <p>Taking account of the information available, Crewzy shall also assist with security obligations, breach handling, required data protection impact assessments and prior consultation with supervisory authorities. Assistance arrangements must allow Customer to meet its legal deadlines and must not remove Crewzy’s statutory duties.</p>
+        <Confirmation>Assign request-handling and escalation owners, secure request channels and a tested manual or automated process across all relevant records, files, backups and providers. Existing exports and blocked erasure paths do not establish complete rights fulfilment.</Confirmation>
+      </section>
+      <section>
+        <h2>8. Personal data breaches</h2>
+        <p>Crewzy shall notify Customer without undue delay after becoming aware of a personal data breach affecting Customer Personal Data. Notice shall include, as available, the nature and scope, affected categories and approximate numbers, contact point, likely consequences, and mitigation taken or proposed. Information may follow in stages without delaying the initial notice.</p>
+        <p>Crewzy shall investigate, contain, preserve appropriate evidence and cooperate with Customer’s assessment and notifications. Customer determines its own notices to authorities and individuals, except where law separately requires Crewzy to notify.</p>
+        <Confirmation>Confirm a monitored incident channel, responsible responders and customer emergency contacts. Any additional contractual notification target must be realistic and agreed; the controller’s regulatory reporting deadline is not a waiting period for Crewzy to notify Customer.</Confirmation>
+      </section>
+      <section>
+        <h2>9. Information and audits</h2>
+        <p>Crewzy shall make available information needed to demonstrate compliance with its processor obligations and allow and contribute to audits, including inspections, by Customer or an auditor mandated by Customer. The parties may agree proportionate arrangements that protect other customers’ information and system security without frustrating mandatory audit rights.</p>
+        <p>Crewzy shall cooperate with competent supervisory authorities as required. This agreement does not represent that Crewzy holds a SOC 2 report, ISO 27001 certification or GDPR certification.</p>
+        <Confirmation>Agree the evidence pack, audit coordination contact, confidentiality arrangements and any reasonable commercial terms without limiting statutory or regulator rights.</Confirmation>
+      </section>
+      <section>
+        <h2>10. Return, deletion and duration</h2>
+        <p>Processing continues for the agreed service term and the completed return or deletion period. At the end of the relevant services, Crewzy shall, at Customer’s choice, return or delete Customer Personal Data and delete remaining copies, unless applicable law requires retention. Required retained data shall be restricted to that legal purpose and protected for the applicable period.</p>
+        <p>The completed process must cover active records, uploaded files and versions, derived outputs, providers and backups. Where immediate backup deletion is not feasible, the agreed process must restrict the data from further use, define overwrite expiry and prevent deleted information from being restored into active use.</p>
+        <Confirmation>Schedule C is not agreed: specify the export/return format and window, active-system deletion deadline, backup/provider expiry, legal holds, responsible operators and completion evidence. Complete and test the missing erasure coverage before this obligation is offered as an operational capability.</Confirmation>
+      </section>
+      <section>
+        <h2>Schedule A. Processing description</h2>
+        <dl>
+          <dt>Subject matter and nature</dt><dd>Provision of the customer’s agreed Crewzy modules through collection, recording, organisation, storage, retrieval, customer-authorised sharing, extraction, analysis, support and agreed return or deletion.</dd>
+          <dt>Purpose</dt><dd>People management, employee lifecycle, everyday work, document date and expiry tracking, compliance evidence, recruitment and financial administration, as enabled and instructed. Document authenticity verification and a payroll execution service are not included by this description.</dd>
+          <dt>Data subjects</dt><dd>Customer users, administrators, employees, contractors, emergency contacts, candidates, interviewers, recruiters and customer/client business contacts whose information is supplied.</dd>
+          <dt>Frequency and duration</dt><dd>Ongoing as features are used, for the service term and the agreed return, deletion and lawful retention periods. No fixed period is set by this draft.</dd>
+          <dt>Customer rights and obligations</dt><dd>Give lawful instructions; decide purposes and legal grounds; inform affected people; manage access and sharing; choose applicable retention; and exercise the assistance, information, audit and return/deletion rights in this DPA.</dd>
+        </dl>
+        <LegalTable label="Personal data categories covered by the proposed DPA">
+          <table>
+          <caption>Possible Customer Personal Data, limited to the agreed features</caption>
+          <thead><tr><th scope="col">Category</th><th scope="col">Information</th></tr></thead>
+          <tbody>{customerDataCategories.map(item => <tr key={item.category}><th scope="row">{item.category}</th><td>{item.data}</td></tr>)}</tbody>
+          </table>
+        </LegalTable>
+        <p>Health information may be supplied in blood-group fields, leave evidence or documents. Other special-category or criminal-offence information requires an expressly assessed scope, applicable legal conditions and agreed protections. This draft does not give blanket permission for such uploads.</p>
+        <p>AI input can include whole document images, CV text, provided transcripts and candidate/job details. Matching and generated assessments need a documented purpose and decision-review process; do not describe them as having no profiling effect.</p>
+      </section>
+      <section>
+        <h2>Schedule B. Security measures to finalise</h2>
+        <p>The following records the evidence available for drafting, not a completed production security warranty.</p>
+        <ul>
+          <li><strong>Reviewed in source:</strong> company and role checks, ownership guards, password hashing, optional MFA, sensitive approval separation, signed document links and audit infrastructure.</li>
+          <li><strong>Infrastructure configuration:</strong> private storage, encryption, TLS and backup settings require confirmation in the actual operating environment.</li>
+          <li><strong>AI improvements:</strong> credential isolation and user-bound memory-only conversations passed local tests; release verification is pending.</li>
+          <li><strong>Operational evidence still needed:</strong> staff access controls, confidentiality/training, access reviews, monitoring, patching, incident response, tested restoration, supplier oversight, retention and secure disposal.</li>
+        </ul>
+        <p>The <Link href="/resources#security">security and trust page</Link> contains the current review status. Complete and approve a dated Schedule B for the agreed environment before execution; website updates must not silently change the agreed security obligations.</p>
+      </section>
+      <section>
+        <h2>India processing schedule</h2>
+        <p>For applicable DPDP processing, Customer may be the Data Fiduciary and Crewzy its Data Processor; separate own-purpose processing requires separate assessment. The UK contractual clauses do not replace Indian obligations. Finalise notice and grievance handling, lawful grounds, security, children’s data, transfers and retention for the agreed service and each provision’s commencement.</p>
+        <p>The <Link href="/privacy#india">India section of the privacy draft</Link> explains the phased status. The retention review must consider applicable Indian recordkeeping requirements, including final DPDP Rule 8 when it commences, before any general deletion deadline is agreed.</p>
+      </section>
+      <section>
+        <h2>Schedule C. Terms and approvals still needed</h2>
+        <ul>
+          <li>Service agreement, Customer details, responsible contacts, execution and effective date.</li>
+          <li>Enabled features, sensitive-data scope, processing locations and approved provider list.</li>
+          <li>Return/deletion periods, export coverage, backups, holds and completion evidence.</li>
+          <li>Subprocessor notices and objections, audit arrangements and regional transfer terms.</li>
+          <li>Any liability, governing-law or dispute terms consistent with the service agreement and mandatory data protection rights. No arbitrary liability cap is inserted here.</li>
+        </ul>
+        <p>Preparation references: <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/">ICO processor contract guidance</a>, <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/controllers-and-processors/controllers-and-processors/what-does-it-mean-if-you-are-a-processor/">processor responsibilities</a> and <a href="https://ico.org.uk/for-organisations/report-a-breach/personal-data-breach/personal-data-breaches-a-guide/">breach guidance</a>. Applicable law and current guidance must be checked during legal review.</p>
+      </section>
+    </LegalDraftPage>
+  );
+}

@@ -11,6 +11,10 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  images: {
+    // Keep default quality for small assets; use 90 for the editorial photo.
+    qualities: [75, 85, 90],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

@@ -33,7 +33,7 @@ export const platformColumns: MenuColumn[] = [
     title: "Core Platform",
     items: [
       { label: "Platform overview", description: "One workspace, connected around your people", href: "/platform", icon: Layers },
-      { label: "People", description: "Employee records and onboarding", href: moduleHref(0), icon: UsersRound },
+      { label: "People", description: "People management and employee lifecycle", href: moduleHref(0), icon: UsersRound },
       { label: "Recruitment", description: "Candidates, interviews and hiring", href: moduleHref(1), icon: BriefcaseBusiness },
       { label: "Crewzy AI", description: "Source-linked workspace answers", href: "/#crewzy-ai", icon: BrainCircuit },
     ],
@@ -44,15 +44,14 @@ export const platformColumns: MenuColumn[] = [
       { label: "Time & projects", description: "Projects, timesheets and approvals", href: moduleHref(2), icon: Clock3 },
       { label: "Leave", description: "Requests, balances and policies", href: moduleHref(3), icon: CalendarDays },
       { label: "Finance", description: "Invoices, expenses and reminders", href: moduleHref(4), icon: WalletCards },
-      { label: "Compliance", description: "Documents, reviews and evidence", href: "/#compliance", icon: ShieldCheck },
+      { label: "Compliance", description: "Document expiry tracking and audit history", href: "/#compliance", icon: ShieldCheck },
     ],
   },
   {
     title: "Tours & Experience",
     items: [
       { label: "Interactive tour", description: "Step through connected modules live", href: "/#platform", icon: Layers },
-      { label: "Compliance workspace", description: "Real-time document audit verification", href: "/#compliance", icon: ShieldCheck },
-      { label: "Customer stories", description: "How teams streamline everyday admin", href: "/customers", icon: UsersRound },
+      { label: "Compliance workspace", description: "Document expiry tracking and audit history", href: "/#compliance", icon: ShieldCheck },
     ],
   },
 ];
@@ -70,9 +69,8 @@ export const solutionsColumns: MenuColumn[] = [
   {
     title: "Scale & Team Size",
     items: [
-      { label: "Customer spotlights", description: "See how teams streamline day-to-day work", href: "/customers", icon: UsersRound },
-      { label: "Forever free tier", description: "Start free for up to 10 employees", href: appUrl("/signup"), icon: Sparkles },
-      { label: "Book a demo", description: "Personalized walkthrough with specialists", href: demoHref, icon: Mail },
+      { label: "Free plan", description: "What’s included for up to 10 employees", href: "/pricing", icon: Sparkles },
+      { label: "Request a demo", description: "A walkthrough of your team’s priorities", href: demoHref, icon: Mail },
     ],
   },
 ];
@@ -83,7 +81,7 @@ export const resourcesColumns: MenuColumn[] = [
     items: [
       { label: "Resource centre", description: "Understand the platform before you start", href: "/resources", icon: BookOpen },
       { label: "How modules work", description: "Shared records, context and permissions", href: "/resources#modules", icon: Layers },
-      { label: "Security & trust", description: "Access controls and audit history", href: "/resources#security", icon: ShieldCheck },
+      { label: "Security & trust", description: "Access controls, AI safeguards and privacy", href: "/resources#security", icon: ShieldCheck },
     ],
   },
   {
@@ -98,12 +96,12 @@ export const resourcesColumns: MenuColumn[] = [
 
 export const platformMenu: MenuLinkItem[] = [
   { label: "Platform overview", description: "One workspace, connected around your people", href: "/platform", icon: Layers },
-  { label: "People", description: "Employee records and onboarding", href: moduleHref(0), icon: UsersRound },
+  { label: "People", description: "People management and employee lifecycle", href: moduleHref(0), icon: UsersRound },
   { label: "Recruitment", description: "Candidates, interviews and hiring", href: moduleHref(1), icon: BriefcaseBusiness },
   { label: "Time & projects", description: "Projects, timesheets and approvals", href: moduleHref(2), icon: Clock3 },
   { label: "Leave", description: "Requests, balances and policies", href: moduleHref(3), icon: CalendarDays },
   { label: "Finance", description: "Invoices, expenses and reminders", href: moduleHref(4), icon: WalletCards },
-  { label: "Compliance", description: "Documents, reviews and evidence", href: "/#compliance", icon: ShieldCheck },
+  { label: "Compliance", description: "Document expiry tracking and audit history", href: "/#compliance", icon: ShieldCheck },
   { label: "Crewzy AI", description: "Source-linked workspace answers", href: "/#crewzy-ai", icon: BrainCircuit },
 ];
 
@@ -117,7 +115,7 @@ export const solutionsMenu: MenuLinkItem[] = [
 export const resourcesMenu: MenuLinkItem[] = [
   { label: "Resource centre", description: "Understand the platform before you start", href: "/resources", icon: BookOpen },
   { label: "How modules work", description: "Shared records, context and permissions", href: "/resources#modules", icon: Layers },
-  { label: "Security & trust", description: "Access controls and audit history", href: "/resources#security", icon: ShieldCheck },
+  { label: "Security & trust", description: "Access controls, AI safeguards and privacy", href: "/resources#security", icon: ShieldCheck },
   { label: "FAQs", description: "Straight answers to common questions", href: "/#questions", icon: Mail },
 ];
 
@@ -128,7 +126,6 @@ export const footerGroups = [
     { label: "Consultancies", href: "/solutions#consultancies" },
     { label: "Document-led businesses", href: "/solutions#insurance" },
     { label: "Growing teams", href: "/solutions#growing" },
-    { label: "Customers", href: "/customers" },
   ] },
   { title: "Resources", links: [
     { label: "About Crewzy", href: "/about" },
@@ -138,8 +135,9 @@ export const footerGroups = [
     { label: "FAQs", href: "/#questions" },
   ] },
   { title: "Get started", links: [
+    { label: "Pricing & plans", href: "/pricing" },
     { label: "Start free", href: appUrl("/signup") },
-    { label: "Book a demo", href: demoHref },
+    { label: "Request a demo", href: demoHref },
     { label: "Sign in", href: appUrl("/login") },
     { label: "Contact us", href: "/contact" },
     { label: "Support", href: `mailto:${supportEmail}` },

@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { readFileSync } from "node:fs";
 import sharp from "sharp";
 import { siteCaption } from "../app/site-config.ts";
-import { createPageMetadata, homeDescription, indexingMetadata, isProductionSite, siteIcons, siteKeywords, siteUrl } from "../app/site-seo.ts";
+import { createLegalMetadata, createPageMetadata, homeDescription, indexingMetadata, isProductionSite, siteIcons, siteKeywords, siteUrl } from "../app/site-seo.ts";
 
 test("only a Netlify production build is indexable", () => {
   assert.equal(isProductionSite("production"), true);
@@ -19,14 +19,14 @@ test("only a Netlify production build is indexable", () => {
 
 test("homepage share title is the agreed caption, separate from its search title", () => {
   const metadata = createPageMetadata({
-    title: "HR, Compliance, Time Tracking & Invoicing Software",
+    title: "People Management, Work & Compliance Software",
     description: homeDescription, canonical: "/", shareTitle: siteCaption,
   });
   assert.equal(siteCaption, "People, work and compliance. Connected.");
   assert.equal(metadata.openGraph.title, siteCaption);
   assert.equal(metadata.twitter.title, siteCaption);
   assert.equal(metadata.openGraph.url, `${siteUrl}/`);
-  assert.match(metadata.description, /^HR and compliance software/);
+  assert.match(metadata.description, /^People, work and compliance\. Connected\./);
   for (const term of ["employee records", "document expiry", "time tracking", "leave", "invoicing"]) {
     assert.ok(metadata.description.includes(term));
   }
@@ -48,14 +48,14 @@ test("search favicon is a stable 96px PNG matching the existing blue SVG artwork
 });
 
 test("explicit keywords include compliance and its supported workflows", () => {
-  for (const term of ["compliance", "HR compliance", "document compliance management", "document expiry tracking", "renewal review workflows", "compliance audit history"]) {
+  for (const term of ["compliance", "people management compliance", "document compliance management", "document expiry tracking", "renewal review workflows", "compliance audit history"]) {
     assert.ok(siteKeywords.includes(term), `Keywords must include ${term}`);
   }
   assert.equal(new Set(siteKeywords).size, siteKeywords.length);
 });
 
 test("each page gets its own social metadata and absolute shared image", () => {
-  for (const route of ["/platform", "/solutions", "/customers", "/resources", "/about", "/contact"]) {
+  for (const route of ["/platform", "/solutions", "/pricing", "/customers", "/resources", "/about", "/contact"]) {
     const metadata = createPageMetadata({ title: `Title ${route}`, description: `Description ${route}`, canonical: route });
     assert.deepEqual(metadata.alternates, { canonical: route });
     assert.equal(metadata.openGraph.url, `${siteUrl}${route}`);
@@ -79,4 +79,18 @@ test("root metadata and generated share image use the shared caption", () => {
   assert.match(image, /siteCaption.split/);
   assert.match(image, /#2854d6/);
   assert.doesNotMatch(root + image, /Stop running your business|#7650e8|#ff6b57/);
+});
+
+
+test("legal presentation keeps ordinary titles while withholding search indexing until adoption", () => {
+  for (const route of ["privacy", "terms", "dpa", "subprocessors"]) {
+    const input = { title: `Crewzy ${route}`, description: `Information for ${route}`, canonical: `/${route}` };
+    const metadata = createLegalMetadata(input);
+    assert.equal(metadata.title, input.title);
+    assert.deepEqual(metadata.alternates, { canonical: input.canonical });
+    assert.equal(metadata.openGraph.url, `${siteUrl}/${route}`);
+    assert.deepEqual(metadata.robots, {
+      index: false, follow: false, googleBot: { index: false, follow: false },
+    });
+  }
 });

@@ -1,0 +1,97 @@
+import Link from "next/link";
+import { company } from "../company";
+import { privacyEmail } from "../site-config";
+import { LegalPage, LegalTable } from "../legal-page";
+import { createLegalMetadata } from "../site-seo";
+
+export const metadata = createLegalMetadata({
+  title: "Subprocessors and service providers",
+  description: "Crewzy’s AWS, Amazon Bedrock, Zoho and Netlify services, the information involved and the provider details being completed.",
+  canonical: "/subprocessors",
+});
+
+const providers = [
+  {
+    name: "Amazon Web Services — Amazon RDS",
+    purpose: "Database service in London for account and workspace records, according to the features used.",
+    information: "Relevant account identifiers, people and workflow records, expense and invoice information, and activity records stored in the database.",
+    details: "London database region confirmed by Crewzy. Contracting entity, backup regions and arrangements, access locations, retention and applicable agreements still need to be recorded.",
+  },
+  {
+    name: "Amazon Web Services — Amazon Bedrock",
+    purpose: "AI processing for enabled Crewzy features.",
+    information: "Prompts, relevant workspace context, document images or extracted text, and generated outputs. The information depends on the feature and material supplied.",
+    details: "Contracting entity, models, inference regions and routing, provider retention and account settings, access locations and applicable agreements.",
+  },
+  {
+    name: "Zoho",
+    purpose: "Hosting Crewzy mailboxes, including support and other crewzy.io email addresses.",
+    information: "Email addresses, correspondence and delivery information associated with the email services used.",
+    details: "Mailbox role confirmed. The provider for application messages such as sign-in codes and workflow notifications is not yet confirmed. Zoho contracting entity, account data centre, access locations, retention and applicable agreements still need to be recorded.",
+  },
+  {
+    name: "Netlify",
+    purpose: "Hosting for the public Crewzy website.",
+    information: "Website request and connection information. Country-based public pricing can use Netlify’s approximate country signal where configured.",
+    details: "Contracting entity, processing and access locations, hosting and logging settings, retention and applicable agreements. This entry does not describe hosting for customer application records.",
+  },
+];
+
+export default function SubprocessorsPage() {
+  return (
+    <LegalPage title="Subprocessors and service providers" summary="The services Crewzy uses, the information involved and the arrangements being documented.">
+      <section>
+        <h2>The services behind Crewzy</h2>
+        <p>Crewzy uses Amazon RDS in London for its database, Amazon Bedrock for AI, Zoho for Crewzy mailboxes and Netlify for the public website. These service selections were confirmed on 21 October 2026.</p>
+        <p>The table distinguishes those confirmed services from the contractual, location and operating details still being recorded. The RDS London location is confirmed. Naming the other services does not establish their processing locations or a completed subprocessor agreement.</p>
+      </section>
+
+      <section>
+        <h2>Confirmed service selections</h2>
+        <LegalTable label="Crewzy confirmed services and provider details being completed">
+          <table>
+            <caption>Confirmed services and outstanding provider details</caption>
+            <thead><tr><th scope="col">Service</th><th scope="col">Purpose and information</th><th scope="col">Details being completed</th></tr></thead>
+            <tbody>{providers.map(provider => <tr key={provider.name}>
+              <th scope="row">{provider.name}</th>
+              <td><p>{provider.purpose}</p><p>{provider.information}</p></td>
+              <td>{provider.details}</td>
+            </tr>)}</tbody>
+          </table>
+        </LegalTable>
+      </section>
+
+      <section>
+        <h2>Payments are not connected yet</h2>
+        <p>Payment providers are not currently integrated into the live service. Stripe and Razorpay appear in development work, but neither is confirmed as a connected live payment provider. Their presence in source code does not mean customer payment information is being sent to them.</p>
+        <p>Before online payments are enabled, the provider information must record the selected services, the billing information they receive, their respective responsibilities and the applicable terms.</p>
+      </section>
+
+      <section>
+        <h2>Optional services under review</h2>
+        <p>The reviewed source also includes optional integrations. Their presence does not establish that they are enabled or approved for customer-data processing:</p>
+        <ul>
+          <li><strong>OpenAI:</strong> an alternative AI integration. Amazon Bedrock is the AI service currently confirmed by Crewzy.</li>
+          <li><strong>Google Identity and Cloudflare Turnstile:</strong> optional sign-in and signup protection, which can involve identity claims, browser and challenge information.</li>
+          <li><strong>ipapi.co and Pwned Passwords:</strong> conditional country lookup and breached-password checks. The reviewed password check sends a password-hash prefix, rather than a raw password.</li>
+          <li><strong>Slack and Meta WhatsApp Cloud API:</strong> optional account linking, workflow commands or notifications, which can involve contact details, messages and selected workflow information.</li>
+        </ul>
+        <p>Enablement, the information shared, provider roles and locations must be recorded before these optional services are used. Customer-authorised recruitment sharing may also involve selected clients; those recipients are distinct from infrastructure providers.</p>
+      </section>
+
+      <section>
+        <h2>Provider roles and data locations</h2>
+        <p>A provider processing workspace information for Crewzy may be a subprocessor. An identity or future payment service may also process some information for its own purposes, while a connected service may be chosen by the customer. The applicable provider schedule must distinguish these relationships.</p>
+        <p>The AWS RDS database is in London. Document storage, backups, Bedrock inference and routing, Zoho data-centre settings, Netlify processing and staff access locations still require confirmation. This is not a UK-only processing commitment. A customer’s billing country does not determine where information is processed.</p>
+        <p>Customers use Crewzy as SaaS and do not need access to Crewzy’s AWS accounts. AWS administrative access is held by Crewzy personnel; their exact permissions and access countries still need to be documented. Storing information and running workflows or AI are forms of processing even when staff do not manually read customer records. Other operational services, including support, monitoring and analytics, must also be recorded if used.</p>
+      </section>
+
+      <section>
+        <h2>Provider questions and changes</h2>
+        <p>The written <Link href="/dpa">data processing agreement</Link> will identify the approved subprocessors for the agreed service and set out authorisation, advance notice and objection arrangements. This information page does not execute that agreement or promise a particular notice period.</p>
+        <p>For provider enquiries, contact <a href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></a> or write to Privacy enquiries, {company.legalName}, {company.registeredOffice}.</p>
+        <p>Related information: <Link href="/privacy">privacy policy</Link> and <Link href="/resources#security">security and trust</Link>.</p>
+      </section>
+    </LegalPage>
+  );
+}

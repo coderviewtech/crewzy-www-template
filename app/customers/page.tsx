@@ -17,39 +17,36 @@ import {
 import styles from "../landing.module.css";
 import secondary from "../secondary-page.module.css";
 import typeStyles from "../content-typography.module.css";
-import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
+import { Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
+import { demoHref } from "../site-config";
 
-/* No logos, quotes or case studies here until they are real ones from real
-   customers. An early-access page that says what it is beats a customers page
-   with invented references — the first prospect who checks decides everything. */
-
-const PARTNER_GETS = [
-  {
-    icon: Wrench,
-    title: "The roadmap follows your workflow",
-    text: "You are early enough that what you need shapes what gets built next, rather than joining a queue behind a thousand other requests.",
-  },
-  {
-    icon: MessagesSquare,
-    title: "A direct line, not a ticket queue",
-    text: "You talk to the people building it. Problems get answered the same day rather than routed through a support tier.",
-  },
+const EXPLORE = [
   {
     icon: Users,
-    title: "Migration done with you",
-    text: "We help move your employee records, documents and open projects across, so you are not the one exporting spreadsheets at the weekend.",
+    title: "See the whole employee lifecycle",
+    text: "Explore people management and employee lifecycle workflows, from onboarding through everyday changes to offboarding.",
+  },
+  {
+    icon: Briefcase,
+    title: "Connect everyday work",
+    text: "Walk through projects, time, leave and approvals to see how shared context can support your team’s day.",
   },
   {
     icon: ShieldCheck,
-    title: "Pricing fixed while you grow",
-    text: "Early partners keep their terms as the platform and the team expand.",
+    title: "Keep compliance evidence in view",
+    text: "Explore document expiry tracking, reminders and activity records that help teams follow up and prepare evidence.",
+  },
+  {
+    icon: MessagesSquare,
+    title: "Help shape what comes next",
+    text: "Share the workflows that matter to your team. Your feedback informs product decisions as Crewzy develops.",
   },
 ];
 
 const FIT = [
-  { icon: Briefcase, label: "Agencies", text: "10–200 people, billing clients for delivered work" },
-  { icon: Landmark, label: "Consultancies", text: "Utilisation and project margin decide your year" },
-  { icon: ShieldCheck, label: "Insurance teams", text: "Licences and certifications gate who can work" },
+  { icon: Briefcase, label: "Agencies", text: "Bring people, projects and client work into one conversation" },
+  { icon: Landmark, label: "Consultancies", text: "Explore how employee workflows connect with time and delivery" },
+  { icon: ShieldCheck, label: "Teams managing documents", text: "Keep document dates, follow-ups and compliance evidence together" },
 ];
 
 export default function CustomersPage() {
@@ -63,23 +60,24 @@ export default function CustomersPage() {
       <section className={styles.subHero}>
         <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={DoorOpen}>Early access</Eyebrow>
-          <h1>We are picking our <span>first customers carefully.</span></h1>
-          <p>Crewzy is live and in use, and we are onboarding a small group of design partners rather than opening the doors to everyone at once. That way the platform gets shaped by companies actually running on it.</p>
+          <h1>Help shape a more <span>connected way to work.</span></h1>
+          <p>Explore how Crewzy brings people management, employee lifecycle workflows and everyday work together with document expiry tracking and compliance evidence.</p>
           <div className={`${styles.subHeroActions} ${typeStyles.actions}`}>
-            <Link href="mailto:sales@crewzy.io?subject=Design%20partner%20enquiry">Apply as a design partner <ArrowRight size={18} /></Link>
-            <Link href={appUrl("/signup")}>Or just start free</Link>
+            <Link href={demoHref}>Request a demo <ArrowRight size={18} /></Link>
+            <Link href="/platform">Explore the platform</Link>
           </div>
-          <small className={`${styles.subHeroNote} ${typeStyles.note}`}>No case studies here yet — we would rather show you none than show you invented ones. Ask us and we will introduce you to a team already using it.</small>
+          <small className={`${styles.subHeroNote} ${typeStyles.note}`}>Crewzy is in pre-launch development. Demos use sample data so you can explore the workflows before discussing a pilot.</small>
         </div>
       </section>
 
       <section className={styles.subSection}>
         <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
-          <Eyebrow icon={Wrench}>What a design partner gets</Eyebrow>
-          <h2>Early is only worth it if <span>you get something for it.</span></h2>
+          <Eyebrow icon={Wrench}>What to explore</Eyebrow>
+          <h2>A clearer view of <span>how your team works.</span></h2>
+          <p>Start with the workflows you manage today, then explore how they connect in Crewzy.</p>
         </div>
         <div className={`${styles.subCards} ${typeStyles.cards}`}>
-          {PARTNER_GETS.map(({ icon: ItemIcon, title, text }, index) => (
+          {EXPLORE.map(({ icon: ItemIcon, title, text }, index) => (
             <article key={title} data-reveal data-reveal-delay={String((index % 2) + 1)} data-scroll-zoom="card">
               <span><ItemIcon size={19} /></span>
               <h3>{title}</h3>
@@ -92,8 +90,8 @@ export default function CustomersPage() {
       <section className={styles.subSection}>
         <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
           <Eyebrow icon={Users}>Who it suits</Eyebrow>
-          <h2>Companies running day to day on <span>too many tools.</span></h2>
-          <p>If you employ people, track their time and bill for their work, the fit is usually obvious within one conversation.</p>
+          <h2>Teams ready to connect <span>people and work.</span></h2>
+          <p>If records, documents and day-to-day work are spread across separate tools, a walkthrough can help you assess the fit.</p>
         </div>
         <div className={`${styles.subFit} ${typeStyles.audience}`} data-reveal>
           {FIT.map(({ icon: FitIcon, label, text }) => (
@@ -108,24 +106,24 @@ export default function CustomersPage() {
 
       <section className={styles.subSection}>
         <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
-          <Eyebrow icon={Check}>How it works</Eyebrow>
-          <h2>Four steps, and you can stop <span>at any of them.</span></h2>
+          <Eyebrow icon={Check}>Getting started</Eyebrow>
+          <h2>Explore first. <span>Plan the next step together.</span></h2>
         </div>
         <ol className={`${styles.subSteps} ${typeStyles.steps}`} data-reveal>
-          <li><strong>A short call</strong><span>Twenty minutes on what you run today and where it hurts. If Crewzy is not the answer, we will say so.</span></li>
-          <li><strong>A workspace with your data</strong><span>We set up a workspace with your people and projects in it, so you are judging your own operation rather than a demo.</span></li>
-          <li><strong>One team, one month</strong><span>Run a single team on it for a month. Real timesheets, real approvals, real invoices.</span></li>
-          <li><strong>Roll out, or walk away</strong><span>If it works, we help move the rest across. If it does not, you keep your data and we part on good terms.</span></li>
+          <li><strong>Discuss your workflow</strong><span>Tell us about your team, the tools you use and the work you want to simplify.</span></li>
+          <li><strong>Explore with sample data</strong><span>Walk through relevant workflows in a demo and see how the information connects.</span></li>
+          <li><strong>Review the fit</strong><span>Discuss current capabilities, your requirements and any gaps before deciding whether to continue.</span></li>
+          <li><strong>Agree a pilot plan</strong><span>If there is a fit, agree the scope, access arrangements, privacy requirements and terms before introducing company or employee data.</span></li>
         </ol>
       </section>
 
       <section className={`${styles.subCta} ${typeStyles.closing}`} data-reveal>
-        <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
-        <h2>Tell us what you are running <span>on today.</span></h2>
-        <p>That one answer tells us most of what we need to know about whether this is worth your time.</p>
+        <Eyebrow icon={Rocket} dark>Start a conversation</Eyebrow>
+        <h2>Bring your workflow. <span>See what connects.</span></h2>
+        <p>Explore Crewzy with sample data and discuss what a more connected workspace could look like for your team.</p>
         <div>
-          <Link href="mailto:sales@crewzy.io?subject=Design%20partner%20enquiry">Apply as a design partner <ArrowRight size={18} /></Link>
-          <Link href="/platform">See the platform first</Link>
+          <Link href={demoHref}>Request a demo <ArrowRight size={18} /></Link>
+          <Link href="/platform">Explore the platform</Link>
         </div>
       </section>
       <Footer />

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { ArrowDown, ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCheck, Clock3, FileText, Plus, ShieldCheck, UsersRound } from "lucide-react";
+import { ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCheck, FileText, Plus, ShieldCheck, UsersRound } from "lucide-react";
 import previewStyles from "./preview.module.css";
 import connectionStyles from "./connections.module.css";
 import narrativeStyles from "./narrative.module.css";
@@ -67,11 +67,11 @@ function ConnectedWorkspace() {
 
 
 const faqs = [
-  { question: "What does Crewzy bring together?", answer: "Core HR, onboarding and offboarding, recruitment, time and projects, leave, documents and expiry, invoicing, expenses and Crewzy AI. These capabilities share the employee record, so you don’t need to keep reconnecting the same information." },
-  { question: "How does Crewzy help with compliance?", answer: "Crewzy connects documents and expiry dates with review workflows, permissions and audit history. It helps you see what needs attention and retain evidence of activity. It supports your compliance processes; it is not a guarantee of regulatory compliance." },
-  { question: "Does Crewzy run payroll or staff rotas?", answer: "Not yet. Crewzy covers HR, recruitment, time, projects, leave and financial administration, but it does not run a payroll cycle or build shift rotas today. Approved time and leave data can be exported for your payroll provider." },
+  { question: "What does Crewzy bring together?", answer: "People management, onboarding and offboarding, recruitment, time and projects, leave, documents and expiry, invoicing, expenses and Crewzy AI. These capabilities share the employee record, so you don’t need to keep reconnecting the same information." },
+  { question: "How does Crewzy help with compliance?", answer: "Crewzy connects document expiry tracking with employee lifecycle workflows, permissions and audit history. It checks document dates, not document authenticity. It helps you see what needs attention and retain evidence of activity. It supports your compliance processes; it is not a guarantee of regulatory compliance." },
+  { question: "Does Crewzy run payroll or staff rotas?", answer: "Not yet. Crewzy covers people management, recruitment, time, projects, leave and financial administration, but it does not run a payroll cycle or build shift rotas today. Approved time and leave data can be exported for your payroll provider." },
   { question: "Can a small team start for free?", answer: "Yes. The free plan supports up to 10 employees with core records, documents, leave, basic projects, timesheets and audit history. No payment card is required." },
-  { question: "What security controls are in place?", answer: "Company-scoped identity and role grants protect access. Sensitive approvals use maker-checker controls, and connected services record audit history. Crewzy is not currently SOC 2 or ISO 27001 certified. Talk to us if your team needs a detailed security review." },
+  { question: "What security controls are in place?", answer: "See Security & trust for the scope and status of reviewed access controls, document safeguards and AI privacy improvements, together with remaining launch requirements." },
 ];
 
 export default function Home() {
@@ -94,17 +94,18 @@ export default function Home() {
       <section className={styles.hero} id="top"><div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroContent}>
           <h1 data-hero-enter>A clearer way to run<br /><span>your people and work.</span></h1>
-          <p className={styles.heroDescription} data-hero-enter>HR, hiring, time, finance and compliance.<br className={styles.desktopBreak} /> Finally connected, in one beautifully simple workspace.</p>
-          <div className={styles.heroActions} data-hero-enter><a href={appUrl("/signup")} className={`${styles.button} ${styles.largeButton}`}>Forever free for up to 10 employees <ArrowRight size={18} /></a><a href="#platform" className={styles.textButton}>Explore the platform <ArrowDown size={17} /></a></div>
-          <ul className={styles.benefitHighlights} aria-label="Why teams choose Crewzy" data-hero-enter>
+          <p className={styles.heroDescription} data-hero-enter>People management and employee lifecycle workflows.<br className={styles.desktopBreak} /> Everyday work, document expiry tracking and compliance evidence.</p>
+          <div className={styles.heroActions} data-hero-enter><a href={appUrl("/signup")} className={`${styles.button} ${styles.largeButton}`}>Start free for up to 10 employees <ArrowRight size={18} /></a><a href={demoHref} className={styles.textButton}>Request a demo <ArrowRight size={17} /></a></div>
+          <ul className={styles.benefitHighlights} aria-label="Workspace highlights" data-hero-enter>
             <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.blue}`}><UsersRound size={19} /></span><strong>One employee record</strong></li>
             <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.violet}`}><CheckCheck size={19} /></span><strong>Connected workflows</strong></li>
-            <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.green}`}><Clock3 size={19} /></span><strong>Less everyday admin</strong></li>
+            <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.green}`}><ShieldCheck size={19} /></span><strong>Compliance evidence</strong></li>
           </ul>
         </div>
-        <div className={styles.productStage} data-product-stage>
+        <figure className={styles.productStage} data-product-stage>
           <div className={styles.productFrame} data-product-frame><DashboardPreview /></div>
-        </div>
+          <figcaption className={editorial.productCaption}><a href="/platform">Explore the full platform <ArrowRight size={14} aria-hidden="true" /></a></figcaption>
+        </figure>
       </section>
       <ConnectedWorkspace />
       <section className={editorial.platformSection} id="platform" aria-labelledby="platform-title">
@@ -115,7 +116,7 @@ export default function Home() {
       </section>
       <ComplianceWorkspace step={storyStep} onStep={index => { if (navigateStep.current) navigateStep.current(index); else setStoryStep(index); }} />
       <section className={`${styles.section} ${styles.teamSection} ${narrativeStyles.zigTeam} ${editorial.teamSection}`} id="teams" data-zoom-section>
-        <div className={`${styles.teamPhoto} ${editorial.teamPhoto}`}><Image src="/images/crewzy-team-editorial-v2.png" alt="Illustrative scene of three colleagues reviewing creative work in a sunlit studio" width={1448} height={1086} sizes="(max-width: 760px) 100vw, 50vw" data-scroll-zoom="image" /><div className={`${styles.photoCaption} ${editorial.photoCaption}`}><UsersRound size={19} /><span>Built around people.<br /><strong>Not around paperwork.</strong></span></div></div>
+        <div className={`${styles.teamPhoto} ${editorial.teamPhoto}`}><Image src="/images/crewzy-team-editorial-4k.png" alt="Illustrative scene of three colleagues reviewing creative work in a sunlit studio" width={3840} height={2160} quality={90} sizes="(max-width: 420px) 680px, (max-width: 760px) 850px, 900px" data-scroll-zoom="image" /><div className={`${styles.photoCaption} ${editorial.photoCaption}`}><UsersRound size={19} /><span>Built around people.<br /><strong>Not around paperwork.</strong></span></div></div>
         <div className={styles.teamCopy} data-reveal>
           <SectionHeading label="For people-driven businesses" title="Big plans." emphasis="A little less busywork." description="When your people are your business, disconnected tools get in the way. Crewzy brings the everyday work together, so your team can focus on what comes next." />
           <ul className={editorial.audienceList}>
@@ -134,7 +135,7 @@ export default function Home() {
         <div data-reveal><SectionHeading label="A little more clarity" title="Good questions." emphasis="Straight answers." description="Still wondering if Crewzy fits?" /><a className={editorial.sectionLink} href="/contact">We’re happy to talk. <ArrowRight size={15} /></a></div>
         <div className={styles.faqList} data-reveal>{faqs.map(item => <details key={item.question}><summary>{item.question}<Plus size={19} /></summary><p>{item.answer}</p></details>)}</div>
       </section>
-      <section className={`${styles.closingSection} ${editorial.closingSection}`} data-reveal><SectionHeading label="One workspace. A clearer day." title="Make room for" emphasis="your next chapter." description="Let’s bring your people, work and compliance together." /><div className={editorial.closingActions}><a className={`${styles.button} ${styles.largeButton}`} href={demoHref}>Book a Crewzy demo <ArrowRight size={18} /></a><a className={styles.closingSecondary} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={14} /></a></div></section>
+      <section className={`${styles.closingSection} ${editorial.closingSection}`} data-reveal><SectionHeading label="One workspace. A clearer day." title="Make room for" emphasis="your next chapter." description="People, work and compliance. Connected." /><div className={editorial.closingActions}><a className={`${styles.button} ${styles.largeButton}`} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={18} /></a><a className={styles.closingSecondary} href={demoHref}>Request a demo <ArrowRight size={14} /></a></div></section>
     </main>
     <SiteFooter />
   </div>;

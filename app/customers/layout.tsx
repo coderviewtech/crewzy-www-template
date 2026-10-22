@@ -5,7 +5,7 @@ import { createPageMetadata } from "../site-seo";
 /* See app/solutions/layout.tsx for why metadata lives in a layout here. */
 export const metadata: Metadata = createPageMetadata({
   title: "Early Access & Design Partners",
-  description: "Join Crewzy’s early-access design partners and help shape a connected HR workspace for people, time, invoicing and compliance. Talk to the founding team.",
+  description: "Explore Crewzy with sample data, discuss your people management and compliance workflows, and help shape a more connected workspace through early-access conversations.",
   canonical: "/customers",
 });
 

@@ -8,12 +8,12 @@ import { previewIdentity } from "./preview-identity";
 import { moduleSlugs } from "./site-config";
 
 export const modules = [
-  { name: "People", icon: UsersRound, color: "blue", title: "People, not paperwork.", emphasis: "not paperwork.", description: "Employee records, onboarding and documents. A shared source of truth for every stage of the employee journey." },
+  { name: "People", icon: UsersRound, color: "blue", title: "People, not paperwork.", emphasis: "not paperwork.", description: "People management across the employee lifecycle: employee records, onboarding, document expiry tracking and offboarding in one workspace." },
   { name: "Recruitment", icon: BriefcaseBusiness, color: "violet", title: "From first hello to first day.", emphasis: "to first day.", description: "Bring candidates, interviews and hiring decisions into the same workspace as the team they will join." },
   { name: "Time & projects", icon: Clock3, color: "amber", title: "Make every hour easier to manage.", emphasis: "easier to manage.", description: "Connect projects, timesheets and approvals so work moves forward without the weekly spreadsheet chase." },
   { name: "Leave", icon: CalendarDays, color: "rose", title: "Time off, without the back-and-forth.", emphasis: "without the back-and-forth.", description: "Keep leave requests, balances and approvals connected to each employee record." },
   { name: "Finance", icon: WalletCards, color: "teal", title: "Keep work and money connected.", emphasis: "money connected.", description: "Manage invoices, expenses and reminders alongside the people and projects behind them." },
-  { name: "Compliance", icon: ShieldCheck, color: "green", title: "Stay ahead of what needs attention.", emphasis: "what needs attention.", description: "Bring documents, expiry dates, reviews and audit history together. Less searching. More visibility." },
+  { name: "Compliance", icon: ShieldCheck, color: "green", title: "Stay ahead of what needs attention.", emphasis: "what needs attention.", description: "Connect document expiry tracking, renewal reviews and audit history to employee records. Keep compliance tasks and evidence in view." },
 ];
 
 export function IconTile({ index, small = false }: { index: number; small?: boolean }) { const item = modules[index]; return <span className={`${styles.iconTile} ${styles[item.color]} ${small ? styles.smallIcon : ""}`}><item.icon size={small ? 17 : 23} strokeWidth={1.8} /></span>; }

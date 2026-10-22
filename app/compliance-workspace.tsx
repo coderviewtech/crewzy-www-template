@@ -61,7 +61,7 @@ export function ComplianceWorkspace({ step, onStep }: { step: number; onStep: (i
   return <section className={s.section} id="compliance" aria-labelledby="compliance-title">
     <div className={s.story} data-compliance-story>
     <header className={s.intro} data-story-intro>
-      <SectionHeading label="Compliance, connected" title="Compliance." emphasis="A clearer picture." description="From the first alert to the final review. Bring your documents, decisions and evidence into focus." id="compliance-title" />
+      <SectionHeading label="Compliance, connected" title="Compliance." emphasis="A clearer picture." description="Track document expiry dates, follow renewals and keep a history of reviews and approvals. Keep compliance evidence connected to each employee record." id="compliance-title" />
     </header>
     <div className={s.pin} data-story-pin>
       <div className={s.chapters} role="tablist" aria-label="Compliance workspace pages">

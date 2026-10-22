@@ -142,13 +142,13 @@ const INDUSTRY_SHAPES = [
   {
     id: "growing",
     icon: UsersRound,
-    shape: "You are growing and HR is still spreadsheets",
+    shape: "You are growing and people management is still spreadsheets",
     breaks: "Onboarding, leave and documents are scattered across drives, inboxes and one very important spreadsheet.",
     industries: ["Startups", "Non-profits", "Education", "Real estate", "Manufacturing", "Professional services", "Franchise head office", "Scale-ups"],
     /* No deep segment for this shape yet, so it points at the module that
        solves it rather than at the nearest-but-wrong segment below. */
     anchor: "/#module-people",
-    linkLabel: "See Core HR",
+    linkLabel: "See People management",
   },
 ];
 

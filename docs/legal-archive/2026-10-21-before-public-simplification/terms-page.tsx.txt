@@ -1,0 +1,104 @@
+import Link from "next/link";
+import { company } from "../company";
+import { privacyEmail, supportEmail } from "../site-config";
+import { LegalPage } from "../legal-page";
+import { createLegalMetadata } from "../site-seo";
+import { inactiveWorkspaceRetentionDays } from "../legal-policy";
+
+export const metadata = createLegalMetadata({
+  title: "Terms and conditions",
+  description: "Crewzy service terms for individual and organisational customers, including subscriptions, cancellation, consumer rights and responsible use.",
+  canonical: "/terms",
+});
+
+export default function TermsPage() {
+  return (
+    <LegalPage title="Terms and conditions" summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
+      <section id="agreement">
+        <h2>1. Who provides Crewzy</h2>
+        <p>Crewzy is provided by {company.legalName}, a company registered in England and Wales under number {company.number}, with its registered office at {company.registeredOffice} (“Crewzy”, “we” or “us”). Service enquiries can be sent to <a href={`mailto:${supportEmail}`}>{supportEmail}</a>, or by post to that address.</p>
+        <p>These terms cover personal use, including personal expense records, and organisational use, including business expenses and people workflows. They form part of a service agreement when presented and accepted during registration, checkout or an agreed order. Merely viewing this website does not purchase a subscription or execute a data processing agreement. A separately agreed written order may add service-specific terms, subject to mandatory legal rights.</p>
+        <p>A consumer is an individual buying wholly or mainly outside their trade, business, craft or profession, as defined by applicable law. Buying online or paying personally does not by itself decide consumer status. The consumer protections below apply whenever you qualify for them.</p>
+      </section>
+      <section id="accounts">
+        <h2>2. Accounts and workspaces</h2>
+        <p>You must be at least 18 and have legal capacity to enter the agreement. If you act for an organisation, you must have its authority. Crewzy’s current signup creates a workspace with an owner account and asks for a workspace or company name; a workspace name does not itself establish that the account holder is an incorporated company.</p>
+        <p>Provide accurate account and billing details, keep credentials private and use available account protections. Do not share passwords or authentication codes in chat or support messages. Tell us promptly if you suspect unauthorised access. Workspace owners manage invitations, permissions and authorised use of their workspace.</p>
+        <p>You must have authority and a lawful reason to upload or manage other people’s information. Do not add employer, candidate or employee records merely because you can access them elsewhere. Customer responsibilities do not remove Crewzy’s own legal obligations.</p>
+      </section>
+      <section id="service">
+        <h2>3. What the service does</h2>
+        <p>Crewzy supports people management, employee lifecycle workflows, recruitment, time and projects, leave, expenses and invoicing, document expiry tracking and compliance evidence. Available features depend on the chosen plan, enabled modules and service configuration. The <Link href="/pricing">pricing page</Link> explains the plans.</p>
+        <p><strong>Document expiry tracking checks dates; it does not verify authenticity.</strong> Activity records and reminders help organise compliance work. Crewzy does not guarantee that your organisation meets every legal, employment, tax or regulatory requirement.</p>
+        <p>AI outputs and extracted fields may be inaccurate. Review them against the source and relevant context before acting, especially for decisions affecting employment or individuals. Do not use a generated score as a substitute for a fair decision process. Third-party integrations are subject to their own availability and applicable terms.</p>
+        <p>We will provide paid services with reasonable care and skill. These terms do not promise a particular uptime percentage, recovery time, certification or support response time unless separately agreed. Mandatory quality and service rights still apply.</p>
+      </section>
+      <section id="billing">
+        <h2>4. Free and paid subscriptions</h2>
+        <p><strong>Online payments are not currently integrated into the live service.</strong> The subscription terms below describe the intended paid-plan arrangements; no charge or renewal is authorised merely by opening an account or viewing published prices.</p>
+        <p>The Free plan supports up to 10 employees. Business pricing is per managed employee and includes the first 10 in the billed quantity. Using a free account does not itself authorise a later charge.</p>
+        <p>Choose monthly or annual billing where offered. Monthly subscriptions renew each month. Annual subscriptions are charged for 12 months upfront and renew annually; an advertised monthly equivalent for annual billing is not a monthly payment option. Your order must identify the plan, employee quantity, currency, billing period, applicable taxes, total payable and recurring-payment terms before payment is authorised.</p>
+        <p>Published regional Business prices use INR for India, GBP for the UK, USD for the US and EUR for supported euro-area countries. For future paid subscriptions, eligibility will use the declared billing country and available payment checks. Give accurate details and do not misrepresent your location or organisation to obtain another market’s rate. Country changes require support. These checks do not amount to company-registration verification.</p>
+        <p>Business charges are based on the managed employee count, rather than whether particular employees use the service. A seat-count change can affect later charges; the order must explain the relevant timing and any mid-period charge before it is authorised. Payment-provider and proration arrangements are not finalised. Statutory refund rights take priority over ordinary seat-adjustment rules.</p>
+        <p>A changed subscription price must be communicated before it applies to a future renewal, with an opportunity to end the subscription before that renewal. We will not retrospectively change an agreed paid period or impose an undisclosed charge.</p>
+      </section>
+      <section id="cancellation">
+        <h2>5. Cancelling renewal and closing an account</h2>
+        <p>You can give a clear instruction to stop renewal by contacting <a href={`mailto:${supportEmail}`}>{supportEmail}</a> or writing to our registered office. Include the account email or workspace reference and the subscription concerned, but no passwords or card details. An online payment or cancellation portal is not currently connected. The selected payment route must provide any additional cancellation or withdrawal functions required by law before consumer checkout is opened.</p>
+        <p>For a paid subscription, ordinary cancellation stops future renewals at the end of the current paid billing period. Fees are not refundable merely because a customer does not use the platform, leaves paid seats unused, reduces employee numbers or changes their mind outside an applicable cancellation period. This is a no-discretionary-refund policy; refunds, cancellation rights and remedies required by law remain available. You do not need to delete a workspace to request cancellation.</p>
+        <p>Billing cancellation and data deletion are different requests. Before closing a workspace, arrange any necessary return or export of records you are entitled to retain. The intended retention period is {inactiveWorkspaceRetentionDays} days after workspace deactivation, including deactivation following non-payment. The clock does not start merely because one payment is missed. Customer data return, lawful retention and deletion are governed by the applicable processing agreement and <Link href="/privacy#retention">privacy information</Link>. Complete deletion and backup coverage are still being verified; the period is not a promise of an automatic purge of every copy.</p>
+      </section>
+      <section id="consumer-rights">
+        <h2>6. Consumer cancellation and refund rights</h2>
+        <p>If you are a UK or EU consumer buying a service at a distance, you generally have 14 days after entering the contract to cancel without giving a reason. A longer period or additional cancellation right applies where required by law. We do not describe all annual subscriptions or payments as non-refundable.</p>
+        <p>To exercise your right, send a clear cancellation statement to the support email or registered office above before the applicable deadline. You may use the form below, but you do not have to. Simply signing in or beginning to use Crewzy does not by itself waive a statutory cancellation right.</p>
+        <p><strong>EU online withdrawal:</strong> qualifying online consumer contracts also require an accessible online withdrawal function, with a confirmation step and a durable acknowledgement. This function is not yet implemented in Crewzy and remains a requirement before EU consumer sales can open. The email and postal routes above do not replace that function where required.</p>
+        <p>If you validly request the service to start during a statutory cancellation period, an amount proportionate to service already supplied may be payable only where the law permits it and the required advance information and express request have been obtained. Any loss of a cancellation right requires the specific legal conditions to be met; these general terms are not a blanket waiver.</p>
+        <p>Where a cancellation refund is due under UK or EU law, it will be made without undue delay and within the applicable legal period, generally 14 days after we are informed, using the original payment method unless otherwise agreed and without an additional refund fee.</p>
+        <p>You also retain mandatory rights where the service is faulty, misdescribed or not supplied with the required care and skill, including correction, repeat performance, a price reduction, termination or refund as applicable. Customers in India, the US and other countries retain the mandatory protections of the law that applies to them. Nothing here excludes additional renewal or cancellation protections.</p>
+        <article aria-label="Optional consumer cancellation form">
+          <h3>Optional cancellation form</h3>
+          <p>To: {company.legalName}, {company.registeredOffice}; <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</p>
+          <p>I give notice that I cancel my contract for the following Crewzy service:</p>
+          <ul>
+            <li>Service or subscription and order reference, if available</li>
+            <li>Date ordered</li>
+            <li>Consumer’s name and address</li>
+            <li>Account email or workspace reference</li>
+            <li>Date of this notice</li>
+            <li>Signature, only if sent on paper</li>
+          </ul>
+        </article>
+      </section>
+      <section id="data">
+        <h2>7. Your information and content</h2>
+        <p>You retain your rights in content you provide. You give Crewzy permission to store, process and transmit it only to operate the agreed service, follow lawful instructions and meet applicable legal duties. You are responsible for having the rights and permissions needed to supply it.</p>
+        <p>The <Link href="/privacy">Privacy policy</Link> explains account and workspace data, AI processing and recipients. Organisations using Crewzy to process personal data on their instructions need an agreed <Link href="/dpa">data processing agreement</Link> with the relevant completed schedules. A personal purchase does not automatically make every use subject to an organisational DPA.</p>
+        <p>Crewzy uses AWS RDS in London for its database, Amazon Bedrock for AI, Zoho for Crewzy mailboxes and Netlify for its public website. The <Link href="/subprocessors">provider page</Link> records these services and the location, contract and operating details still being completed. A cloud-storage region is not a promise that no other provider receives information. Do not treat this website as an assurance that every deployment or transfer arrangement has already been finalised.</p>
+      </section>
+      <section id="acceptable-use">
+        <h2>8. Responsible use and intellectual property</h2>
+        <p>Do not use Crewzy unlawfully, upload malicious code, attempt to bypass permissions, access another workspace without authority, interfere with the service or misuse other people’s information. Do not use it to make unlawful or discriminatory decisions.</p>
+        <p>Crewzy and its licensors retain rights in the software, design and other service materials. Your subscription permits authorised use for its agreed purpose; it does not transfer ownership of the software. Rights the law gives you cannot be removed by this clause.</p>
+      </section>
+      <section id="suspension">
+        <h2>9. Service changes, suspension and termination</h2>
+        <p>We may make reasonable updates to maintain, secure or improve the service. For a material change affecting a paid service or these terms, we will give appropriate notice and explain available choices before it takes effect, except where urgent legal or security action is necessary. We will not use an update to remove mandatory consumer rights.</p>
+        <p>We may restrict access where reasonably necessary to address a serious security threat, unlawful activity, material breach or unpaid amounts. Where practical, we will explain the reason and allow a reasonable opportunity to resolve it. Restrictions must be proportionate; mandatory refund, access and data protection duties continue to apply.</p>
+        <p>If we discontinue a paid service or cannot provide a material agreed feature and cannot offer an appropriate remedy, any termination, unused-period refund and other remedies will be addressed under the agreement and applicable law. These terms do not permit us to keep payment for an unprovided service where the law requires a refund.</p>
+      </section>
+      <section id="liability">
+        <h2>10. Responsibility when something goes wrong</h2>
+        <p>Nothing excludes or limits liability for fraud, fraudulent misrepresentation, death or personal injury caused by negligence, or any other liability or right that cannot legally be excluded or limited.</p>
+        <p>For consumers, we are responsible for losses caused by our breach where they were reasonably foreseeable when the contract was made, subject to applicable law. We do not exclude mandatory digital-service, data protection or other consumer remedies. No general “as is” disclaimer overrides the care and skill we owe you.</p>
+        <p>For organisational customers, any additional allocation of risk or liability limit must be expressly agreed in the applicable order or service agreement and remain lawful. This page does not introduce an unagreed financial liability cap.</p>
+      </section>
+      <section id="contact">
+        <h2>11. Questions, complaints and governing law</h2>
+        <p>For service, payment, cancellation or complaint enquiries, contact <a href={`mailto:${supportEmail}`}>{supportEmail}</a>. For privacy matters, use <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. You can also write to {company.legalName} at {company.registeredOffice}. Please describe the issue and the outcome requested without sending credentials or full payment-card details.</p>
+        <p>Subject to mandatory local protections, the agreement is governed by the law of England and Wales. An organisational customer may agree a different governing law in writing. Consumers keep any mandatory protections and rights to use courts or competent dispute bodies available under the law of their place of residence. These terms do not impose exclusive English court jurisdiction on a consumer where that would remove such rights.</p>
+        <p>If a provision cannot lawfully apply, the remaining terms continue so far as legally possible. The date above identifies this version; a later website update does not silently replace a version already agreed without the required notice and agreement.</p>
+      </section>
+    </LegalPage>
+  );
+}

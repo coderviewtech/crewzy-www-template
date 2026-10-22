@@ -6,6 +6,8 @@ export const siteCaption = "People, work and compliance. Connected.";
 export const demoHref = "/contact#demo";
 export const salesEmail = "sales@crewzy.io";
 export const supportEmail = "support@crewzy.io";
+/** Crewzy address selected; Zoho hosts mailboxes. Provisioning/monitoring of this address is not yet verified. */
+export const privacyEmail = "privacy@crewzy.io";
 export const demoEmailHref = `mailto:${salesEmail}?subject=${encodeURIComponent("Crewzy demo request")}`;
 
 export const moduleSlugs = ["people", "recruitment", "time-projects", "leave", "finance", "compliance"] as const;

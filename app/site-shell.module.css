@@ -298,6 +298,7 @@
 }
 
 .footer {
+  font-weight: 400;
   border-top: 1px solid var(--preview-line);
   background: var(--preview-page-background);
   padding: 52px max(28px, calc((100% - 1184px) / 2)) 24px;
@@ -319,7 +320,8 @@
 .footerIntro p {
   margin-top: 18px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #000;
   letter-spacing: -0.02em;
 }
 
@@ -327,7 +329,7 @@
   display: block;
   margin-top: 8px;
   font-size: 13px;
-  color: var(--preview-brand-copy);
+  color: var(--preview-brand-ink);
 }
 
 .footerEmail {
@@ -344,13 +346,13 @@
 
 .footerEmail span {
   font-size: 12px;
-  color: var(--preview-ui-muted);
+  color: var(--preview-brand-ink);
 }
 
 .footerEmail strong {
   display: block;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--preview-brand-ink);
   margin-top: 5px;
 }
@@ -362,7 +364,7 @@
   padding: 38px 0;
 }
 
-.footerGroups h3 {
+.footer .footerGroups h3 {
   font-size: 13px !important;
   font-weight: 700;
   line-height: 1.4;
@@ -378,7 +380,7 @@
 
 .footerGroups a {
   font-size: 13px;
-  color: var(--preview-brand-copy);
+  color: var(--preview-brand-ink);
 }
 
 .footer a:hover {
@@ -392,15 +394,15 @@
   justify-content: space-between;
   gap: 20px;
   font-size: 12px;
-  color: var(--preview-ui-muted);
+  color: var(--preview-brand-ink);
 }
 
-.companyLink { color: var(--preview-brand-accent); font-weight: 600; }
+.companyLink { color: var(--preview-brand-accent); font-weight: 400; }
 
 .footerLegal {
   border-top: 1px solid var(--preview-line);
   padding: 22px 0;
-  color: var(--preview-brand-copy);
+  color: var(--preview-brand-ink);
   font-size: 12px;
   line-height: 1.8;
 }

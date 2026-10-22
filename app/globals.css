@@ -46,13 +46,23 @@ html {
   --preview-line: #e6ebf3;
   --preview-surface: var(--preview-page-background);
   --preview-green: #138966;
-  --preview-ui-text: #24364c;
-  --preview-ui-muted: #53657b;
+  /* Match the document-oversight card across every native preview. */
+  --preview-ui-text: var(--preview-brand-ink);
+  --preview-ui-muted: var(--preview-brand-copy);
+  --preview-ui-heading-size: 1.375rem;
+  --preview-ui-heading-weight: 700;
   --preview-ui-border: #dce3ec;
   --preview-ui-surface: #f6f8fb;
   --preview-compliance-accent: var(--preview-brand-accent);
   --preview-compliance-active: var(--preview-brand-tint);
   --preview-compliance-outline: var(--preview-brand-outline);
+}
+
+@media (max-width: 1100px) {
+  :root { --preview-ui-heading-size: 1.25rem; }
+}
+@media (max-width: 600px) {
+  :root { --preview-ui-heading-size: 1.15rem; }
 }
 
 @media (max-width: 1000px) {

@@ -1,0 +1,35 @@
+.aiSection.aiSection {
+  background: var(--preview-brand-surface);
+}
+
+.assurance.assurance {
+  max-width: 1000px;
+}
+
+.assurance + .assurance {
+  margin-top: 24px;
+}
+
+.assurance p + p {
+  margin-top: 12px;
+}
+
+.assurance a {
+  display: inline-flex;
+  margin-top: 18px;
+  align-items: center;
+  gap: 8px;
+  color: var(--preview-brand-accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.documentLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 24px;
+}
+
+.documentLinks:last-child {
+  margin-bottom: 8px;
+}

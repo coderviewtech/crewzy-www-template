@@ -16,8 +16,8 @@ export default function PlatformPage() {
     <section className={s.hero}><div className={`${s.heroInner} ${typeStyles.hero}`}>
       <span className={`${s.eyebrow} ${typeStyles.label}`}>The Crewzy platform</span>
       <h1>Your people and their work.<br /><span>Connected from the start.</span></h1>
-      <p>Core HR, hiring, time, leave, finance and compliance, built around one employee record. Explore what each part does and how it fits into the working day.</p>
-      <div className={s.actions}><a className={s.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} /></a><a className={`${s.textLink} ${typeStyles.link}`} href={demoHref}>Book a Crewzy demo <ArrowRight size={16} /></a></div>
+      <p>People management, hiring, time, leave, finance and compliance, built around one employee record. Explore what each part does and how it fits into the working day.</p>
+      <div className={s.actions}><a className={s.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} /></a><a className={`${s.textLink} ${typeStyles.link}`} href={demoHref}>Request a demo <ArrowRight size={16} /></a></div>
     </div></section>
     <section className={s.content} aria-label="Platform modules">
       <div className={`${s.sectionIntro} ${typeStyles.heading}`}><h2>One record. More of your day connected.</h2><p>Keep employee details, requests and decisions in context as work moves between teams.</p></div>

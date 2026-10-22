@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { createPageMetadata } from "../site-seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Contact Us & Book an HR Platform Demo",
-  description: "Book a Crewzy demo to explore HR, compliance, time tracking and invoicing for your team. Contact sales or get help with an existing workspace.",
+  title: "Contact Crewzy & Request a Demo",
+  description: "Request a Crewzy walkthrough covering people management, employee lifecycle workflows, document expiry tracking and compliance evidence. Talk to the team behind Crewzy.",
   canonical: "/contact",
 });
 export default function ContactLayout({ children }: { children: ReactNode }) { return children; }

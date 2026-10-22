@@ -65,9 +65,9 @@ test("About is discoverable in navigation and sitemap with its own canonical", (
   assert.match(source("../app/about/page.tsx"), /canonical: "\/about"/);
 });
 
-test("About Crewzy is a top-level link after Solutions, not a Resources dropdown item", () => {
+test("About Crewzy is a top-level link after Pricing, not a Resources dropdown item", () => {
   const shell = source("../app/site-shell.tsx");
-  assert.match(shell, /dropdown\("Solutions"[^\n]+\n\s*<a href="\/about"[^>]+>\s*About Crewzy/);
+  assert.match(shell, /href="\/pricing"[^>]+>\s*Pricing\s*<\/a>\s*<a href="\/about"[^>]+>\s*About Crewzy/);
   assert.match(shell, /href="\/about" aria-current=\{pathname === "\/about" \? "page" : undefined\} onClick=\{close\}/);
   const menus = source("../app/site-navigation.ts").split("export const footerGroups")[0];
   assert.ok(!menus.includes('href: "/about"'));

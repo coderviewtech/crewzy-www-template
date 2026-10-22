@@ -23,14 +23,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...createPageMetadata({
-    title: "HR, Compliance, Time Tracking & Invoicing Software",
+    title: "People Management, Work & Compliance Software",
     description: homeDescription,
     canonical: "/",
     shareTitle: siteCaption,
   }),
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Crewzy | HR, Compliance, Time Tracking & Invoicing Software",
+    default: "Crewzy | People Management, Work & Compliance Software",
     template: "%s — Crewzy",
   },
   applicationName: "Crewzy",

@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useRef } from "react";
 import {
   ArrowRight,
+  BrainCircuit,
+  ClipboardList,
+  MessagesSquare,
   BookOpen,
   Building2,
   Check,
@@ -19,7 +22,9 @@ import {
 import styles from "../landing.module.css";
 import secondary from "../secondary-page.module.css";
 import typeStyles from "../content-typography.module.css";
+import trust from "./trust.module.css";
 import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
+import { demoHref } from "../site-config";
 
 const MODULE_FACTS = [
   {
@@ -44,39 +49,50 @@ const MODULE_FACTS = [
   },
 ];
 
-/* Only controls that are actually implemented. Certifications we do not hold
-   are named as not-yet rather than implied, because the first enterprise buyer
-   who asks will check. */
+// Evidence scope: source review, not confirmation of a production deployment.
 const TRUST_CONTROLS = [
   {
     icon: KeyRound,
-    title: "Access control",
-    text: "Every API request is authorised against company-scoped role grants rather than a client-side check, and object-level ownership is verified separately from the route guard.",
+    title: "Company-scoped access",
+    text: "Roles, company permissions and record ownership checks govern access to records and actions.",
   },
   {
     icon: UserRoundCheck,
-    title: "Separation of duties",
-    text: "Sensitive approvals apply maker-checker rules, so the person who raised a request cannot be the person who approves it — enforced on the server, not hidden in the UI.",
+    title: "Approval controls",
+    text: "Supported workflows separate the person raising a request from the person approving it.",
   },
   {
     icon: ScrollText,
-    title: "Audit trail",
-    text: "Connected services record actor, company, action, result and time — including refusals, not only successes — so an investigation can show what was attempted as well as what happened.",
+    title: "Activity history",
+    text: "Recorded actions include the actor, outcome and time, helping teams review changes.",
   },
   {
     icon: LockKeyhole,
-    title: "Sign-in protection",
-    text: "Multi-factor authentication with authenticator apps, email fallback and backup codes, plus account lockout after repeated failed attempts.",
+    title: "Account protection",
+    text: "Password hashing, optional multi-factor authentication and failed sign-in controls support account security.",
   },
   {
     icon: Building2,
-    title: "Tenant isolation",
-    text: "Every query is scoped to the company it belongs to, and services re-verify that scope rather than trusting an identifier supplied by the caller.",
+    title: "Controlled document access",
+    text: "Authenticated requests, company permissions and time-limited download links govern access to uploaded documents.",
   },
   {
     icon: ShieldCheck,
-    title: "Service hardening",
-    text: "Standard security headers, per-endpoint rate limiting on write paths, and a fail-closed configuration check that refuses to start on a weak or missing production secret.",
+    title: "Service protections",
+    text: "Application controls include security headers, request rate limits and production-secret checks.",
+  },
+];
+
+const AI_GUIDANCE = [
+  {
+    icon: KeyRound,
+    title: "Permission-aware context",
+    text: "Where AI features are enabled, workspace tools use company and role permissions to retrieve relevant information. Inputs and relevant context are processed by the configured AI provider.",
+  },
+  {
+    icon: MessagesSquare,
+    title: "Careful inputs and review",
+    text: "Share only the information needed for the task. Keep passwords, sign-in codes and tokens out of prompts and uploads. Check generated answers, summaries and extracted fields before acting on them.",
   },
 ];
 
@@ -92,10 +108,11 @@ export default function ResourcesPage() {
         <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={BookOpen}>Resources</Eyebrow>
           <h1>How Crewzy fits together, and <span>how it is protected.</span></h1>
-          <p>Two things worth understanding before you commit a company to a platform: how the modules relate to each other, and what actually guards your data.</p>
+          <p>Understand how the modules work together, how application controls support your workspace, and where to find our privacy and service information.</p>
           <nav className={`${styles.subJump} ${typeStyles.jumpLinks}`} aria-label="Jump to a section">
             <Link href="#modules">How modules work</Link>
             <Link href="#security">Security &amp; trust</Link>
+            <Link href="#privacy-progress">Privacy &amp; service information</Link>
           </nav>
         </div>
       </section>
@@ -117,36 +134,74 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className={styles.subSection} id="security">
-        <div className={`${styles.subSectionHead} ${typeStyles.heading}`} data-reveal>
+      <section className={styles.subSection} id="security" aria-labelledby="security-title">
+        <div className={[styles.subSectionHead, typeStyles.heading].join(" ")} data-reveal>
           <Eyebrow icon={ShieldCheck}>Security &amp; trust</Eyebrow>
-          <h2>Controls that are in the product <span>today.</span></h2>
-          <p>Everything below is implemented and running, not on a roadmap. Where we do not yet have something, it says so.</p>
+          <h2 id="security-title">Application safeguards. <span>Everyday confidence.</span></h2>
+          <p>Access permissions, approval controls and activity history are part of Crewzy’s application design.</p>
         </div>
-        <div className={`${styles.subCards} ${typeStyles.cards}`}>
+        <div className={[styles.subCards, typeStyles.cards].join(" ")}>
           {TRUST_CONTROLS.map(({ icon: ControlIcon, title, text }, index) => (
             <article key={title} data-reveal data-reveal-delay={String((index % 2) + 1)} data-scroll-zoom="card">
-              <span><ControlIcon size={19} /></span>
+              <span><ControlIcon size={19} aria-hidden="true" /></span>
               <h3>{title}</h3>
               <p>{text}</p>
             </article>
           ))}
         </div>
-        {/* Saying this plainly costs nothing a serious buyer would not find out
-            in their first security review — and it makes the list above land. */}
-        <div className={`${styles.trustNote} ${typeStyles.note}`} data-reveal>
-          <ShieldCheck size={17} />
-          <p><strong>What we do not claim yet.</strong> Crewzy is not SOC 2 or ISO 27001 certified — those audits take a trading history we do not have. The controls above are built and running, and we will happily walk your security team through how each one works. If a certificate is a hard requirement for you today, we are not the right choice yet, and we would rather tell you now.</p>
+      </section>
+
+      <section className={[styles.subSection, trust.aiSection].join(" ")} id="ai-safeguards" aria-labelledby="ai-security-title">
+        <div className={[styles.subSectionHead, typeStyles.heading].join(" ")} data-reveal>
+          <Eyebrow icon={BrainCircuit}>Using AI thoughtfully</Eyebrow>
+          <h2 id="ai-security-title">Relevant context. <span>Human judgement.</span></h2>
+          <p>AI can help with workspace questions, document fields and summaries where enabled. Use relevant information and review the results.</p>
+        </div>
+        <div className={[styles.subCards, typeStyles.cards].join(" ")}>
+          {AI_GUIDANCE.map(({ icon: GuidanceIcon, title, text }) => (
+            <article key={title} data-reveal data-scroll-zoom="card">
+              <span><GuidanceIcon size={19} aria-hidden="true" /></span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.subSection} id="privacy-progress" aria-labelledby="privacy-title">
+        <div className={[styles.subSectionHead, typeStyles.heading].join(" ")} data-reveal>
+          <Eyebrow icon={ClipboardList}>Privacy &amp; service information</Eyebrow>
+          <h2 id="privacy-title">Understand how <span>your data is used.</span></h2>
+          <p>Read how Crewzy handles account and workspace information, the terms for using the service, and the arrangements for customer-controlled data.</p>
+        </div>
+        <div className={[styles.trustNote, typeStyles.note, trust.assurance].join(" ")} data-reveal>
+          <ScrollText size={17} aria-hidden="true" />
+          <div>
+            <p><strong>Information in one place.</strong> Our privacy and service pages explain the relevant scope, responsibilities and current provider information.</p>
+            <nav className={trust.documentLinks} aria-label="Privacy and service documents">
+              <Link href="/privacy">Privacy policy <ArrowRight size={15} aria-hidden="true" /></Link>
+              <Link href="/terms">Terms and conditions <ArrowRight size={15} aria-hidden="true" /></Link>
+              <Link href="/dpa">Data processing agreement <ArrowRight size={15} aria-hidden="true" /></Link>
+              <Link href="/subprocessors">Service providers <ArrowRight size={15} aria-hidden="true" /></Link>
+            </nav>
+          </div>
+        </div>
+        <div className={[styles.trustNote, typeStyles.note, trust.assurance].join(" ")} data-reveal>
+          <ShieldCheck size={17} aria-hidden="true" />
+          <div>
+            <p><strong>Compliance support with a clear scope.</strong> Crewzy tracks document dates and expiry and helps organise compliance evidence. It does not verify document authenticity or guarantee regulatory compliance.</p>
+            <Link href="/contact">Discuss your security requirements <ArrowRight size={15} aria-hidden="true" /></Link>
+          </div>
         </div>
       </section>
 
       <section className={`${styles.subCta} ${typeStyles.closing}`} data-reveal>
         <Eyebrow icon={Rocket} dark>Ready when you are</Eyebrow>
-        <h2>See it running on <span>your own data.</span></h2>
-        <p>Start free for up to 10 employees, or ask us to set a workspace up with your people already in it.</p>
+        <h2>Explore Crewzy <span>with your team.</span></h2>
+        <p>Explore the connected workflows, or request a demo to discuss your team’s requirements.</p>
         <div>
           <Link href={appUrl("/signup")}>Set up free workspace <ArrowRight size={18} /></Link>
-          <Link href={"/customers"}>Apply as a design partner</Link>
+          <Link href={demoHref}>Request a demo</Link>
         </div>
       </section>
       <Footer />

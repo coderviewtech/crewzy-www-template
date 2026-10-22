@@ -139,11 +139,11 @@ export function SiteHeader() {
       >
         {dropdown("Platform", platformColumns, s.platformPanel)}
         {dropdown("Solutions", solutionsColumns, s.solutionsPanel)}
+        <a href="/pricing" aria-current={pathname === "/pricing" ? "page" : undefined} onClick={close}>
+          Pricing
+        </a>
         <a href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={close}>
           About Crewzy
-        </a>
-        <a href="/customers" aria-current={pathname === "/customers" ? "page" : undefined} onClick={close}>
-          Customers
         </a>
         {dropdown("Resources", resourcesColumns, s.resourcesPanel)}
         <a href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={close}>
@@ -151,12 +151,12 @@ export function SiteHeader() {
         </a>
         <div className={s.mobileActions}>
           <a href={appUrl("/login")} className={s.signIn} onClick={close}>Sign in</a>
-          <a href={appUrl("/signup")} className={s.primaryButton} onClick={close}>Start free <ArrowRight size={15} /></a>
+          <a href={demoHref} className={s.primaryButton} onClick={close}>Request a demo <ArrowRight size={15} /></a>
         </div>
       </nav>
       <div className={s.headerActions}>
         <a className={s.signIn} href={appUrl("/login")}>Sign in</a>
-        <a className={s.primaryButton} href={demoHref}>Book a demo <ArrowRight size={16} aria-hidden="true" /></a>
+        <a className={s.primaryButton} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></a>
         <button
           ref={menuButton}
           className={s.menuToggle}
@@ -180,7 +180,7 @@ export function SiteFooter() {
           <a href="/#top" aria-label="Crewzy home"><Brand className={s.footerBrand} /></a>
           <p>{siteCaption}</p>
           <span>One employee record. Connected workflows. Less everyday admin.</span>
-          <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.displayName}</a>.</span>
+          <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.legalName}</a>, registered in {company.jurisdiction}.</span>
         </div>
         <a className={s.footerEmail} href={`mailto:${salesEmail}`}>
           <Mail size={18} aria-hidden="true" />
@@ -207,7 +207,11 @@ export function SiteFooter() {
         <span>© {new Date().getFullYear()} Crewzy. All rights reserved.</span>
         <div>
           <a href="/about">About Crewzy</a>
-          <a href="/resources#security">Security & trust</a>
+          <a href="/privacy">Privacy policy</a>
+          <a href="/terms">Terms and conditions</a>
+          <a href="/dpa">Data processing</a>
+          <a href="/subprocessors">Service providers</a>
+          <a href="/resources#security">Security &amp; trust</a>
           <a href="/contact">Contact us</a>
         </div>
       </div>
