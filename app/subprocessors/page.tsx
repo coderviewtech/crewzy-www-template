@@ -6,15 +6,25 @@ import { createLegalMetadata } from "../site-seo";
 
 export const metadata = createLegalMetadata({
   title: "Subprocessors and service providers",
-  description: "The AWS, Amazon Bedrock, Zoho and Netlify services supporting Crewzy and the information involved.",
+  description: "The hosting, AI, signup protection, email, website and advertising services Crewzy uses, and the information involved.",
   canonical: "/subprocessors",
 });
 
 const providers = [
   {
     name: "Amazon RDS",
-    purpose: "AWS database hosting in London.",
+    purpose: "Database hosting and automated database backups in London, UK.",
     information: "Account and workspace records, including relevant people, workflow, expense, invoice and activity information.",
+  },
+  {
+    name: "Amazon S3",
+    purpose: "Document storage in London, UK.",
+    information: "Uploaded workspace documents and associated information, depending on the features used and content supplied.",
+  },
+  {
+    name: "Cloudflare Turnstile",
+    purpose: "Protecting signup against automated abuse.",
+    information: "Technical security signals such as IP addresses and browser and connection information, plus challenge tokens used for verification.",
   },
   {
     name: "Amazon Bedrock",
@@ -35,10 +45,10 @@ const providers = [
 
 export default function SubprocessorsPage() {
   return (
-    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved.">
+    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved." updatedOn={{ iso: "2026-10-23", label: "23 October 2026" }}>
       <section>
         <h2>Services we use</h2>
-        <p>Crewzy uses the following services for its database, AI, email and public website. The information involved depends on the features used and the content supplied.</p>
+        <p>Crewzy uses the following services for database and document storage, AI, signup protection, email and the public website. The information involved depends on the features used and the content supplied.</p>
         <LegalTable label="Crewzy service providers, purposes and information">
           <table>
             <caption>Services supporting Crewzy</caption>
@@ -51,11 +61,17 @@ export default function SubprocessorsPage() {
           </table>
         </LegalTable>
         <p>Online payment providers are not currently connected.</p>
+        <p>For Cloudflare’s handling of signup security signals, see its <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</a>.</p>
+      </section>
+
+      <section>
+        <h2>Advertising</h2>
+        <p>We also use Google Ads to promote Crewzy. <a href="https://policies.google.com/privacy">Google’s privacy policy</a> explains how Google processes information in its advertising services. See our <Link href="/privacy#storage">privacy information about cookies and third-party services</Link>.</p>
       </section>
 
       <section>
         <h2>Data locations and processing terms</h2>
-        <p>The Amazon RDS database is hosted in London. That location does not establish where other services, backups or AI processing take place. Read our <Link href="/privacy#locations">data location and international processing information</Link> for the scope of this statement.</p>
+        <p>Our primary database, its automated backups and document storage are hosted on AWS in London, United Kingdom. This does not establish where other services or AI processing take place. Read our <Link href="/privacy#locations">data location and international processing information</Link> for the scope of this statement.</p>
         <p>For organisational customers, the written <Link href="/dpa">data processing agreement</Link> identifies the applicable processing arrangements, including subprocessor authorisation and notification terms. A provider’s role depends on the service and information involved.</p>
       </section>
 

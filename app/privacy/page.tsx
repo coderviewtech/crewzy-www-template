@@ -15,13 +15,13 @@ export const metadata = createLegalMetadata({
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you.">
+    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you." updatedOn={{ iso: "2026-10-23", label: "23 October 2026" }}>
       <article aria-label="Privacy at a glance">
         <h2>Privacy at a glance</h2>
         <ul>
           <li>Crewzy supports personal expenses, business expenses and connected people workflows.</li>
           <li>Organisations control their workspace records. Crewzy has separate responsibilities for account information and personal-use workspaces.</li>
-          <li>Our core services include AWS RDS in London, Amazon Bedrock, Zoho mailboxes and Netlify.</li>
+          <li>Our primary database and document storage are hosted on AWS in London, United Kingdom.</li>
           <li>For privacy questions or requests, contact <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>.</li>
         </ul>
       </article>
@@ -74,13 +74,13 @@ export default function PrivacyPolicyPage() {
       <section id="sharing">
         <h2>5. Who receives information</h2>
         <p>Information may be available to authorised workspace participants, service providers supporting Crewzy, and recipients selected by a customer, such as recruitment clients or connected communication services. A provider’s role depends on its purpose and the information involved.</p>
-        <p>Our core services are AWS RDS for the database, Amazon Bedrock for AI, Zoho for Crewzy mailboxes and Netlify for the website. See the <Link href="/subprocessors">provider list</Link>. Online payment providers are not currently connected.</p>
+        <p>We use AWS RDS for the database and its automated backups, Amazon S3 for documents, Amazon Bedrock for AI, Cloudflare Turnstile for signup protection, Zoho for Crewzy mailboxes and Netlify for the public website. See the <Link href="/subprocessors">provider list</Link>. Online payment providers are not currently connected.</p>
         <p>Information may also be disclosed where legally required or necessary for professional advice or a genuine business transaction, with appropriate protections. Customer-selected sharing and integrations should be limited to the intended recipients and purpose.</p>
       </section>
 
       <section id="locations">
         <h2>6. Data locations</h2>
-        <p>The AWS RDS database is hosted in London. Other processing and access locations, including AI, email, website services and backups, are being confirmed separately. The database location is not a UK-only processing commitment.</p>
+        <p>Our primary PostgreSQL database and document storage are hosted on AWS in London, United Kingdom. Other services, including AI, email, website and security services, may process information elsewhere. The primary storage location is not a UK-only processing commitment.</p>
         <p>Any required international-transfer safeguards must be established for the processing concerned. Contact <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a> about locations and transfer arrangements for your service.</p>
       </section>
 
@@ -109,8 +109,10 @@ export default function PrivacyPolicyPage() {
       <section id="storage">
         <h2>10. Cookies, security and updates</h2>
         <p>The application uses authentication cookies and browser storage for sessions and interface preferences. Remembered-account details may remain after sign-out; the different-account action clears them, and hints older than 90 days are not used.</p>
-        <p>Enabled Google sign-in, signup protection, external email resources and the application’s ipapi.co country-lookup fallback can involve provider scripts or connection information. Netlify’s approximate country signal supports public regional pricing where available; it does not request GPS access or establish a paid billing country.</p>
-        <p>Our <Link href="/resources#security">security page</Link> explains application safeguards. Account eligibility is covered by our <Link href="/terms">Terms</Link>; organisations handling young workers’ or apprentices’ information must consider relevant protections.</p>
+        <p>Cloudflare Turnstile helps protect signup against automated abuse. It processes technical signals such as IP addresses and browser and connection information. See <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Cloudflare’s Turnstile Privacy Addendum</a> for details.</p>
+        <p>Enabled Google sign-in, external email resources and the application’s ipapi.co country-lookup fallback can involve provider scripts or connection information. Netlify’s approximate country signal supports public regional pricing where available; it does not request GPS access or establish a paid billing country.</p>
+        <p>We use Google Ads to promote Crewzy. <a href="https://policies.google.com/privacy">Google’s privacy policy</a> explains how Google processes information in its advertising services.</p>
+        <p>Our <Link href="/resources#security">security page</Link> explains hosting and application safeguards. Account eligibility is covered by our <Link href="/terms">Terms</Link>; organisations handling young workers’ or apprentices’ information must consider relevant protections.</p>
         <p>The date above identifies this policy version. We will update it when data uses change and provide appropriate notice of material changes where required.</p>
       </section>
     </LegalPage>

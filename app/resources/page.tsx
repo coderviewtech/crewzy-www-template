@@ -137,7 +137,8 @@ export default function ResourcesPage() {
       <section className={styles.subSection} id="security" aria-labelledby="security-title">
         <div className={[styles.subSectionHead, typeStyles.heading].join(" ")} data-reveal>
           <Eyebrow icon={ShieldCheck}>Security &amp; trust</Eyebrow>
-          <h2 id="security-title">Application safeguards. <span>Everyday confidence.</span></h2>
+          <h2 id="security-title">Security <span>at Crewzy.</span></h2>
+          <p>Crewzy’s primary database and document storage are hosted on AWS in London, UK. We use HTTPS, encryption at rest, a private database network and protections against public access to stored documents. Automated database backups, threat detection and infrastructure audit logging are enabled. Further security and data-processing information is available on request.</p>
           <p>Access permissions, approval controls and activity history are part of Crewzy’s application design.</p>
         </div>
         <div className={[styles.subCards, typeStyles.cards].join(" ")}>
