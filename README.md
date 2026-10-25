@@ -253,3 +253,28 @@ Production infrastructure setup remains with the separate provisioning work.
 The owner approved publishing these links to the existing Codex website branch.
 Its push triggers Netlify; the separate production app still requires its own
 release. Link tests pass, and this change does not deploy the application.
+
+
+## Static regional pricing — 25 October 2026
+
+`/pricing` now serves pre-rendered UK, India, US, euro-area and unknown-region
+variants through the native Next proxy. Only Netlify's trusted country context
+selects the market in production; headers, cookies, query parameters and direct
+market URLs cannot select another region's currency. Missing or unsupported
+geography shows the currency-neutral contact option. The application independently
+controls purchasable prices from its stored billing country.
+
+The Next/Netlify adapter caches separate market paths and preserves HTML/Flight
+response variations. The old dynamic render and custom no-store edge wrapper are
+removed. Every variant keeps `https://crewzy.io/pricing` as its canonical URL;
+only the public page appears in the sitemap. Rates, the first-ten allowance,
+calculator, colours and layout are unchanged.
+
+The production build and all 76 unit/artifact/HTTP checks pass. To run the
+integration checks, supply `CREWZY_PRICING_BUILD_DIR`,
+`CREWZY_PRICING_TEST_ORIGIN` and `CREWZY_PRICING_EXPECTED_MARKET`; the HTTP origin
+must already be running with known trusted geography. Local Next servers used
+for native rewrite QA must bind with `--hostname localhost`, avoiding Next's
+loopback-IP origin normalization. Do not rebuild a loaded preview's `.next`.
+See `docs/reviews/static-regional-pricing-20261025.md` for the trust boundary,
+platform evidence, test commands and deployment verification.

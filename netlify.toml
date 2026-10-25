@@ -17,8 +17,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Select one public pricing market using Netlify country data. The application
-# independently locks purchasable prices to the company's confirmed billing country.
-[[edge_functions]]
-  path = "/pricing"
-  function = "pricing-country"
+# Next proxy.ts is compiled by the adapter into an edge function. It chooses
+# pre-rendered pricing market paths using trusted Netlify country context.
+# The application independently enforces the company's billing country.

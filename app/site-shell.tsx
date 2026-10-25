@@ -140,7 +140,7 @@ export function SiteHeader() {
       >
         {dropdown("Platform", platformColumns, s.platformPanel)}
         {dropdown("Solutions", solutionsColumns, s.solutionsPanel)}
-        <a href="/pricing" aria-current={pathname === "/pricing" ? "page" : undefined} onClick={close}>
+        <a href="/pricing" aria-current={pathname === "/pricing" || pathname?.startsWith("/pricing/market/") ? "page" : undefined} onClick={close}>
           Pricing
         </a>
         <a href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={close}>
