@@ -11,6 +11,9 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  // Keep even an empty _rsc hash through pricing rewrites on Netlify.
+  // Next's RSC hash validation and the adapter's cache variants remain enabled.
+  skipProxyUrlNormalize: true,
   // Public build context must survive in dynamic server routes on Netlify.
   // CONTEXT itself is only guaranteed during the build. This value is not secret.
   env: { CREWZY_SITE_BUILD_CONTEXT: process.env.CONTEXT ?? "local" },

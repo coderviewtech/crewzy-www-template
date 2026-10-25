@@ -40,8 +40,8 @@ Nine actual-proxy behavioral tests cover supported geography, malformed/missing/
 
 Checks completed:
 
-- Complete website suite with the isolated production build and known-geo HTTP origin supplied: **76 passed, 0 failed, 0 skipped**.
-- Default unit-suite invocation: **69 passed, 7 integration checks skipped** until a build directory and known-geo HTTP origin are supplied.
+- Complete website suite with the isolated production build and known-geo HTTP origin supplied: **82 passed, 0 failed, 0 skipped**.
+- Default unit-suite invocation: **74 passed, 8 integration checks skipped** until a build directory and known-geo HTTP origin are supplied.
 - Full TypeScript check and whitespace check passed.
 - Isolated production Webpack build passed on Next 16.3.4; `/pricing` is static and all five market routes are SSG.
 
@@ -72,7 +72,7 @@ CREWZY_PRICING_TEST_ORIGIN=http://localhost:3187 CREWZY_PRICING_EXPECTED_MARKET=
 
 Without an explicitly configured test origin this integration check is skipped. The final combined run supplies both the isolated build directory and this origin, so that all artifact and HTTP checks execute. Browser and genuine Netlify CDN/geo-cache checks remain separate.
 
-The native HTTP regression failed against the original IP-bound server (307 instead of 200) and passed against the localhost-bound server using the same application build. The combined final suite passed all 76 checks, with no skips.
+The native HTTP regression failed against the original IP-bound server (307 instead of 200) and passed against the localhost-bound server using the same application build. The same-build HTTP regression passed without relaxing the direct-market guard.
 
 
 ## Browser verification
@@ -97,3 +97,26 @@ It invalidated generated production build manifests; no website server was
 running on port 3001 and the source `.next/dev` directory was unchanged.
 No generated cache reset or server restart was performed. Final build and
 integration verification used the isolated build above.
+
+
+## Netlify Flight follow-up: preserve an explicit empty hash
+
+Live integration exposed a Netlify-only distinction that native `next start` did not reproduce: a Flight request with no router-state headers correctly normalizes to an explicitly empty `_rsc` query value, but that value was lost between the public proxy URL and the rewritten target. Next's framework adapter strips `_rsc` before calling application proxy code and restores only truthy hashes afterward. A nonempty hash survives; an empty hash does not. Netlify's separate target request then repeatedly requests normalization to the same public URL.
+
+The correction is the supported `skipProxyUrlNormalize: true` configuration option. The pricing proxy receives the original URL and Flight headers, so both `_rsc=` and bare `_rsc` remain present in the rewritten target. The proxy still uses native rewrites and trusted geography. No RSC validation flag, cache variation, country enforcement, canonical or pricing data changes.
+
+The installed Next documentation describes this option under [Advanced Proxy flags](https://nextjs.org/docs/app/api-reference/file-conventions/proxy#advanced-proxy-flags) and [RSC requests and rewrites](https://nextjs.org/docs/app/api-reference/file-conventions/proxy#rsc-requests-and-rewrites). The installed source maps this setting directly to the framework adapter's `__NEXT_NO_MIDDLEWARE_URL_NORMALIZE` build constant (`next/dist/build/define-env.js`); no browser header or runtime production override is introduced.
+
+`tests/pricing-next-adapter.test.mjs` executes Next's actual `adapter()` around the real pricing proxy. It imports the current Next configuration rather than forcing a passing setting. Before the fix, both empty-hash forms failed while nonempty hashes, real router headers and HTML controls passed. After the fix all five behavioral checks pass. An additional generated-build check requires the final production configuration to retain raw proxy URLs while keeping `validateRSCRequestHeaders: true`.
+
+Native-server HTTP checks remain necessary but do not substitute for the final Netlify check: the deployed adapter's separate request and CDN processing caused this issue. Completion requires the live HTTP regression, mixed HTML/Flight request ordering, price/country spoof checks and genuine cache headers after the follow-up deploy.
+
+Final follow-up verification passed: **82 tests, zero failures and zero skips**, including the real framework-adapter and generated configuration checks, all static market artifacts, and native HTML/Flight HTTP checks on the corrected production build. Full TypeScript and whitespace checks also passed. The generated configuration explicitly retains both `skipProxyUrlNormalize: true` and `validateRSCRequestHeaders: true`. Live Netlify verification is still the release-completion gate.
+
+
+The corrected isolated production build at
+`/private/tmp/crewzy-pricing-rsc-20261025-270n85qu` passes the generated config
+assertions. The final combined suite, including its known-geo native HTTP server,
+passes **82 checks with zero failures or skips**. TypeScript and whitespace checks
+also pass. The final live Netlify protocol check is recorded separately after
+source publication.

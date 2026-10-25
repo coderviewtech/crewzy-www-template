@@ -270,7 +270,7 @@ removed. Every variant keeps `https://crewzy.io/pricing` as its canonical URL;
 only the public page appears in the sitemap. Rates, the first-ten allowance,
 calculator, colours and layout are unchanged.
 
-The production build and all 76 unit/artifact/HTTP checks pass. To run the
+The production build and all 82 unit/adapter/artifact/HTTP checks pass. To run the
 integration checks, supply `CREWZY_PRICING_BUILD_DIR`,
 `CREWZY_PRICING_TEST_ORIGIN` and `CREWZY_PRICING_EXPECTED_MARKET`; the HTTP origin
 must already be running with known trusted geography. Local Next servers used
@@ -278,3 +278,7 @@ for native rewrite QA must bind with `--hostname localhost`, avoiding Next's
 loopback-IP origin normalization. Do not rebuild a loaded preview's `.next`.
 See `docs/reviews/static-regional-pricing-20261025.md` for the trust boundary,
 platform evidence, test commands and deployment verification.
+
+Native proxy URL normalization is skipped so an explicitly empty `_rsc` value
+survives a regional rewrite on Netlify. Next's RSC request validation remains
+enabled; the real-adapter and generated-config regressions check both settings.
