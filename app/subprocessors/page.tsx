@@ -37,6 +37,11 @@ const providers = [
     information: "Email addresses, message content, attachments supplied in correspondence and delivery information. This entry covers Crewzy mailboxes, rather than application notification delivery.",
   },
   {
+    name: "Twilio SendGrid",
+    purpose: "Delivering Crewzy application emails, including account, security and workflow notifications.",
+    information: "Recipient email addresses, message content and relevant account or workspace details included in notifications, together with delivery and error information.",
+  },
+  {
     name: "Netlify",
     purpose: "Hosting the public Crewzy website.",
     information: "Website request and connection information, including the approximate country signal used for regional pricing where available.",
@@ -45,7 +50,7 @@ const providers = [
 
 export default function SubprocessorsPage() {
   return (
-    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved." updatedOn={{ iso: "2026-10-23", label: "23 October 2026" }}>
+    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved." updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }}>
       <section>
         <h2>Services we use</h2>
         <p>Crewzy uses the following services for database and document storage, AI, signup protection, email and the public website. The information involved depends on the features used and the content supplied.</p>

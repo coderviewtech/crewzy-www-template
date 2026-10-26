@@ -13,7 +13,7 @@ export const metadata = createLegalMetadata({
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms and conditions" updatedOn={{ iso: "2026-10-22", label: "22 October 2026" }} summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
+    <LegalPage title="Terms and conditions" updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }} summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
       <section id="agreement">
         <h2>1. Who provides Crewzy</h2>
         <p>Crewzy is provided by {company.legalName}, registered in England and Wales under company number {company.number}, at {company.registeredOffice} (“we” or “us”). Contact <a href={`mailto:${supportEmail}`}>{supportEmail}</a> or write to that address.</p>
@@ -67,7 +67,8 @@ export default function TermsPage() {
       <section id="data">
         <h2>7. Your information and content</h2>
         <p>You retain your rights in your content and permit Crewzy to store, process and transmit it to provide the agreed service, follow lawful instructions and meet legal duties. You must have the rights and permissions to supply it.</p>
-        <p>Our <Link href="/privacy">privacy policy</Link> explains data use, AI and recipients; the <Link href="/subprocessors">provider page</Link> covers AWS, Amazon Bedrock, Zoho and Netlify. Organisational processing requires an agreed <Link href="/dpa">DPA</Link> with completed schedules. A personal purchase does not automatically require an organisational DPA, and viewing this page does not execute one.</p>
+        <p>Our <Link href="/privacy">privacy policy</Link> explains data use, AI and recipients; the <Link href="/subprocessors">provider page</Link> covers AWS, Amazon Bedrock, Cloudflare Turnstile, Zoho, Twilio SendGrid and Netlify. SendGrid delivers application emails, including account, security and workflow notifications. Organisational processing requires an agreed <Link href="/dpa">DPA</Link> with completed schedules. A personal purchase does not automatically require an organisational DPA, and viewing this page does not execute one.</p>
+        <p>We may contact you to provide and secure your account or respond to your requests. Our <Link href="/privacy#contact">contact information and choices</Link> explain promotional contact and how to stop it. Accepting these Terms or creating an account does not itself give consent to marketing.</p>
       </section>
       <section id="acceptable-use">
         <h2>8. Responsible use and intellectual property</h2>

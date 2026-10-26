@@ -15,7 +15,7 @@ export const metadata = createLegalMetadata({
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you." updatedOn={{ iso: "2026-10-23", label: "23 October 2026" }}>
+    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you." updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }}>
       <article aria-label="Privacy at a glance">
         <h2>Privacy at a glance</h2>
         <ul>
@@ -47,6 +47,7 @@ export default function PrivacyPolicyPage() {
           </LegalTable>
         </details>
         <p>Information comes from you, workspace administrators and users, candidates, recruitment clients, imports and enabled integrations. Crewzy also generates workflow status, extracted fields, summaries and activity records.</p>
+        <p>For relevant business outreach, limited prospect information may come from public business websites, professional directories or direct introductions, such as a name, work contact details, role and company. When we obtain personal details from another source, we provide privacy information, including the source, by our first contact or any earlier applicable legal deadline.</p>
         <p>Health information may appear in leave evidence, blood-group fields or documents. Supply sensitive information only where necessary, permitted for the service and supported by the required legal grounds. Do not add unrelated sensitive records or put passwords and authentication codes in documents or chat.</p>
       </section>
 
@@ -62,6 +63,13 @@ export default function PrivacyPolicyPage() {
         </ul>
         <p>For ordinary information about others supplied for lawful personal use, our basis is our legitimate interests in providing the requested workspace, balanced against their rights. Sensitive information requires any additional applicable legal condition. Organisational customers determine the purposes and legal grounds for records they control; their contract does not itself establish a legal ground for every employee record.</p>
         <p>Some account and security details are necessary to provide access. Workspace administrators should explain which other information they require and the consequences of not supplying it.</p>
+        <section id="contact">
+          <h3>How we contact you</h3>
+          <p>We use account and enquiry contact details to respond to you, arrange demos or calls you request, provide support and send essential account, security and service messages.</p>
+          <p>We may also use business contact details for relevant Crewzy product information and sales follow-up where lawful. We rely on consent where required, or on assessed legitimate interests in relevant business outreach where applicable rules allow. Creating an account, providing a phone number or accepting our Terms does not itself give marketing consent.</p>
+          <p>You can stop marketing by replying to a marketing email, telling the caller or emailing <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>. You can specify email or phone contact, or ask us to stop all marketing; no account or sign-in is required. This does not stop essential account, security and service messages.</p>
+          <p>We do not use employee, candidate, expense-contact or other records uploaded to customer workspaces as a prospect list for Crewzy sales.</p>
+        </section>
       </section>
 
       <section id="ai">
@@ -74,7 +82,7 @@ export default function PrivacyPolicyPage() {
       <section id="sharing">
         <h2>5. Who receives information</h2>
         <p>Information may be available to authorised workspace participants, service providers supporting Crewzy, and recipients selected by a customer, such as recruitment clients or connected communication services. A provider’s role depends on its purpose and the information involved.</p>
-        <p>We use AWS RDS for the database and its automated backups, Amazon S3 for documents, Amazon Bedrock for AI, Cloudflare Turnstile for signup protection, Zoho for Crewzy mailboxes and Netlify for the public website. See the <Link href="/subprocessors">provider list</Link>. Online payment providers are not currently connected.</p>
+        <p>We use AWS RDS for the database and its automated backups, Amazon S3 for documents, Amazon Bedrock for AI, Cloudflare Turnstile for signup protection, Zoho for Crewzy mailboxes, Twilio SendGrid for application email delivery and Netlify for the public website. See the <Link href="/subprocessors">provider list</Link>. Online payment providers are not currently connected.</p>
         <p>Information may also be disclosed where legally required or necessary for professional advice or a genuine business transaction, with appropriate protections. Customer-selected sharing and integrations should be limited to the intended recipients and purpose.</p>
       </section>
 
@@ -89,6 +97,7 @@ export default function PrivacyPolicyPage() {
         <p>Workspace information is kept for the active service and according to lawful customer instructions. Our intended inactive-workspace retention period is <strong>{inactiveWorkspaceRetentionDays} days from workspace deactivation</strong>, including deactivation after non-payment. The period does not start at the first missed payment, and cancelling renewal alone does not deactivate a workspace.</p>
         <p>The {inactiveWorkspaceRetentionDays}-day period is a retention policy, not a guarantee of automatic erasure of every copy. Complete deletion coverage across systems and backups still needs verification. Earlier valid return or deletion requests and legally required retention are handled separately.</p>
         <p>Account and financial records, support correspondence and security records may need different periods to meet their purpose, applicable duties, investigations or legal holds. Provider and backup copies are subject to the applicable deletion or overwrite arrangements. A document’s expiry date does not itself trigger deletion.</p>
+        <p>After a marketing objection, we may keep the minimum contact details and restriction record needed to honour it for as long as necessary to prevent further unwanted marketing. This record is used to respect your choice, not to send promotions.</p>
       </section>
 
       <section id="rights">

@@ -1,8 +1,8 @@
 # Privacy and service terms — evidence and release decisions
 
-Original review date: 20 October 2026. Current presentation review: 21 October 2026. Internal repository documentation for `/privacy`, `/terms`, `/dpa`, `/subprocessors`, `/resources` and `app/privacy-data.ts`.
+Original review date: 20 October 2026. Latest disclosure and mailbox evidence review: 26 October 2026. Internal repository documentation for `/privacy`, `/terms`, `/dpa`, `/subprocessors`, `/resources` and `app/privacy-data.ts`.
 
-**Current status:** The local website now presents professional privacy and service information, including Terms for individuals and organisations. The DPA page explains the agreement process; it is not an executed DPA. Supplier selection remains unfinished. A presentation update is not evidence of live operational readiness. The historical notes below describe the original 20 October drafts; the 21 October record at the end supersedes their presentation status. Source capabilities do not establish deployed settings, contractual commitments or a compliance certification. No production records, secrets or operational logs were inspected for this inventory.
+**Current status:** The website presents privacy and service information, including Terms for individuals and organisations. The DPA page explains the agreement process; it is not an executed DPA. The latest 26 October record below supersedes earlier supplier and mailbox readiness statements: Zoho hosts Crewzy mailboxes and Twilio SendGrid provides application email delivery. Mail routing and domain-authentication tests have passed; a production Crewzy signup email has not been tested. Supplier contracting entities, processing locations outside the confirmed AWS primary storage and applicable agreements still require confirmation. Source capabilities and updated notices do not establish operational compliance or certification. Historical findings below retain their original dates and scope.
 
 ## Human-confirmed facts
 
@@ -448,3 +448,218 @@ and require coordinated Common, company-service and frontend release. The
 Free cap remains 10 managed employees; zero-quantity paid checkout is blocked.
 A self-service upgrade path at the 10-employee cap requires an explicit launch
 decision before enabling payment checkout; no free Business activation was added.
+
+
+## Contact use and startup outreach — 26 October 2026
+
+The owner authorised clearer account-contact and promotional-contact disclosures
+following a comparison with Odoo, Zoho and HubSpot. The changes describe Crewzy's
+chosen approach; peer wording is not copied as a substitute for legal analysis.
+No claim is made that updating text alone establishes operational compliance.
+
+### Public changes and verified capability
+
+- Privacy now distinguishes requested demos/calls, account/support/security
+  messages and promotional contact. Consent is used where required; relevant
+  business outreach requires a permitted channel and assessed legitimate interests.
+  Signup, a phone number and acceptance of Terms are not marketing consent.
+- Limited business-prospect sources are disclosed, with proactive privacy/source
+  information by first contact or any earlier applicable deadline.
+- Customers' employee, candidate, expense-contact and other workspace records are
+  excluded from Crewzy's sales prospect lists. Such records are not repurposed as
+  marketing contacts merely because Crewzy hosts the application.
+- People can reply, tell a caller or email privacy@crewzy.io to stop marketing by
+  channel or altogether. No login is required. Essential account/security messages
+  remain separate. Minimal suppression records have their own retention purpose.
+- Terms link to the contact explanation and distinguish contract acceptance from
+  marketing consent. Privacy and Terms display the 26 October update date.
+- The existing email-based demo flow now explains how to request a callback by
+  voluntarily providing a number and suitable time. The page also links contact
+  choices and a shared, encoded preference-request mailto destination. The existing
+  MailtoLink activation guard is reused; no duplicate email-launch code was added.
+- The app signup notice is prepared separately on codex/signup-turnstile-fix. It
+  uses shared canonical links and covers password and Google signup before account
+  submission. Backend inspection found no marketing preference/consent history,
+  callback store or Crewzy terms-version acceptance record. No decorative opt-in
+  controls, telephone field or fictitious preference centre were introduced.
+
+### Operating steps before promotional outreach
+
+1. Keep privacy@crewzy.io and sales@crewzy.io monitored and name the person handling
+   requests. Zoho mailbox identities, delivery and inbound routing were checked on
+   26 October; the later evidence record describes what was tested. Mail delivery
+   alone does not establish a continuing privacy-request handling process.
+2. For requested demos/calls, retain the original request, its date, requested
+   channel and scope. A requested callback is not permission for future campaigns.
+3. Record each prospect's country, business/subscriber type, source and date, chosen
+   channel and lawful basis. For named UK business contacts, complete the purpose,
+   necessity and balancing assessment before relying on legitimate interests.
+   Supply identity, source/privacy information and a simple opt-out at first contact
+   and within any applicable earlier deadline.
+4. Apply the UK corporate-subscriber email exception only where it actually applies.
+   Personal addresses, sole traders and some partnerships need consent or every
+   relevant soft-opt-in condition. Permanent free signup does not establish those
+   conditions automatically. Do not send a marketing email merely to seek consent
+   where permission is already required. Assess India, EU-country and US rules
+   separately before campaigns there.
+5. Before unsolicited live UK sales calls, screen both TPS and CTPS and the internal
+   do-not-call list, respect objections and display the caller number. Identify
+   CODER VIEW LTD/Crewzy. Keep requested calls scoped to what the person requested.
+6. If relying on consent, record the contact, specific channel/purpose, exact wording
+   or version, time/source and later withdrawal. Keep choices separate from terms
+   and from each other; do not require promotional contact to create an account.
+   Manual email evidence can support a manual process; automated campaigns need a
+   dependable consent/suppression mechanism before they are switched on.
+7. Process opt-outs across the relevant contact lists before further marketing.
+   Retain only the minimum restriction record needed to prevent re-contact, restrict
+   access, and do not erase the suppression entry then re-import the same prospect.
+   Provide a straightforward reply-based opt-out on every marketing email.
+8. Publish the website contact disclosure before the app notice is released so its
+   privacy#contact destination is available. Notify existing users appropriately of
+   changed data purposes; a policy update never supplies retrospective consent.
+   Implement durable terms/version acceptance and marketing-consent records as
+   separate backend work; these UI changes do not claim that work is complete.
+
+### Review and validation
+
+- Independent review tightened source transparency from an on-request option to
+  proactive disclosure. No other concrete content/call-path issue remained.
+- Existing website suite: 74 passed, 0 failed; 8 optional pricing HTTP/build checks
+  were skipped by their existing environment gates (pricing was not changed).
+- Isolated production-context Webpack build and TypeScript pass. Generated privacy,
+  terms and contact pages were checked in the real browser; the new contact anchor,
+  requested callback text, canonical links and encoded email destination are present.
+- App: 860 tests across 107 files, full ESLint, strict TypeScript, size/reachability
+  gates and production build pass. The signup notice was reviewed in the browser.
+  Its local preview uses no Google/Turnstile keys and no live signup was attempted.
+- Website snapshot: /private/tmp/crewzy-contact-qa-j5magsml, preview on loopback 3186.
+  App preview: /private/tmp/crewzy-turnstile-fix-20261025, loopback 3187.
+  The original user preview servers were not restarted; neither was listening.
+- Existing unrelated untracked walkthrough/video assets are preserved. No customer
+  records, provider settings, mailboxes, campaign, consent or account were created.
+  This update has not been committed, pushed or deployed.
+
+### Change Compliance Report — website / contact disclosures
+
+Reuse: existing legal layout, company/email configuration and MailtoLink guard.
+No assumptions: signup schemas/models and actual email-based demo flow reviewed;
+no saved preference or automated unsubscribe capability invented. Layering:
+presentational pages/config only, no direct API or data processing change. Config:
+existing selected email addresses, one shared encoded preference mailto; no new
+secrets or deployment settings. Tenancy/RBAC/audit: no query or server mutation;
+workspace-record boundary explicitly maintained. Errors/logging: no new logging or
+error paths. Duplication: shared link configuration and existing components reused.
+Tests and product value: validated notices/links and unchanged layout; users can
+request a call or stop marketing without account friction. Common/schema/vendor:
+unchanged. Service context: this tracked record and app review note carry the delta;
+no new business capability is represented as implemented. Residual risks: monitored
+mailboxes, contact-choice/suppression operation, LIA/channel/jurisdiction decisions
+and durable terms/consent acceptance remain as the specific operating steps above.
+
+### Official sources checked
+
+- ICO consent (updated 23 October 2026): https://ico.org.uk/consent
+- ICO electronic-mail rules: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-direct-marketing-using-electronic-mail/how-do-we-comply-with-the-pecr-electronic-mail-marketing-rules/
+- ICO live-call rules: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-direct-marketing-using-live-calls/what-are-the-rules-on-live-direct-marketing-calls/
+- ICO business marketing: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
+- Odoo: https://www.odoo.com/privacy
+- Zoho: https://www.zoho.com/privacy.html
+- HubSpot: https://legal.hubspot.com/privacy-policy
+
+
+## SendGrid disclosure and publication — 26 October 2026
+
+### Confirmed email roles and boundaries
+
+- The owner confirmed SendGrid for application email delivery. Privacy, Terms and
+  the service-provider list now name Twilio SendGrid and distinguish its role from
+  Zoho, which hosts Crewzy correspondence mailboxes. The provider entry covers
+  recipient addresses, message content, relevant account/workspace details included
+  in notifications and delivery/error information. It does not imply that every
+  customer record is sent by email.
+- The owner confirmed sales@crewzy.io, support@crewzy.io and privacy@crewzy.io exist.
+  Zoho tests to the authorised owner Gmail account reached the inbox from all three
+  identities with SPF, DKIM and DMARC passing. Replies to support and privacy reached
+  their respective folders; a test-only unsubscribe subject reached the opt-out
+  folder. Display names and automatically selected signatures were checked.
+- The SendGrid domain-authentication screen showed crewzy.io authentication enabled.
+  One isolated SendGrid test message from support@crewzy.io to the authorised Gmail
+  account reached the inbox with SPF, DKIM and DMARC passing. This proves the tested
+  provider/domain path, not production Crewzy signup or scheduled-alert execution.
+- The authorised Gmail address has no production Crewzy account. The reset UI's
+  generic response is therefore not evidence of a delivered application email.
+  No production signup or account change is part of this publication.
+- No SendGrid processing region, contracting entity, signed DPA, transfer mechanism,
+  provider retention period or tracking configuration has been inferred. The public
+  data-location qualification remains: London primary AWS storage does not mean all
+  processing stays in the UK. Online payments remain unconnected.
+- Opt-out handling is manual. The mailbox subject filter does not automatically
+  suppress marketing and does not catch every body-only request. Operators must
+  review requests and apply channel restrictions before further promotional contact.
+
+### Publication scope
+
+The owner authorised the website contact/privacy changes and signup notices to be
+committed and pushed to their existing Codex branches. Website changes belong on
+`codex/crewzy-light-compliance-redesign`; the application notices belong on
+`codex/signup-turnstile-fix`. Unrelated untracked walkthrough and video files are
+excluded. These commits change public disclosures and signup presentation only;
+they do not configure providers, send emails, create accounts, implement consent
+storage or deploy a privacy-request/automated-unsubscribe service.
+
+### Change Compliance Report — SendGrid and contact publication
+
+Reuse and layering: existing LegalPage, LegalTable, provider array, canonical link
+helpers, shared email constants and guarded MailtoLink are retained. No supplier
+service abstraction or duplicated mail-launch logic was introduced. Configuration:
+no new environment settings or credentials. Tenant/RBAC, queries, API contracts,
+errors, logging, audit events, migrations and vendored libraries: unchanged; these
+are static notices with no server mutation. Tests cover existing behaviour plus
+production rendering and document destinations. Existing provider-location and
+retention qualifications are retained. The application notice reuses canonical
+legal destinations and does not equate signup or Terms acceptance with marketing
+consent. This record carries the service-context delta; it does not represent new
+application capability as implemented.
+
+Operational follow-up remains: assign request/incident owners, maintain suppression
+records and channel-specific outreach decisions, confirm supplier contracts and
+processing locations, verify actual application email delivery, and implement
+reliable terms/version and consent records where required. Mailbox delivery checks
+close the tested routing question only. Publication is not a legal certification.
+
+
+### Final publication validation
+
+- Independent six-file copy review found no concrete factual overclaim or
+  contradiction. SendGrid application delivery, Zoho mailboxes, marketing consent,
+  manual opt-outs and the limits of provider tests remain clearly distinguished.
+- Website existing regression suite: 74 passed, 0 failed; 8 optional pricing
+  integration/build tests skipped by their existing environment gates. Pricing
+  logic and dependencies were not changed.
+- Strict TypeScript and isolated production-context Webpack build passed using
+  the installed Next.js version. Snapshot:
+  `/private/tmp/crewzy-sendgrid-publication-r5f7h8v_`; build log:
+  `/private/tmp/crewzy-sendgrid-publication-build.log`.
+- Five edited website code files passed Next core-web-vitals lint with zero errors
+  and zero warnings, using the already-installed app ESLint 9.39.5 engine. The
+  website's existing ESLint 10/react-plugin combination throws an API compatibility
+  error; its old `next lint` script also predates Next 16. No dependencies or lint
+  configuration were changed as part of this disclosure update.
+- Built HTTP checks passed for Privacy, Terms, Providers and Contact: 200 HTML,
+  SendGrid disclosures, update dates, unchanged legal noindex/canonicals, provider
+  information categories, contact-choice destination and legal routes/anchors.
+  An initial verification assertion was corrected for HTML attribute case; no
+  product defect or code change was needed.
+- Browser review confirmed the provider table and separate Zoho/SendGrid rows,
+  privacy contact section, Terms provider disclosure and callback/contact-choice
+  text. Evidence: `crewzy-sendgrid-provider-disclosure-20261026.png` in this task's
+  artifact directory. User preview servers were not restarted.
+- Signup branch independently remote-verified at
+  `2532d130f2773b53e862c84e75a10eb13d4ae981`: 860 tests across 107 files,
+  full lint, TypeScript, formatting, size/reachability gates and production build
+  passed. Controlled notice removal reproduced three failing regression cases.
+  The only review correction darkened shared policy links for readable contrast.
+- The app notice's privacy#contact destination must be deployed on the website
+  before that notice is released to users. A branch push is source publication,
+  not confirmation of a successful live deployment. No production email delivery,
+  signup, campaign, provider settings or customer data was changed in this step.
