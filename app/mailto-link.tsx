@@ -11,7 +11,7 @@ export function MailtoLink({ pendingLabel, children, ...props }: MailtoLinkProps
   const guard = useRef<ReturnType<typeof createMailtoActivationGuard> | null>(null);
   const feedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [opening, setOpening] = useState(false);
-  if (!guard.current) guard.current = createMailtoActivationGuard();
+  if (guard.current === null) guard.current = createMailtoActivationGuard();
 
   useEffect(() => () => {
     if (feedbackTimer.current) clearTimeout(feedbackTimer.current);

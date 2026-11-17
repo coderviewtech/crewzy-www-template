@@ -9,10 +9,17 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "24"
   # Shared destination for "Start free" and "Sign in".
   # The production application is provisioned and released separately.
   NEXT_PUBLIC_APP_ORIGIN = "https://app.crewzy.io"
+
+# Public identifiers issued for crewzy.io. These are visible in page source,
+# not credentials. Preview contexts receive neither a live tag nor ownership token.
+[context.production.environment]
+  GA_MEASUREMENT_ID = "G-SLHHQ68M3R"
+  BING_SITE_VERIFICATION = "F730EB5B6AFA9A59A234F121E2D8CD7A"
+  ANALYTICS_CONSENT_DAYS = "180"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

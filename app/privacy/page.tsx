@@ -5,6 +5,7 @@ import { LegalPage, LegalTable } from "../legal-page";
 import { createLegalMetadata } from "../site-seo";
 import { customerDataCategories } from "../privacy-data";
 import { inactiveWorkspaceRetentionDays } from "../legal-policy";
+import { analyticsConfig } from "../analytics-config";
 import styles from "../legal-page.module.css";
 
 export const metadata = createLegalMetadata({
@@ -15,7 +16,7 @@ export const metadata = createLegalMetadata({
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you." updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }}>
+    <LegalPage title="Privacy policy" summary="How your information is used, who is involved and the choices available to you." updatedOn={{ iso: "2026-11-17", label: "17 November 2026" }}>
       <article aria-label="Privacy at a glance">
         <h2>Privacy at a glance</h2>
         <ul>
@@ -117,6 +118,13 @@ export default function PrivacyPolicyPage() {
 
       <section id="storage">
         <h2>10. Cookies, security and updates</h2>
+        <section id="analytics">
+          <h3>Optional website analytics</h3>
+          <p>With your consent, we use Google Analytics 4 on the public crewzy.io website to understand visits, page views and traffic sources. It processes technical information such as browser and device information, approximate location, visit times and cookie identifiers. This marketing-site integration does not send workspace records or form contents to Analytics.</p>
+          <p>Analytics is off until you select “Accept analytics”. “Reject analytics” keeps it off. You can change your choice using “Cookie settings” at the bottom of any page. Rejecting after accepting stops future collection and clears this site’s analytics cookies; it does not erase information already sent to Google.</p>
+          <p>We remember your choice in browser storage for up to {analyticsConfig.consentDays} days. Our analytics cookies use the crewzy_marketing prefix and expire after up to {analyticsConfig.consentDays} days without extending their lifetime on every visit. We exclude URL query strings and fragments from the page addresses we send. Optional advertising signals and ad personalisation are disabled in this integration.</p>
+          <p>Google processes analytics information on our behalf under its data-processing terms, which may involve processing outside the UK. See <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites that use its services</a>. Contact our privacy address above for relevant requests, including withdrawal of consent or erasure where applicable.</p>
+        </section>
         <p>The application uses authentication cookies and browser storage for sessions and interface preferences. Remembered-account details may remain after sign-out; the different-account action clears them, and hints older than 90 days are not used.</p>
         <p>Cloudflare Turnstile helps protect signup against automated abuse. It processes technical signals such as IP addresses and browser and connection information. See <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Cloudflare’s Turnstile Privacy Addendum</a> for details.</p>
         <p>Enabled Google sign-in, external email resources and the application’s ipapi.co country-lookup fallback can involve provider scripts or connection information. Netlify’s approximate country signal supports public regional pricing where available; it does not request GPS access or establish a paid billing country.</p>

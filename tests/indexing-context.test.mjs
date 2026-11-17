@@ -45,6 +45,19 @@ test("dynamic pricing inherits production indexing when runtime CONTEXT is absen
   });
 });
 
+test("preview HTTP responses are noindex while production keeps its public pages indexable", () => {
+  for (const context of ["production", "deploy-preview", "branch-deploy", "local", ""]) {
+    const headers = evaluateNode(`
+      import config from "./next.config.js";
+      console.log(JSON.stringify(await config.headers()));
+    `, { ...process.env, CONTEXT: context });
+    const robots = headers.flatMap(rule => rule.headers).filter(header => header.key.toLowerCase() === "x-robots-tag");
+    assert.deepEqual(robots, context === "production" ? [] : [
+      { key: "X-Robots-Tag", value: "noindex, nofollow" },
+    ]);
+  }
+});
+
 test("a production runtime variable cannot make a preview build indexable", () => {
   for (const context of ["local", "branch-deploy", "deploy-preview"]) {
     const metadata = evaluateNode(`

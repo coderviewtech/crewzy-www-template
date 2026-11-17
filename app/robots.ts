@@ -1,11 +1,8 @@
 import type { MetadataRoute } from "next";
 import { isProductionSite, siteUrl } from "./site-seo";
 
-/* Generated at build time into /robots.txt.
-   Everything here is public marketing content, so everything is crawlable —
-   the point of this file is to advertise the sitemap, which is how a crawler
-   discovers /solutions, /resources and /customers reliably rather than only
-   by following navigation links. */
+/* Public content and rendering assets stay crawlable. Internal links and the
+   sitemap help discovery; indexing remains the search engine's decision. */
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [{ userAgent: "*", allow: "/" }],

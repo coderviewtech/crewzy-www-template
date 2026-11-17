@@ -1,0 +1,32 @@
+.page { background: var(--preview-page-background); }
+.page :is(p, li) { overflow-wrap: anywhere; }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0 0 26px; font-size: 13px; }
+.breadcrumb li + li::before { content: "/"; margin-right: 10px; color: var(--preview-ui-muted); }
+.breadcrumb a, .fit a, .related a { color: var(--preview-brand-accent); text-decoration: underline; text-underline-offset: 4px; }
+.overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; }
+.overview h2 { font-size: 25px; margin-bottom: 18px; }
+.overview p, .workflow p, .faq p, .fit p { color: var(--preview-brand-copy); line-height: 1.75; }
+.workflow, .faq, .related { margin-top: 64px; }
+.workflow > h2, .faq > h2, .related > h2 { max-width: 780px; margin-bottom: 28px; }
+.workflow ol { list-style: decimal; padding-left: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 52px; }
+.workflow li::marker { color: var(--preview-brand-accent); font-weight: 600; }
+.workflow h3 { font-size: 19px; margin: 0 0 10px; }
+.faq { max-width: 850px; }
+.faq details { border-bottom: 1px solid var(--preview-line); padding: 20px 0; }
+.faq summary { cursor: pointer; font-weight: 600; font-size: 17px; }
+.faq p { margin-top: 14px; }
+.fit { margin-top: 48px; padding: 28px; border: 1px solid var(--preview-line); border-radius: 12px; background: var(--preview-brand-surface); }
+.fit h2 { font-size: 24px; margin-bottom: 12px; }
+.fit a { display: inline-block; margin-top: 16px; }
+.related > h2 { font-size: 28px; }
+.related ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 20px 32px; }
+.related a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+@media (max-width: 900px) {
+  .overview { grid-template-columns: 1fr; }
+  .overview section { max-width: 760px; }
+}
+@media (max-width: 600px) {
+  .workflow ol { grid-template-columns: 1fr; }
+  .workflow, .faq, .related { margin-top: 42px; }
+  .fit { padding: 22px; }
+}

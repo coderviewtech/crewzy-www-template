@@ -1,13 +1,16 @@
 import assert from "node:assert/strict";
 import { siteCaption } from "../app/site-config.ts";
 import { homeDescription, siteKeywords, siteUrl } from "../app/site-seo.ts";
+import { featureRoutes, featurePath, guideRoutes, guidePath, guidesPath, marketingPaths } from "../app/site-routes.ts";
+import { guideContent, guideAuthor, guideUpdated } from "../app/guide-content.ts";
+import { auditFetch as fetch } from "./audit-http.mjs";
 
 // Read-only checks of the server-rendered HTML a crawler receives; no submission.
 const origin = process.argv[2] ?? "http://127.0.0.1:3018";
 const mode = process.argv[3] ?? "preview";
 assert.ok(["preview", "production"].includes(mode), "Choose preview or production");
 const production = mode === "production";
-const routes = ["/", "/platform", "/solutions", "/customers", "/resources", "/contact", "/about"];
+const routes = marketingPaths;
 const titles = new Set();
 const descriptions = new Set();
 const decode = value => value.replaceAll("&amp;", "&").replaceAll("&quot;", '"').replaceAll("&#x27;", "'");
@@ -17,6 +20,7 @@ for (const route of routes) {
   const response = await fetch(new URL(route, origin), { headers: { "User-Agent": "Googlebot" } });
   assert.equal(response.status, 200, `${route}: response`);
   if (production) assert.doesNotMatch(response.headers.get("x-robots-tag") ?? "", /noindex|none/i, `${route}: hosting must not block indexing`);
+  else assert.match(response.headers.get("x-robots-tag") ?? "", /noindex/i, `${route}: preview response must prohibit indexing`);
   const html = await response.text();
   const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1];
   assert.ok(head, `${route}: server-rendered head`);
@@ -56,6 +60,32 @@ for (const route of routes) {
   assert.match(meta("robots"), production ? /^index, follow/ : /noindex, nofollow/);
   assert.deepEqual(meta("keywords").split(",").map(term => term.trim()), siteKeywords);
   assert.doesNotMatch(head, /Stop running your business/);
+  assert.equal([...html.matchAll(/<h1\b/g)].length, 1, `${route}: one primary heading in initial HTML`);
+  const feature = featureRoutes.find(item => featurePath(item.slug) === route);
+  const guide = guideRoutes.find(item => guidePath(item.slug) === route);
+  if (feature || guide || route === guidesPath) {
+    const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, json]) => JSON.parse(json));
+    const breadcrumb = schemas.find(schema => schema["@type"] === "BreadcrumbList");
+    assert.ok(breadcrumb, `${route}: breadcrumb structured data`);
+    assert.equal(breadcrumb.itemListElement.at(-1).item, new URL(route, siteUrl).href);
+    assert.equal(breadcrumb.itemListElement.at(-1).name, feature?.label ?? guide?.title ?? "Guides");
+    assert.ok(html.includes('aria-label="Breadcrumb"'), `${route}: visible breadcrumb navigation`);
+    if (guide) {
+      const article = schemas.find(schema => schema["@type"] === "Article");
+      assert.ok(article, `${route}: article structured data`);
+      assert.equal(article.headline, guide.title);
+      assert.equal(article.mainEntityOfPage, new URL(route, siteUrl).href);
+      assert.equal(article.dateModified, guideUpdated);
+      assert.equal(article.author.name, guideAuthor.name);
+      assert.equal(article.datePublished, undefined, "Do not manufacture publication dates");
+      assert.equal(meta("og:type"), "article");
+      const visible = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<[^>]+>/g, " "));
+      for (const section of guideContent[guide.slug].sections) {
+        assert.ok(visible.includes(section.title), `${route}: visible section ${section.id}`);
+        for (const paragraph of section.paragraphs) assert.ok(visible.includes(paragraph), `${route}: server-rendered article text`);
+      }
+    }
+  }
   if (route === "/") {
     assert.equal(description, homeDescription);
     assert.match(description, /^HR and compliance software/);
@@ -89,6 +119,11 @@ if (production) {
   assert.deepEqual(urls, []);
 }
 assert.doesNotMatch(sitemap, /<lastmod>/);
+
+const missingPage = await fetch(new URL("/platform/not-a-real-feature", origin));
+assert.equal(missingPage.status, 404, "Unknown feature must not become a soft 404");
+const missingGuide = await fetch(new URL(`${guidesPath}/not-a-real-guide`, origin));
+assert.equal(missingGuide.status, 404, "Unknown guide must not become a soft 404");
 
 const imageResponse = await fetch(new URL("/opengraph-image", origin));
 assert.equal(imageResponse.status, 200);

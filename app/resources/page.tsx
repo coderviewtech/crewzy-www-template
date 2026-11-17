@@ -25,6 +25,8 @@ import typeStyles from "../content-typography.module.css";
 import trust from "./trust.module.css";
 import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 import { demoHref } from "../site-config";
+import { GuideCards } from "../guide-cards";
+import { guidesPath } from "../site-routes";
 
 const MODULE_FACTS = [
   {
@@ -107,14 +109,25 @@ export default function ResourcesPage() {
       <section className={styles.subHero}>
         <div className={`${styles.subHeroInner} ${typeStyles.hero}`} data-reveal>
           <Eyebrow icon={BookOpen}>Resources</Eyebrow>
-          <h1>How Crewzy fits together, and <span>how it is protected.</span></h1>
-          <p>Understand how the modules work together, how application controls support your workspace, and where to find our privacy and service information.</p>
+          <h1>Practical guides, connected workflows <span>and trust information.</span></h1>
+          <p>Find checklists and worked examples for everyday administration, understand how Crewzy fits together, and review our security and service information.</p>
           <nav className={`${styles.subJump} ${typeStyles.jumpLinks}`} aria-label="Jump to a section">
+            <Link href="#guides">Practical guides</Link>
             <Link href="#modules">How modules work</Link>
             <Link href="#security">Security &amp; trust</Link>
             <Link href="#privacy-progress">Privacy &amp; service information</Link>
           </nav>
         </div>
+      </section>
+
+      <section className={styles.subSection} id="guides" aria-labelledby="guides-title">
+        <div className={`${styles.subSectionHead} ${typeStyles.heading}`}>
+          <Eyebrow icon={BookOpen}>Practical guides</Eyebrow>
+          <h2 id="guides-title">A clear starting point <span>for your next workflow.</span></h2>
+          <p>Work through employee records, document renewals, time approval and staff holiday requests with practical examples.</p>
+          <p><Link className={`${secondary.textLink} ${typeStyles.link}`} href={guidesPath}>Browse all guides <ArrowRight size={16} aria-hidden="true" /></Link></p>
+        </div>
+        <GuideCards />
       </section>
 
       <section className={styles.subSection} id="modules">

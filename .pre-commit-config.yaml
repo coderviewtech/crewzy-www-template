@@ -1,0 +1,23 @@
+default_install_hook_types: [pre-commit, pre-push]
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+        stages: [pre-commit]
+  - repo: local
+    hooks:
+      - id: crewzy-marketing-lint
+        name: Crewzy marketing lint
+        language: system
+        entry: npm run lint
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: crewzy-marketing-types
+        name: Crewzy marketing typecheck
+        language: system
+        entry: npm run typecheck
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push]

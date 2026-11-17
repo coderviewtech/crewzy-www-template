@@ -136,12 +136,12 @@ product destination, https://app.crewzy.io, configurable with
 
 ## Navigation, pages and shared identity
 
-`app/site-shell.tsx` supplies the same responsive header and footer on all six
-pages: Home, Platform, Solutions, Customers, Resources and Contact. Menu and
+`app/site-shell.tsx` supplies the shared responsive header and footer across
+marketing, guide and legal pages. Menu and
 footer destinations live in `app/site-navigation.ts`; brand wording, portal
 origin and contact destinations are centralised in `app/site-config.ts`.
 The simple supporting caption is **People, work and compliance. Connected.**
-The approved homepage headline is unchanged.
+The homepage headline and introduction now identify the HR, document, time and invoicing workflows.
 
 The Platform overview gives each module an addressable detail card. Module
 links into the homepage select the corresponding card and settled scroll
@@ -170,9 +170,9 @@ keep their approved treatments.
 
 The footer includes product, audience, resource and contact links. Customer
 content remains explicitly early-access; no customer quotes, certifications,
-registered address or company number have been invented. Public Privacy and
-Terms URLs returned 404 during this review, so legal links are omitted until
-approved pages are supplied. Add those before a production release. A supplied
+company facts have been invented. Verified company details are centralised in
+`app/company.ts`. Privacy, Terms, DPA and subprocessors pages are linked in the
+footer and retain their existing noindex launch policy. A supplied
 booking URL can replace the email-based demo flow centrally.
 
 Compliance copy is based on the original site and makes no certification or
@@ -182,7 +182,7 @@ regulatory-compliance guarantee. Review all product claims before publication.
 
 Netlify serves `codex/crewzy-light-compliance-redesign` as the production branch
 for crewzy.io. Pushing to it triggers deployment. `netlify.toml` builds with
-`npm run build`, publishes `.next`, uses Node.js 20 and retains
+`npm run build`, publishes `.next`, uses Node.js 24 and retains
 `NEXT_PUBLIC_APP_ORIGIN=https://app.crewzy.io`. Do not push without approval.
 
 ## Search and link previews
@@ -195,10 +195,14 @@ headline. The search title describes HR, compliance, time tracking and invoicing
 The homepage description starts with “HR and compliance software” to make the
 compliance offering clear even in a shortened snippet. Google may choose text
 from the page instead of using the meta description verbatim.
-The shared `siteKeywords` list also explicitly names compliance, document expiry
-tracking, renewal reviews and audit history alongside HR and operational topics.
-Google ignores this meta-keywords tag; relevant topics must still appear in useful
-page content and descriptions. It is not a ranking guarantee or a “best” claim.
+The legacy `siteKeywords` metadata is retained for compatibility; Google ignores
+that tag. Search intent is implemented in visible content, headings, unique
+titles and descriptions. `app/site-routes.ts` owns four focused workflow URLs
+and the public marketing inventory. `app/feature-content.ts` supplies their
+original content, workflow steps, buyer questions and product boundaries.
+`app/platform/[feature]/page.tsx` pre-renders only those known URLs, with visible
+breadcrumbs and matching BreadcrumbList structured data. Unknown slugs return 404.
+The footer, platform overview and related-workflow links make the pages discoverable.
 
 The blue search favicon uses the stable `/favicon.png` URL (96×96 PNG), declared
 through `siteIcons` in the root metadata alongside the existing SVG. Its artwork
@@ -210,9 +214,52 @@ Google's stored result. See [Google favicon guidance](https://developers.google.
 Only Netlify's `CONTEXT=production` builds allow indexing. Local builds, branch
 deploys and deploy previews keep `noindex, nofollow`, even with
 `NODE_ENV=production`. Robots.txt permits crawling so those tags can be read.
-Only production advertises a sitemap, containing the seven public marketing
-pages and no portal URLs. Sitemap modification dates are omitted rather than
-invented at every build. Noindex is not access control.
+Only production advertises a sitemap, containing the seventeen public marketing
+pages and no portal or noindex legal URLs. The sitemap and SEO/link audits share
+the route inventory. Sitemap modification dates are omitted rather than invented
+at every build. Preview responses also send `X-Robots-Tag: noindex, nofollow`,
+including assets without an HTML head. Noindex is not access control.
+
+Optional `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION` public tokens are
+documented in `.env.example`. Set only the bare token issued for this website,
+not a whole meta tag. Missing or invalid values emit no ownership claim. The
+existing Search Console DNS verification does not require another Google token.
+Ownership metadata does not itself enable tracking. The measurement and search-platform plan is in
+[`docs/reviews/seo-20261117.md`](docs/reviews/seo-20261117.md).
+
+## Visitor analytics
+
+The owner authorised the GA4/Bing release on 17 November 2026. The production
+context in `netlify.toml` supplies public GA4 ID `G-SLHHQ68M3R` and the Bing
+ownership token issued for crewzy.io. These are public identifiers, not credentials.
+The GA4 account uses `coderview.io@gmail.com`, UK reporting time and GBP; its web
+stream is **Crewzy marketing website**. Optional account data sharing, marketing
+emails and enhanced measurement are off. No advertising account is linked.
+
+`app/analytics-config.ts` validates `GA_MEASUREMENT_ID` and
+`ANALYTICS_CONSENT_DAYS` (default 180, integer 1–365). Empty/invalid IDs and all
+non-production contexts disable analytics. `AnalyticsConsent` offers equally
+prominent accept/reject controls and persistent Cookie settings. The Google tag
+loads only after acceptance on the canonical public origin and a known site path.
+The local consent record is versioned and expires; withdrawing disables the tag,
+clears only its prefixed cookies and reloads to remove the loaded library.
+
+Only explicit page views are instrumented. Query strings, fragments, unknown paths
+and referrer paths are excluded; no form values, employee records, user IDs,
+advertising signals or successful-signup events are sent. SPA page changes are
+deduplicated. Enhanced measurement is off to avoid duplicate automatic views and
+form/link collection. Cookies are host-only with the `crewzy_marketing` prefix
+and do not refresh their 180-day lifetime on each visit. The privacy and provider
+pages disclose the integration. Visitors who reject or block analytics are absent
+from GA4, so these reports are not a complete census of visitors.
+
+The integration does not install a website chatbot or alter the authenticated
+Crewzy assistant. The SEO release improves public content discovery by search
+engines and AI search tools; inclusion in answers remains their decision.
+
+Before any commit/push in this clone, run `pre-commit install`. The repository
+hooks scan staged changes with gitleaks, lint at commit and check types at push.
+Never bypass them. See the [publication report](docs/reviews/seo-publication-20261117.md).
 
 After an approved deployment, confirm no `X-Robots-Tag: noindex` override is set
 at the hosting layer. Submit `https://crewzy.io/sitemap.xml` in the verified
@@ -227,17 +274,40 @@ References: [Google meta tags](https://developers.google.com/search/docs/crawlin
 
 ## Validation
 
-Run `npm run build`, `npx tsc --noEmit` and `node --test tests/*.test.mjs`.
-Run `node scripts/check-site-seo.mjs http://127.0.0.1:3018 preview` against a local
-production server to verify rendered tags, social images and preview exclusion.
-For production-mode verification, build with `CONTEXT=production npm run build`,
-restart the server and pass `production` instead of `preview`. This local check
-does not deploy anything. Rebuild without CONTEXT afterwards to restore noindex.
-With the local preview running, `node scripts/check-site-links.mjs` checks
-all internal routes and anchors on the six public pages. Pass a preview URL
-as the first argument to audit a different origin. Browser interaction and visual testing
-remain a separate review step. Do not rebuild `.next` while checking a loaded
-production preview; restart the server and reload after each build.
+Use Node 24 and the locked dependencies (`npm ci`). `npm run verify:static` runs
+Next core-web-vitals ESLint with zero warnings and TypeScript. ESLint now uses the
+supported flat configuration and CLI; the incompatible legacy `next lint` command
+has been removed. ESLint is pinned to 9.39.5. The lockfile resolves Next 16.3.4.
+
+`npm run verify:ci` runs the full unit suite, builds production and deploy-preview
+contexts, checks pre-rendered workflow/guide content and pricing variants, starts
+bounded localhost servers, and audits SEO, links and native pricing HTTP routing.
+The final build is a noindex preview. It does not publish or submit URLs. It includes
+all 17 marketing routes and checks internal links across those and four legal pages.
+Environment-gated artifact/HTTP tests skipped in the initial unit phase are run
+in their appropriate later build/server phases. Existing Netlify-specific pricing
+hosting behaviour still needs the normal post-deployment smoke check.
+
+The owner explicitly authorised locked dependency installation, local tests/builds
+and browser checks for this SEO release on 17 November 2026, overriding the skills'
+CI-only runtime restriction for this task. This is not a standing waiver for other
+Crewzy services. No Jenkins run or numeric changed-line coverage is claimed.
+
+For an already-running server, use `node scripts/check-site-seo.mjs <origin> preview`
+(or `production` for a production-context build) and
+`node scripts/check-site-links.mjs <origin>`. Do not rebuild a running preview's
+`.next` directory. Stop it first, rebuild, restart and reload the browser.
+
+The four practical guides live in `app/guide-content.ts` and are statically rendered
+under `/resources/guides/[guide]`, with a hub at `/resources/guides`. They include
+visible checklists/tables, author/revision information, Article and breadcrumb
+markup, and product links. Source references are official UK guidance. Examples are
+illustrative; no customer or legal outcomes are invented. The date is an editorial
+revision, not a fabricated publication date. Unknown guide slugs return 404.
+
+See [UK keyword validation](docs/reviews/seo-uk-keywords-20261117.md),
+[SEO audit and release checklist](docs/reviews/seo-20261117.md), and
+[Change Compliance Report](docs/reviews/seo-change-compliance-20261117.md).
 
 ## App address switch — 22 October 2026
 

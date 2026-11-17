@@ -1,0 +1,58 @@
+.page { background: var(--preview-page-background); }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 26px; padding: 0; font-size: 13px; }
+.breadcrumb li + li::before { content: "/"; margin-right: 8px; color: var(--preview-ui-muted); }
+.breadcrumb a, .article a, .toc a, .byline a { color: var(--preview-brand-accent); text-decoration: underline; text-underline-offset: 4px; }
+.byline { display: flex; gap: 8px 18px; flex-wrap: wrap; margin-top: 22px; font-size: 14px; color: var(--preview-brand-copy); }
+.layout { display: grid; grid-template-columns: minmax(0, 760px) minmax(200px, 1fr); gap: 60px; align-items: start; }
+.article { min-width: 0; overflow-wrap: anywhere; }
+.article section { margin-top: 44px; scroll-margin-top: 120px; }
+.page .article h2 { font-size: clamp(25px, 3vw, 34px); margin-bottom: 20px; }
+.article p, .article li { font-size: 17px; line-height: 1.8; color: var(--preview-brand-copy); }
+.article p + p { margin-top: 18px; }
+.takeaway { padding: 26px 28px; border-left: 3px solid var(--preview-brand-accent); background: var(--preview-brand-surface); border-radius: 0 10px 10px 0; }
+.page .takeaway h2 { font-size: 20px; margin-bottom: 10px; }
+.tableScroll { overflow-x: auto; margin-top: 24px; border: 1px solid var(--preview-line); border-radius: 10px; }
+.tableScroll:focus-visible { outline: 3px solid var(--preview-brand-accent); outline-offset: 4px; }
+.tableScroll table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.6; }
+.tableScroll caption { text-align: left; padding: 16px; font-weight: 600; background: var(--preview-brand-surface); }
+.tableScroll th, .tableScroll td { padding: 16px; text-align: left; vertical-align: top; border-top: 1px solid var(--preview-line); }
+.tableScroll thead th { background: var(--preview-brand-tint); }
+.tableScroll tbody th { width: 36%; font-weight: 500; }
+.tableScroll td { color: var(--preview-brand-copy); }
+.checklist { list-style: none; display: grid; gap: 14px; padding: 0; margin: 22px 0 0; }
+.checklist li { position: relative; padding-left: 30px; }
+.checklist li::before { content: ""; width: 14px; height: 14px; border: 1px solid var(--preview-brand-accent); border-radius: 3px; position: absolute; left: 0; top: 8px; }
+.toc { position: sticky; top: 115px; padding-left: 24px; border-left: 1px solid var(--preview-line); }
+.page .toc h2 { font-size: 17px; margin-bottom: 16px; }
+.toc ol { padding-left: 20px; display: grid; gap: 16px; font-size: 14px; line-height: 1.6; }
+.sources { padding-top: 26px; border-top: 1px solid var(--preview-line); }
+.page .sources h2 { font-size: 22px; }
+.sources ul { padding-left: 22px; }
+.sources .editorialNote { margin-top: 18px; font-size: 14px; }
+.article .cta { padding: 28px; border: 1px solid var(--preview-line); border-radius: 12px; background: var(--preview-brand-surface); }
+.page .article .cta h2 { font-size: 26px; }
+.ctaLinks { display: flex; flex-wrap: wrap; gap: 18px 28px; margin-top: 22px; }
+.ctaLinks a { min-height: 44px; display: inline-flex; align-items: center; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.cards article { padding: 30px; border: 1px solid var(--preview-line); border-radius: 12px; background: #fff; display: flex; flex-direction: column; align-items: flex-start; }
+.cards .category { color: var(--preview-brand-accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+.cards .cardTitle { font-size: 25px; line-height: 1.25; margin-bottom: 16px; font-weight: 600; }
+.cards .cardTitle a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.cards p { color: var(--preview-brand-copy); line-height: 1.75; }
+.cards .readLink { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; margin-top: auto; padding-top: 20px; color: var(--preview-brand-accent); text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; gap: 36px; }
+  .toc { position: static; order: -1; padding: 22px; background: var(--preview-brand-surface); border-left: 0; border-radius: 10px; }
+}
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; }
+  .cards article, .takeaway, .article .cta { padding: 22px; }
+  .article p, .article li { font-size: 16px; }
+  .tableScroll th, .tableScroll td { padding: 12px; }
+}
+@media print {
+  .page > header, .page > footer, .toc, .breadcrumb, .ctaLinks { display: none; }
+  .layout { display: block; }
+  .article section { break-inside: avoid; }
+  .tableScroll { overflow: visible; }
+}

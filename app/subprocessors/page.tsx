@@ -46,11 +46,16 @@ const providers = [
     purpose: "Hosting the public Crewzy website.",
     information: "Website request and connection information, including the approximate country signal used for regional pricing where available.",
   },
+  {
+    name: "Google Analytics 4",
+    purpose: "Measuring visits, public page views and traffic sources on crewzy.io after a visitor accepts optional analytics.",
+    information: "Website usage, browser/device information, approximate location and cookie identifiers. Workspace records and form contents are not sent by this marketing-site integration. See the privacy policy for choices and international processing information.",
+  },
 ];
 
 export default function SubprocessorsPage() {
   return (
-    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved." updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }}>
+    <LegalPage title="Subprocessors and service providers" summary="The services supporting Crewzy and the information involved." updatedOn={{ iso: "2026-11-17", label: "17 November 2026" }}>
       <section>
         <h2>Services we use</h2>
         <p>Crewzy uses the following services for database and document storage, AI, signup protection, email and the public website. The information involved depends on the features used and the content supplied.</p>

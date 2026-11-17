@@ -1,20 +1,25 @@
 import assert from "node:assert/strict";
 import { resolveHomeHash } from "../app/site-config.ts";
+import { marketingPaths, legalPaths } from "../app/site-routes.ts";
+import { auditFetch as fetch } from "./audit-http.mjs";
 
 // Read-only audit of a running local preview; no forms or emails are submitted.
 const origin = process.argv[2] ?? "http://127.0.0.1:3017";
-const routes = ["/", "/platform", "/solutions", "/customers", "/resources", "/contact"];
+const routes = [...marketingPaths, ...legalPaths];
 const pages = new Map();
 for (const route of routes) {
   const response = await fetch(new URL(route, origin));
   assert.equal(response.status, 200, `${route} must load`);
   const html = await response.text();
-  const complianceLinks = Array.from(html.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g))
-    .filter(match => match[2].replace(/<[^>]*>/g, "").trim() === "Compliance" || match[2].includes("<strong>Compliance</strong>"));
-  assert.ok(complianceLinks.length >= 2, `${route}: header and footer must expose Compliance`);
-  for (const match of complianceLinks) {
-    assert.equal(new URL(match[1], new URL(route, origin)).href, new URL("/#compliance", origin).href,
-      `${route}: Compliance must open its dedicated section, not a platform preview card`);
+  for (const landmark of ["header", "footer"]) {
+    const markup = html.match(new RegExp(`<${landmark}\\b[^>]*>([\\s\\S]*?)<\\/${landmark}>`))?.[1] ?? "";
+    const complianceLinks = Array.from(markup.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g))
+      .filter(match => match[2].replace(/<[^>]*>/g, "").trim() === "Compliance" || /<strong\b[^>]*>Compliance<\/strong>/.test(match[2]));
+    assert.ok(complianceLinks.length > 0, `${route}: ${landmark} must expose Compliance`);
+    for (const match of complianceLinks) {
+      assert.equal(new URL(match[1], new URL(route, origin)).href, new URL("/#compliance", origin).href,
+        `${route}: Compliance must open its dedicated section, not a platform preview card`);
+    }
   }
   pages.set(route, { ids: new Set(Array.from(html.matchAll(/\bid="([^"]+)"/g), match => match[1])), links: Array.from(html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g), match => match[1].replaceAll("&amp;", "&")) });
 }

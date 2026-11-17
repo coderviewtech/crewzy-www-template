@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 
 export const siteUrl = "https://crewzy.io";
+export const siteTitleTemplate = "%s — Crewzy";
+export const homeTitle = "HR, Time Tracking & Document Compliance Software";
 export const homeDescription =
-  "People, work and compliance. Connected. People management and employee lifecycle workflows with employee records, document expiry tracking, time tracking, leave and invoicing.";
+  "HR and compliance software for small teams. Connect employee records, document expiry tracking, time tracking, leave and invoicing. Start free with Crewzy.";
 
 // Stable raster URL for search engines, alongside Next's existing SVG icon.
 // Generated from app/icon.svg with scripts/generate-favicon.mjs.
@@ -30,11 +32,13 @@ export const siteKeywords = [
 
 // next.config.js embeds Netlify’s build context for static and dynamic routes.
 // Runtime functions need not receive CONTEXT. Local, branch and PR previews stay noindex.
-export function isProductionSite(context = process.env.CREWZY_SITE_BUILD_CONTEXT): boolean {
+const siteBuildContext = process.env.CREWZY_SITE_BUILD_CONTEXT;
+
+export function isProductionSite(context = siteBuildContext): boolean {
   return context === "production";
 }
 
-export function indexingMetadata(context = process.env.CREWZY_SITE_BUILD_CONTEXT): Metadata["robots"] {
+export function indexingMetadata(context = siteBuildContext): Metadata["robots"] {
   const index = isProductionSite(context);
   return {
     index,
@@ -60,7 +64,9 @@ export function createPageMetadata({ title, description, canonical, shareTitle =
     alt: "Crewzy connected workspace for people, work and compliance",
   }];
   return {
-    title,
+    // Layouts must pass the template on to their nested feature/guide pages.
+    // A plain title string at an intermediate layout clears that template.
+    title: { default: title, template: siteTitleTemplate },
     description,
     keywords: siteKeywords,
     alternates: { canonical },

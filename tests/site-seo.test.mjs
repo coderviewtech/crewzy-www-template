@@ -26,7 +26,7 @@ test("homepage share title is the agreed caption, separate from its search title
   assert.equal(metadata.openGraph.title, siteCaption);
   assert.equal(metadata.twitter.title, siteCaption);
   assert.equal(metadata.openGraph.url, `${siteUrl}/`);
-  assert.match(metadata.description, /^People, work and compliance\. Connected\./);
+  assert.match(metadata.description, /^HR and compliance software for small teams\./);
   for (const term of ["employee records", "document expiry", "time tracking", "leave", "invoicing"]) {
     assert.ok(metadata.description.includes(term));
   }
@@ -59,8 +59,9 @@ test("each page gets its own social metadata and absolute shared image", () => {
     const metadata = createPageMetadata({ title: `Title ${route}`, description: `Description ${route}`, canonical: route });
     assert.deepEqual(metadata.alternates, { canonical: route });
     assert.equal(metadata.openGraph.url, `${siteUrl}${route}`);
-    assert.equal(metadata.openGraph.title, metadata.title);
-    assert.equal(metadata.twitter.title, metadata.title);
+    assert.equal(metadata.openGraph.title, metadata.title.default);
+    assert.equal(metadata.twitter.title, metadata.title.default);
+    assert.equal(metadata.title.template, "%s — Crewzy");
     assert.equal(metadata.openGraph.description, metadata.description);
     assert.equal(metadata.twitter.description, metadata.description);
     assert.equal(metadata.openGraph.siteName, "Crewzy");
@@ -86,7 +87,7 @@ test("legal presentation keeps ordinary titles while withholding search indexing
   for (const route of ["privacy", "terms", "dpa", "subprocessors"]) {
     const input = { title: `Crewzy ${route}`, description: `Information for ${route}`, canonical: `/${route}` };
     const metadata = createLegalMetadata(input);
-    assert.equal(metadata.title, input.title);
+    assert.equal(metadata.title.default, input.title);
     assert.deepEqual(metadata.alternates, { canonical: input.canonical });
     assert.equal(metadata.openGraph.url, `${siteUrl}/${route}`);
     assert.deepEqual(metadata.robots, {

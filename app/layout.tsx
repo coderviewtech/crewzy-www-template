@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { Nunito, Inter } from "next/font/google";
 import { company } from "./company";
 import { siteCaption } from "./site-config";
-import { createPageMetadata, homeDescription, indexingMetadata, siteIcons, siteUrl as SITE_URL } from "./site-seo";
+import { createPageMetadata, homeDescription, homeTitle, indexingMetadata, siteIcons, siteTitleTemplate, siteUrl as SITE_URL } from "./site-seo";
+import { searchVerification } from "./search-verification";
+import { StructuredData } from "./structured-data";
+import { AnalyticsConsent } from "./analytics-consent";
+import { analyticsConfig } from "./analytics-config";
 import "./globals.css";
 
 /* Nunito is the platform brand face; Inter is the companion for running text.
@@ -23,19 +27,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...createPageMetadata({
-    title: "People Management, Work & Compliance Software",
+    title: homeTitle,
     description: homeDescription,
     canonical: "/",
     shareTitle: siteCaption,
   }),
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Crewzy | People Management, Work & Compliance Software",
-    template: "%s — Crewzy",
+    default: `${homeTitle} | Crewzy`,
+    template: siteTitleTemplate,
   },
   applicationName: "Crewzy",
   icons: siteIcons,
   robots: indexingMetadata(),
+  verification: searchVerification,
 };
 
 /* Identify the company separately from its product brand. The registration
@@ -94,11 +99,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${nunito.variable} ${inter.variable}`}>
       <body>
         {children}
-        <script
-          type="application/ld+json"
-          // Serialised from a literal we control — no user input reaches this.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify([organizationSchema, websiteSchema]).replace(/</g, "\\u003c") }}
-        />
+        <AnalyticsConsent config={analyticsConfig} />
+        <StructuredData value={[organizationSchema, websiteSchema]} />
       </body>
     </html>
   );

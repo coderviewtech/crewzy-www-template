@@ -4,6 +4,7 @@ import {
   BriefcaseBusiness,
   CalendarDays,
   Clock3,
+  ClipboardList,
   FileCheck2,
   Layers,
   LockKeyhole,
@@ -15,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { appUrl, demoHref, moduleHref, supportEmail } from "./site-config";
+import { featurePath, featureRoutes, guidesPath } from "./site-routes";
 
 export interface MenuLinkItem {
   label: string;
@@ -80,6 +82,7 @@ export const resourcesColumns: MenuColumn[] = [
     title: "Guides & Trust",
     items: [
       { label: "Resource centre", description: "Understand the platform before you start", href: "/resources", icon: BookOpen },
+      { label: "Practical guides", description: "Checklists and worked examples for small teams", href: guidesPath, icon: ClipboardList },
       { label: "How modules work", description: "Shared records, context and permissions", href: "/resources#modules", icon: Layers },
       { label: "Security & trust", description: "Access controls, AI safeguards and privacy", href: "/resources#security", icon: ShieldCheck },
     ],
@@ -121,6 +124,7 @@ export const resourcesMenu: MenuLinkItem[] = [
 
 export const footerGroups = [
   { title: "Platform", links: platformMenu.map(({ label, href }) => ({ label, href })) },
+  { title: "Workflows", links: featureRoutes.map(feature => ({ label: feature.label, href: featurePath(feature.slug) })) },
   { title: "Solutions", links: [
     { label: "Agencies", href: "/solutions#agencies" },
     { label: "Consultancies", href: "/solutions#consultancies" },
@@ -128,6 +132,7 @@ export const footerGroups = [
     { label: "Growing teams", href: "/solutions#growing" },
   ] },
   { title: "Resources", links: [
+    { label: "Practical guides", href: guidesPath },
     { label: "About Crewzy", href: "/about" },
     { label: "How modules work", href: "/resources#modules" },
     { label: "Security & trust", href: "/resources#security" },

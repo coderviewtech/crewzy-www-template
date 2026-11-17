@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { ArrowRight, BrainCircuit, BriefcaseBusiness, CheckCheck, FileText, Plus, ShieldCheck, UsersRound } from "lucide-react";
 import previewStyles from "./preview.module.css";
@@ -93,8 +94,8 @@ export default function Home() {
     <main id="main">
       <section className={styles.hero} id="top"><div className={styles.heroGrid} aria-hidden="true" />
         <div className={styles.heroContent}>
-          <h1 data-hero-enter>A clearer way to run<br /><span>your people and work.</span></h1>
-          <p className={styles.heroDescription} data-hero-enter>People management and employee lifecycle workflows.<br className={styles.desktopBreak} /> Everyday work, document expiry tracking and compliance evidence.</p>
+          <h1 data-hero-enter>HR, documents and work.<br /><span>Connected for your team.</span></h1>
+          <p className={styles.heroDescription} data-hero-enter>HR and compliance software for small teams.<br className={styles.desktopBreak} /> Connect employee records, document expiry tracking, leave, timesheets and invoicing.</p>
           <div className={styles.heroActions} data-hero-enter><a href={appUrl("/signup")} className={`${styles.button} ${styles.largeButton}`}>Start free for up to 10 employees <ArrowRight size={18} /></a><a href={demoHref} className={styles.textButton}>Request a demo <ArrowRight size={17} /></a></div>
           <ul className={styles.benefitHighlights} aria-label="Workspace highlights" data-hero-enter>
             <li><span className={`${styles.iconTile} ${styles.smallIcon} ${styles.blue}`}><UsersRound size={19} /></span><strong>One employee record</strong></li>
@@ -104,7 +105,7 @@ export default function Home() {
         </div>
         <figure className={styles.productStage} data-product-stage>
           <div className={styles.productFrame} data-product-frame><DashboardPreview /></div>
-          <figcaption className={editorial.productCaption}><a href="/platform">Explore the full platform <ArrowRight size={14} aria-hidden="true" /></a></figcaption>
+          <figcaption className={editorial.productCaption}><Link href="/platform">Explore the full platform <ArrowRight size={14} aria-hidden="true" /></Link></figcaption>
         </figure>
       </section>
       <ConnectedWorkspace />

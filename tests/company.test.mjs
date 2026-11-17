@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { readFileSync } from "node:fs";
 import sharp from "sharp";
 import { company, founder } from "../app/company.ts";
+import { marketingPaths } from "../app/site-routes.ts";
 
 const source = path => readFileSync(new URL(path, import.meta.url), "utf8");
 
@@ -61,7 +62,7 @@ test("About tells the supplied origin story and leaves full legal details in the
 
 test("About is discoverable in navigation and sitemap with its own canonical", () => {
   assert.match(source("../app/site-navigation.ts"), /label: "About Crewzy"[^\n]+href: "\/about"/);
-  assert.match(source("../app/sitemap.ts"), /path: "\/about"/);
+  assert.ok(marketingPaths.includes("/about"));
   assert.match(source("../app/about/page.tsx"), /canonical: "\/about"/);
 });
 

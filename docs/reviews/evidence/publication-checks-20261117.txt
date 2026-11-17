@@ -1,0 +1,480 @@
+
+> crewzy-www@1.0.0 verify:ci
+> node scripts/verify-release.mjs
+
+﹣ built pages never load Google before consent and previews never enable analytics (0.336791ms) # SKIP
+(node:94592) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/analytics-policy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ analytics only accepts a valid public GA4 ID (0.56675ms)
+✔ a missing, malformed, future or expired consent never grants tracking (0.159125ms)
+✔ measurement drops query strings and fragments, and rejects private or foreign paths (0.104584ms)
+✔ referrers contain only a public HTTP origin, never paths or queries (0.157083ms)
+✔ no tag or event exists before consent, including when rejecting (0.470833ms)
+✔ grant initializes denied advertising consent before loading a single tag (0.2155ms)
+✔ client navigation records one view per page and suppresses duplicate renders (0.140958ms)
+✔ withdrawal disables the tag immediately and removes only its own cookies (0.086834ms)
+(node:94593) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/anchor-navigation.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ cross-page anchors use the expanded page height, not a stale scroll limit (1.891417ms)
+✔ element targets and completion options are passed through without a second offset (0.211917ms)
+✔ a rapid second link cancels the earlier scroll even when already at its new target (0.198458ms)
+✔ anchor navigation does not unlock a deliberately stopped scroller (0.154666ms)
+(node:94594) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/company.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ company disclosure retains the registered name and official record (0.932208ms)
+✔ founder link uses the exact profile supplied by the founder (0.062333ms)
+✔ founder section uses the supplied portrait with accessible, responsive sizing (3.902ms)
+✔ footer and structured data share the full legal company facts (0.259125ms)
+✔ About tells the supplied origin story and leaves full legal details in the footer (0.150625ms)
+✔ About is discoverable in navigation and sitemap with its own canonical (0.170875ms)
+✔ About Crewzy is a top-level link after Pricing, not a Resources dropdown item (0.202209ms)
+✔ founder bio uses the supplied product-building and operational experience (0.09025ms)
+✔ story illustration is scroll-controlled, cleaned up and has a static fallback (0.418334ms)
+✔ origin story explains the business challenge, opportunity and product direction (0.307917ms)
+(node:94595) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/compliance-model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ document oversight uses three concise points without duplicating the paragraph (0.769833ms)
+✔ renewal and audit chapters use equally concise, relevant points (0.071708ms)
+✔ compliance points are a semantic list with decorative checkmarks (0.258375ms)
+(node:94596) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unknown feature paths cannot resolve to a generic marketing page (0.53825ms)
+﹣ hr-software-small-business is readable and correctly identified before JavaScript (0.066083ms) # SKIP
+﹣ document-expiry-tracking is readable and correctly identified before JavaScript (0.048917ms) # SKIP
+﹣ timesheets-and-invoicing is readable and correctly identified before JavaScript (0.040042ms) # SKIP
+﹣ leave-management is readable and correctly identified before JavaScript (0.044084ms) # SKIP
+﹣ feature pages are pre-rendered with no unbounded dynamic fallback (0.036458ms) # SKIP
+(node:94597) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unrecognised and inherited-property guide slugs cannot render editorial content (0.498208ms)
+﹣ employee-document-expiry-tracking serves readable guidance, a checklist and correct identity without JavaScript (0.054625ms) # SKIP
+﹣ timesheets-to-client-invoices serves readable guidance, a checklist and correct identity without JavaScript (0.052292ms) # SKIP
+﹣ employee-records-spreadsheet-migration serves readable guidance, a checklist and correct identity without JavaScript (0.039041ms) # SKIP
+﹣ leave-requests-and-approvals serves readable guidance, a checklist and correct identity without JavaScript (0.049125ms) # SKIP
+﹣ guides are pre-rendered and unknown guide URLs have no dynamic fallback (0.036208ms) # SKIP
+(node:94620) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-seo.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94628) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-seo.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94629) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-seo.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94630) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-seo.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Next captures the deployment context at build time, including preview exclusions (303.497583ms)
+✔ dynamic pricing inherits production indexing when runtime CONTEXT is absent (71.946583ms)
+✔ preview HTTP responses are noindex while production keeps its public pages indexable (162.062458ms)
+✔ a production runtime variable cannot make a preview build indexable (207.345542ms)
+(node:94599) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/mailto-activation.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ a demo email click has exactly one native dispatch and a rapid repeat has none (0.449709ms)
+✔ keyboard activation is native and repeated Enter is guarded (0.076125ms)
+✔ cancelled or modified clicks retain their original browser behaviour (0.088542ms)
+✔ separate email links do not block each other's legitimate actions (0.065334ms)
+(node:94601) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/proxy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ trusted hosting geography selects each supported pre-rendered market (3.781584ms)
+✔ unknown, malformed and unsupported countries never receive an invented local price (1.167292ms)
+✔ browser headers, cookies and query parameters cannot switch production prices (0.40625ms)
+✔ native rewrites preserve Flight requests, _rsc hashes and router-state variation (0.203042ms)
+✔ ordinary HTML and HEAD navigation keep native content negotiation intact (0.502958ms)
+✔ direct internal-market URLs return to public pricing instead of selecting another currency (0.254042ms)
+✔ a trailing slash still chooses the same trusted market (0.10325ms)
+✔ market preview overrides remain limited to local development (0.283959ms)
+✔ proxy matching covers pricing and its internal variants without touching other pages or assets (1.866125ms)
+﹣ native pricing HTTP routing serves HTML and Flight without loops or currency overrides (0.464083ms) # SKIP
+(node:94604) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/proxy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Next's actual proxy adapter preserves ?_rsc= through a regional rewrite (5.577791ms)
+✔ Next's actual proxy adapter preserves ?_rsc through a regional rewrite (0.553209ms)
+✔ Next's actual proxy adapter preserves ?_rsc=nonempty-flight-hash through a regional rewrite (0.444333ms)
+✔ Next's actual adapter keeps real router headers and its nonempty hash together (0.665042ms)
+✔ HTML requests remain separate from Flight and RSC hash validation remains enabled (0.42425ms)
+﹣ the production build retains raw proxy URLs and RSC validation (0.048292ms) # SKIP
+﹣ pricing has a pre-rendered fallback and all five finite market variants (0.359084ms) # SKIP
+﹣ UK pricing is complete and indexable under the public canonical before JavaScript (0.053959ms) # SKIP
+﹣ IN pricing is complete and indexable under the public canonical before JavaScript (0.052791ms) # SKIP
+﹣ US pricing is complete and indexable under the public canonical before JavaScript (0.043583ms) # SKIP
+﹣ EU pricing is complete and indexable under the public canonical before JavaScript (0.045375ms) # SKIP
+﹣ unknown pricing is complete and indexable under the public canonical before JavaScript (0.038333ms) # SKIP
+(node:94606) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/pricing/pricing-model.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ employee counts accept trimmed whole numbers within the supported range (0.530792ms)
+✔ employee counts reject empty, fractional, negative and nonnumeric entries (0.660792ms)
+✔ monthly Business pricing includes the first ten and bills only additional employees (0.544334ms)
+✔ annual Business pricing separates the monthly equivalent from the yearly invoice (0.097333ms)
+✔ annual savings compare twelve monthly invoices with one annual invoice (0.106208ms)
+✔ GBP totals use pound symbols, UK thousands separators and no decimal places (38.727042ms)
+✔ price calculations reject unsupported employee counts (0.832833ms)
+✔ price calculations reject unsupported billing cycles (0.202875ms)
+✔ approved regional rates calculate independent local annual invoices (0.223916ms)
+✔ country detection assigns only supported billing markets and euro-area members (0.465959ms)
+✔ regional totals use the correct currency and Indian digit grouping (0.667625ms)
+✔ a caller cannot silently obtain a price for an unsupported market (0.283041ms)
+✔ every region and billing cycle keeps teams of up to ten within the free allowance (0.173792ms)
+✔ employee eleven and larger teams charge only employees beyond ten in every market (0.193625ms)
+(node:94607) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/scroll-layout.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ tall screens retain the heading with the cards (0.520209ms)
+✔ laptops keep the card-only reveal without clipping the heading (0.076083ms)
+✔ short screens and enlarged content use ordinary tabs (0.05975ms)
+✔ fit boundaries reserve header and bottom clearance (0.094166ms)
+✔ unset verification tokens produce no ownership claims (97.293458ms)
+✔ independent public tokens retain the provider's exact metadata keys (144.036042ms)
+✔ a pasted HTML tag or whitespace cannot become a verification token (64.534083ms)
+(node:94610) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ each module deep link resolves to the correct preview card (1.174ms)
+✔ AI, compliance, FAQ and legacy links resolve to real home sections (0.140708ms)
+✔ product destinations use one configured portal origin (0.127791ms)
+✔ demo links lead to a real contact route and explicit email request (0.310708ms)
+(node:94611) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ only a Netlify production build is indexable (0.74725ms)
+✔ homepage share title is the agreed caption, separate from its search title (0.204209ms)
+✔ search favicon is a stable 96px PNG matching the existing blue SVG artwork (16.105292ms)
+✔ explicit keywords include compliance and its supported workflows (0.354ms)
+✔ each page gets its own social metadata and absolute shared image (0.407334ms)
+✔ root metadata and generated share image use the shared caption (0.485625ms)
+✔ legal presentation keeps ordinary titles while withholding search indexing until adoption (0.340291ms)
+(node:94614) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/about/workspace-illustration-motion.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ story sequence is bounded before entry and after exit (0.475292ms)
+✔ scroll position holds the frame and reverses along the same sequence (0.437917ms)
+✔ scroll range adapts to small screens and larger illustrations (0.080667ms)
+✔ unmeasurable illustrations use the completed readable state (0.104417ms)
+✔ platform and compliance slides use the same responsive typography tokens (1.598833ms)
+✔ page backgrounds are white while product surfaces retain their own tint (2.124625ms)
+✔ header and footer share the smaller responsive wordmark size (0.329416ms)
+ℹ tests 107
+ℹ suites 0
+ℹ pass 88
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 19
+ℹ todo 0
+ℹ duration_ms 808.252708
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.js took 9ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 782ms
+  Running TypeScript ...
+  Finished TypeScript in 1065ms ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/32) ...
+  Generating static pages using 9 workers (8/32)
+  Generating static pages using 9 workers (16/32)
+  Generating static pages using 9 workers (24/32)
+✓ Generating static pages using 9 workers (32/32) in 424ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /contact
+├ ○ /customers
+├ ○ /dpa
+├ ○ /icon.svg
+├ ○ /opengraph-image
+├ ○ /platform
+├   /platform/[feature]
+│ ├ ● /platform/hr-software-small-business
+│ ├ ● /platform/document-expiry-tracking
+│ ├ ● /platform/timesheets-and-invoicing
+│ └ ● /platform/leave-management
+├ ○ /pricing
+├   /pricing/market/[market]
+│ ├ ● /pricing/market/UK
+│ ├ ● /pricing/market/IN
+│ ├ ● /pricing/market/US
+│ └ ● [+2 more paths]
+├ ○ /privacy
+├ ○ /resources
+├ ○ /resources/guides
+├   /resources/guides/[guide]
+│ ├ ● /resources/guides/employee-document-expiry-tracking
+│ ├ ● /resources/guides/timesheets-to-client-invoices
+│ ├ ● /resources/guides/employee-records-spreadsheet-migration
+│ └ ● /resources/guides/leave-requests-and-approvals
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+├ ○ /solutions
+├ ○ /subprocessors
+└ ○ /terms
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+✔ built pages never load Google before consent and previews never enable analytics (1.017042ms)
+(node:94651) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unknown feature paths cannot resolve to a generic marketing page (0.427666ms)
+✔ hr-software-small-business is readable and correctly identified before JavaScript (2.719458ms)
+✔ document-expiry-tracking is readable and correctly identified before JavaScript (0.476666ms)
+✔ timesheets-and-invoicing is readable and correctly identified before JavaScript (0.388ms)
+✔ leave-management is readable and correctly identified before JavaScript (0.385583ms)
+✔ feature pages are pre-rendered with no unbounded dynamic fallback (0.204958ms)
+(node:94652) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unrecognised and inherited-property guide slugs cannot render editorial content (0.409084ms)
+✔ employee-document-expiry-tracking serves readable guidance, a checklist and correct identity without JavaScript (0.77ms)
+✔ timesheets-to-client-invoices serves readable guidance, a checklist and correct identity without JavaScript (0.39475ms)
+✔ employee-records-spreadsheet-migration serves readable guidance, a checklist and correct identity without JavaScript (0.352917ms)
+✔ leave-requests-and-approvals serves readable guidance, a checklist and correct identity without JavaScript (0.336334ms)
+✔ guides are pre-rendered and unknown guide URLs have no dynamic fallback (0.193166ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 92.217167
+(node:94655) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/proxy.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Next's actual proxy adapter preserves ?_rsc= through a regional rewrite (3.986917ms)
+✔ Next's actual proxy adapter preserves ?_rsc through a regional rewrite (0.549875ms)
+✔ Next's actual proxy adapter preserves ?_rsc=nonempty-flight-hash through a regional rewrite (0.424625ms)
+✔ Next's actual adapter keeps real router headers and its nonempty hash together (0.506042ms)
+✔ HTML requests remain separate from Flight and RSC hash validation remains enabled (0.3815ms)
+✔ the production build retains raw proxy URLs and RSC validation (0.22975ms)
+✔ pricing has a pre-rendered fallback and all five finite market variants (1.173375ms)
+✔ UK pricing is complete and indexable under the public canonical before JavaScript (0.764959ms)
+✔ IN pricing is complete and indexable under the public canonical before JavaScript (0.380041ms)
+✔ US pricing is complete and indexable under the public canonical before JavaScript (0.364458ms)
+✔ EU pricing is complete and indexable under the public canonical before JavaScript (0.862333ms)
+✔ unknown pricing is complete and indexable under the public canonical before JavaScript (0.527167ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.207208
+▲ Next.js 16.3.4
+- Local:         http://localhost:53924
+- Network:       http://localhost:53924
+✓ Ready in 91ms
+✓ Running next.config.js took 8ms
+(node:94658) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error: Internal: NoFallbackError
+    at ignore-listed frames
+Error: Internal: NoFallbackError
+    at ignore-listed frames
+SEO checks passed: 17 pages, production indexing, canonical URLs, social metadata, JSON-LD, sitemap, blue PNG favicon and 1200×630 share image.
+(node:94660) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "pages": 21,
+  "internalLinksChecked": 1582,
+  "productLinks": [
+    "https://app.crewzy.io/login",
+    "https://app.crewzy.io/signup",
+    "https://find-and-update.company-information.service.gov.uk/company/14561510",
+    "https://www.linkedin.com/in/manohar-nunna/",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/employment/employment-practices-and-data-protection-keeping-employment-records/collecting-and-keeping-employment-records/",
+    "https://www.gov.uk/invoicing-and-taking-payment-from-customers/invoices-what-they-must-include",
+    "https://www.acas.org.uk/checking-holiday-entitlement/asking-for-and-taking-holiday",
+    "https://ico.org.uk/make-a-complaint/",
+    "https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf",
+    "https://policies.google.com/technologies/partner-sites",
+    "https://www.cloudflare.com/turnstile-privacy-policy/",
+    "https://policies.google.com/privacy",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/"
+  ],
+  "result": "All local routes and anchors resolve"
+}
+✔ native pricing HTTP routing serves HTML and Flight without loops or currency overrides (57.147542ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 105.77725
+▲ Next.js 16.3.4 (Turbopack)
+✓ Running next.config.js took 7ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 204ms
+  Running TypeScript ...
+  Finished TypeScript in 789ms ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/32) ...
+  Generating static pages using 9 workers (8/32)
+  Generating static pages using 9 workers (16/32)
+  Generating static pages using 9 workers (24/32)
+✓ Generating static pages using 9 workers (32/32) in 401ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /contact
+├ ○ /customers
+├ ○ /dpa
+├ ○ /icon.svg
+├ ○ /opengraph-image
+├ ○ /platform
+├   /platform/[feature]
+│ ├ ● /platform/hr-software-small-business
+│ ├ ● /platform/document-expiry-tracking
+│ ├ ● /platform/timesheets-and-invoicing
+│ └ ● /platform/leave-management
+├ ○ /pricing
+├   /pricing/market/[market]
+│ ├ ● /pricing/market/UK
+│ ├ ● /pricing/market/IN
+│ ├ ● /pricing/market/US
+│ └ ● [+2 more paths]
+├ ○ /privacy
+├ ○ /resources
+├ ○ /resources/guides
+├   /resources/guides/[guide]
+│ ├ ● /resources/guides/employee-document-expiry-tracking
+│ ├ ● /resources/guides/timesheets-to-client-invoices
+│ ├ ● /resources/guides/employee-records-spreadsheet-migration
+│ └ ● /resources/guides/leave-requests-and-approvals
+├ ○ /robots.txt
+├ ○ /sitemap.xml
+├ ○ /solutions
+├ ○ /subprocessors
+└ ○ /terms
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
+✔ built pages never load Google before consent and previews never enable analytics (1.05375ms)
+(node:94680) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unknown feature paths cannot resolve to a generic marketing page (0.416083ms)
+✔ hr-software-small-business is readable and correctly identified before JavaScript (1.012375ms)
+✔ document-expiry-tracking is readable and correctly identified before JavaScript (0.399459ms)
+✔ timesheets-and-invoicing is readable and correctly identified before JavaScript (0.361ms)
+✔ leave-management is readable and correctly identified before JavaScript (0.397125ms)
+✔ feature pages are pre-rendered with no unbounded dynamic fallback (0.214708ms)
+(node:94681) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-routes.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ unrecognised and inherited-property guide slugs cannot render editorial content (0.42325ms)
+✔ employee-document-expiry-tracking serves readable guidance, a checklist and correct identity without JavaScript (0.804792ms)
+✔ timesheets-to-client-invoices serves readable guidance, a checklist and correct identity without JavaScript (0.369291ms)
+✔ employee-records-spreadsheet-migration serves readable guidance, a checklist and correct identity without JavaScript (0.3605ms)
+✔ leave-requests-and-approvals serves readable guidance, a checklist and correct identity without JavaScript (0.3465ms)
+✔ guides are pre-rendered and unknown guide URLs have no dynamic fallback (0.204208ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 92.319625
+▲ Next.js 16.3.4
+- Local:         http://localhost:53940
+- Network:       http://localhost:53940
+✓ Ready in 83ms
+✓ Running next.config.js took 7ms
+(node:94683) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Error: Internal: NoFallbackError
+    at ignore-listed frames
+Error: Internal: NoFallbackError
+    at ignore-listed frames
+SEO checks passed: 17 pages, preview indexing, canonical URLs, social metadata, JSON-LD, sitemap, blue PNG favicon and 1200×630 share image.
+(node:94684) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "pages": 21,
+  "internalLinksChecked": 1561,
+  "productLinks": [
+    "https://app.crewzy.io/login",
+    "https://app.crewzy.io/signup",
+    "https://find-and-update.company-information.service.gov.uk/company/14561510",
+    "https://www.linkedin.com/in/manohar-nunna/",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/employment/employment-practices-and-data-protection-keeping-employment-records/collecting-and-keeping-employment-records/",
+    "https://www.gov.uk/invoicing-and-taking-payment-from-customers/invoices-what-they-must-include",
+    "https://www.acas.org.uk/checking-holiday-entitlement/asking-for-and-taking-holiday",
+    "https://ico.org.uk/make-a-complaint/",
+    "https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf",
+    "https://policies.google.com/technologies/partner-sites",
+    "https://www.cloudflare.com/turnstile-privacy-policy/",
+    "https://policies.google.com/privacy",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/"
+  ],
+  "result": "All local routes and anchors resolve"
+}
+✔ native pricing HTTP routing serves HTML and Flight without loops or currency overrides (52.183167ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.53125
+Release checks passed for production and deploy-preview contexts.

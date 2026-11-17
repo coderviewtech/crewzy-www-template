@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { ArrowRight, BrainCircuit, Check } from "lucide-react";
 import { Header, Footer, useScrollMotion } from "../chrome";
 import { appUrl, demoHref, moduleHref, moduleSlugs } from "../site-config";
 import { modules, moduleExamples } from "../platform-tour";
+import { featureRoutes, featurePath } from "../site-routes";
 import base from "../landing.module.css";
 import s from "../secondary-page.module.css";
 import typeStyles from "../content-typography.module.css";
@@ -27,7 +29,14 @@ export default function PlatformPage() {
         <p>{module.description}</p><ul>{moduleExamples[index].notes.map(note => <li key={note}><Check size={16} />{note}</li>)}</ul>
         <a className={`${s.textLink} ${typeStyles.link}`} href={index === 5 ? "/#compliance" : moduleHref(index)}>{index === 5 ? "Explore the compliance workflow" : `View the ${module.name.toLowerCase()} preview`}<ArrowRight size={16} /></a>
       </article>)}</div>
-      <aside className={`${s.aiCallout} ${typeStyles.detail}`} data-reveal><BrainCircuit size={28} /><div><h2>A little help finding the answer.</h2><p>Crewzy AI brings source-linked answers to questions about the workspace information you’re authorised to access.</p></div><a className={`${s.textLink} ${typeStyles.link}`} href="/#crewzy-ai">Explore Crewzy AI <ArrowRight size={16} /></a></aside>
+      <section className={`${s.aiCallout} ${typeStyles.detail}`} aria-labelledby="workflow-pages-title">
+        <div><h2 id="workflow-pages-title">Choose a workflow to explore</h2><p>See the process, plan scope and practical questions for your team.</p>
+          <ul>{featureRoutes.map(feature => <li key={feature.slug}>
+            <a className={`${s.textLink} ${typeStyles.link}`} href={featurePath(feature.slug)}>{feature.label} <ArrowRight size={16} aria-hidden="true" /></a>
+          </li>)}</ul>
+        </div>
+      </section>
+      <aside className={`${s.aiCallout} ${typeStyles.detail}`} data-reveal><BrainCircuit size={28} /><div><h2>A little help finding the answer.</h2><p>Crewzy AI brings source-linked answers to questions about the workspace information you’re authorised to access.</p></div><Link className={`${s.textLink} ${typeStyles.link}`} href="/#crewzy-ai">Explore Crewzy AI <ArrowRight size={16} /></Link></aside>
     </section>
   </main><Footer /></div>;
 }

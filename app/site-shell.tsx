@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { ArrowRight, ChevronDown, Mail, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
 import { company } from "./company";
@@ -128,9 +129,9 @@ export function SiteHeader() {
 
   return (
     <header ref={header} className={s.header}>
-      <a href="/#top" aria-label="Crewzy home" onClick={close}>
+      <Link href="/#top" aria-label="Crewzy home" onClick={close}>
         <Brand className={s.headerBrand} markClassName={s.headerMark} />
-      </a>
+      </Link>
       <nav
         className={s.navigation}
         aria-label="Main navigation"
@@ -178,7 +179,7 @@ export function SiteFooter() {
     <footer className={s.footer}>
       <div className={s.footerIntro}>
         <div>
-          <a href="/#top" aria-label="Crewzy home"><Brand className={s.footerBrand} /></a>
+          <Link href="/#top" aria-label="Crewzy home"><Brand className={s.footerBrand} /></Link>
           <p>{siteCaption}</p>
           <span>One employee record. Connected workflows. Less everyday admin.</span>
           <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.legalName}</a>, registered in {company.jurisdiction}.</span>

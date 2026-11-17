@@ -8,6 +8,10 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
+const buildContext = process.env.CONTEXT ?? "local";
+const indexingHeaders = buildContext === "production"
+  ? []
+  : [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
 
 const nextConfig = {
   reactStrictMode: true,
@@ -16,13 +20,13 @@ const nextConfig = {
   skipProxyUrlNormalize: true,
   // Public build context must survive in dynamic server routes on Netlify.
   // CONTEXT itself is only guaranteed during the build. This value is not secret.
-  env: { CREWZY_SITE_BUILD_CONTEXT: process.env.CONTEXT ?? "local" },
+  env: { CREWZY_SITE_BUILD_CONTEXT: buildContext },
   images: {
     // Keep default quality for small assets; use 90 for the editorial photo.
     qualities: [75, 85, 90],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [{ source: "/:path*", headers: [...securityHeaders, ...indexingHeaders] }];
   },
 };
 

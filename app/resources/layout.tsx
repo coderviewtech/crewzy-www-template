@@ -4,8 +4,8 @@ import { createPageMetadata } from "../site-seo";
 
 /* See app/solutions/layout.tsx for why metadata lives in a layout here. */
 export const metadata: Metadata = createPageMetadata({
-  title: "Security, Trust & People Management Resources",
-  description: "Explore Crewzy access controls, AI safeguards, privacy information and service terms alongside connected people management workflows.",
+  title: "HR Guides, Resources & Security Information",
+  description: "Practical employee-record, document-renewal, timesheet and leave guides, alongside Crewzy's security controls, privacy information and service terms.",
   canonical: "/resources",
 });
 
