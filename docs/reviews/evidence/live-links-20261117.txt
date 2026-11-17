@@ -1,0 +1,24 @@
+(node:96306) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/app/site-config.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/mano/.codex/worktrees/crewzy-seo-20261117/crewzy-www/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "pages": 21,
+  "internalLinksChecked": 1581,
+  "productLinks": [
+    "https://app.crewzy.io/login",
+    "https://app.crewzy.io/signup",
+    "https://find-and-update.company-information.service.gov.uk/company/14561510",
+    "https://www.linkedin.com/in/manohar-nunna/",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/employment/employment-practices-and-data-protection-keeping-employment-records/collecting-and-keeping-employment-records/",
+    "https://www.gov.uk/invoicing-and-taking-payment-from-customers/invoices-what-they-must-include",
+    "https://www.acas.org.uk/checking-holiday-entitlement/asking-for-and-taking-holiday",
+    "https://ico.org.uk/make-a-complaint/",
+    "https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf",
+    "https://policies.google.com/technologies/partner-sites",
+    "https://www.cloudflare.com/turnstile-privacy-policy/",
+    "https://policies.google.com/privacy",
+    "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/"
+  ],
+  "result": "All local routes and anchors resolve"
+}

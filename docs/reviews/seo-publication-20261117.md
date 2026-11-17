@@ -46,8 +46,54 @@ script/event, Google command protocol, one view per route, restricted URL data,
 disable-on-revoke and selective cookie removal. Earlier guide/browser evidence
 remains in the readiness report. This is not an exhaustive accessibility audit.
 
-Publication status and live evidence are recorded below once the production push,
-hosting smoke checks, Bing verification and GA4 receipt have completed.
+Application release `a4792991dbb002244568de96982d1d2934045182` was committed with
+the required hooks and pushed as a normal fast-forward to the existing Netlify
+production branch, `codex/crewzy-light-compliance-redesign`. The remote SHA was
+verified. The deployed homepage and guides hub return HTTP 200 with the issued
+GA4 measurement ID and Bing verification tag. The live sitemap contains 17 URLs.
+The [live SEO audit](evidence/live-seo-20261117.txt) passed all 17 marketing pages;
+the [live link audit](evidence/live-links-20261117.txt) resolved 1,581 internal
+links across 21 pages. Live UK pricing also renders GBP correctly.
+
+### External account results
+
+- **GA4:** the Crewzy property received the controlled, consented UK test visit.
+  Realtime showed one active user and the guides-hub page title, with page_view,
+  first_visit and session_start events. This is verification traffic, not evidence
+  of an organic customer. The standard Home report still showed its initial
+  no-data message while Realtime already contained the visit. Reports cannot
+  reconstruct earlier visitors. Owner: coderview.io@gmail.com.
+- **Consent:** production browser checks found no Google script before consent
+  or after rejection. Accepting loaded the correct G-SLHHQ68M3R tag. Withdrawing
+  consent reloaded the page and removed the Google tag; the test browser was left
+  with analytics rejected. Desktop/mobile controls were checked locally as above.
+- **Bing:** HTML meta-tag ownership verification completed and the authenticated
+  Crewzy dashboard became available. https://crewzy.io/sitemap.xml was accepted
+  on 17 November and showed Processing, zero errors and zero warnings. All nine
+  new URLs (four workflow pages, four guides and the hub) were submitted once;
+  the dashboard showed nine submitted today and 91 remaining quota. Crawl and
+  indexing results are pending, not claimed complete.
+- **Google Search Console:** the existing domain property accepted the updated
+  sitemap on 17 November with the “Sitemap submitted successfully” confirmation.
+  The table still showed eight discovered pages from its 11 November read;
+  that historical count is not the new sitemap's 17 URLs. The new guides hub
+  inspection initially reported unknown to Google; Request indexing completed
+  successfully and added it to the priority crawl queue. No instant indexing or
+  ranking promise is made.
+
+Browser evidence is retained under
+`/Users/mano/.codex/visualizations/2026/11/11/01a1cac9-7ee6-79f1-b3ab-9a34f0f991da/crewzy-seo-20261117/`:
+`ga4-realtime-confirmed.png`, `bing-sitemap-submitted.png`,
+`google-sitemap-submitted.png`, `google-guides-indexing-requested.png` and
+`crewzy-guides-live.png`.
+
+### What this release does not implement
+
+The work improves search/AI discovery and adds consent-based visitor measurement.
+It does not add an on-site chatbot or modify the existing authenticated Crewzy
+assistant. Successful signup/conversion tracking, Ads links, paid campaigns,
+IndexNow automation and UTM campaign attribution are not part of this release.
+Query strings are deliberately stripped from the measured page URL.
 
 ## Change Compliance Report
 
