@@ -26,3 +26,14 @@ are retained. This is a one-line presentation-copy change.
 - **Skill updated:** dated frontend marketing note records the restored wording.
 - **Residual risk / follow-ups:** low-impact copy correction; the final response
   records the observed production result.
+
+## Supporting-text restoration
+
+The owner subsequently requested and authorised publication of the original
+supporting paragraph too. The exact `f98ed55` wording is restored:
+“People management and employee lifecycle workflows.” followed by
+“Everyday work, document expiry tracking and compliance evidence.”
+The existing responsive line break and paragraph styles are reused. Production
+branch `9535602` was verified before the edit; the checkout was clean. This is
+another one-line presentation-copy change under the compliance review above.
+The installed publication hooks and live homepage verification apply again.
