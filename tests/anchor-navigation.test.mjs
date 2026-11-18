@@ -1,6 +1,21 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { scrollToMeasuredTarget } from "../app/anchor-navigation.ts";
+import { samePageFragment, scrollToMeasuredTarget } from "../app/anchor-navigation.ts";
+
+test("same-page fragments preserve their URL and decode the destination ID", () => {
+  assert.deepEqual(samePageFragment("#team%20access", "https://crewzy.io/resources"), {
+    hash: "#team%20access", id: "team access",
+  });
+  assert.deepEqual(samePageFragment("/resources?view=all#security", "https://crewzy.io/resources?view=all"), {
+    hash: "#security", id: "security",
+  });
+});
+
+test("scrolling does not intercept another route, origin, query or an invalid fragment", () => {
+  for (const href of ["/meet#questions", "https://example.com/resources#security", "?view=all#security", "#", "#%E0%A4", "/resources"]) {
+    assert.equal(samePageFragment(href, "https://crewzy.io/resources"), null, href);
+  }
+});
 
 test("cross-page anchors use the expanded page height, not a stale scroll limit", () => {
   const events = [];

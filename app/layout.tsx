@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Nunito, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import { company } from "./company";
 import { siteCaption } from "./site-config";
+import { ProductGuideProvider } from "./product-guide/product-guide";
+import { SmoothScrollProvider } from "./smooth-scroll";
 import { createPageMetadata, homeDescription, homeTitle, indexingMetadata, siteIcons, siteTitleTemplate, siteUrl as SITE_URL } from "./site-seo";
 import { searchVerification } from "./search-verification";
 import { StructuredData } from "./structured-data";
@@ -9,16 +11,7 @@ import { AnalyticsConsent } from "./analytics-consent";
 import { analyticsConfig } from "./analytics-config";
 import "./globals.css";
 
-/* Nunito is the platform brand face; Inter is the companion for running text.
-   Both are self-hosted by next/font, so first paint uses the real typefaces
-   rather than a system fallback that reflows a moment later. */
-const nunito = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-nunito",
-  weight: ["400", "600", "700", "800", "900"],
-});
-
+// One self-hosted variable face for the website, navigation and product guide.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -96,10 +89,12 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${inter.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body>
-        {children}
-        <AnalyticsConsent config={analyticsConfig} />
+        <SmoothScrollProvider>
+          <ProductGuideProvider>{children}</ProductGuideProvider>
+          <AnalyticsConsent config={analyticsConfig} />
+        </SmoothScrollProvider>
         <StructuredData value={[organizationSchema, websiteSchema]} />
       </body>
     </html>

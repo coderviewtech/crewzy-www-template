@@ -16,7 +16,7 @@
 .artHub { fill: var(--preview-brand-ink); stroke: #203653; stroke-width: 1; filter: drop-shadow(0 13px 18px #14243c26); }
 .artBlue { color: var(--preview-brand-accent); }
 .artWhite { color: #fff; }
-.artTitle, .artWorkTitle, .artAuditTitle, .artWordmark, .artCaption, .artHubCaption, .artRowLabel, .artSmallLabel { font-family: var(--font-inter), Arial, sans-serif; }
+.artTitle, .artWorkTitle, .artAuditTitle, .artWordmark, .artCaption, .artHubCaption, .artRowLabel, .artSmallLabel { font-family:var(--font-site); }
 .artTitle, .artWorkTitle, .artAuditTitle { fill: var(--preview-brand-ink); font-size: 22px; font-weight: 700; letter-spacing: -.45px; }
 .artWorkTitle { font-size: 20px; }
 .artAuditTitle { font-size: 19px; }
@@ -53,7 +53,7 @@
 .purposeIntro > p { font-size: 17px; line-height: 1.8; color: var(--preview-brand-copy); }
 .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 38px; list-style: none; }
 .principles > li { min-width: 0; padding-top: 18px; border-top: 1px solid var(--preview-brand-outline); }
-.principleNumber { display: block; margin-bottom: 12px; color: var(--preview-brand-accent); font-size: 12px; font-weight: 600; }
+.principleNumber { display: block; margin-bottom: 12px; color: var(--preview-brand-accent); font-size: var(--text-label-size); font-weight: 600; }
 .principles h3 { margin-bottom: 10px; color: var(--preview-brand-ink); font-size: 19px; font-weight: var(--content-weight-heading); line-height: 1.4; letter-spacing: -.025em; }
 .principles p { color: var(--preview-brand-copy); font-size: 15px; line-height: 1.75; }
 .storyCopy { min-width: 0; }

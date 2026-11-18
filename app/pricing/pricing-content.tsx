@@ -1,5 +1,6 @@
 "use client";
 
+import { SiteLink } from "../site-link";
 import { useRef, useState } from "react";
 import {
   ArrowDown,
@@ -143,14 +144,14 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
               </div>
               <span className={s.saving}>Save {annualSavingPercent(market)}% annually</span>
               <span className={s.currency}>{rates.label} pricing · {rates.currency} ({rates.symbol})</span>
-            </div> : <p className={s.regionNotice} data-reveal>Local pricing for India, the UK, the US and the euro area. <a href={demoHref}>Confirm pricing for your company <ArrowRight size={14} aria-hidden="true" /></a></p>}
+            </div> : <p className={s.regionNotice} data-reveal>Local pricing for India, the UK, the US and the euro area. <SiteLink href={demoHref}>Confirm pricing for your company <ArrowRight size={14} aria-hidden="true" /></SiteLink></p>}
             <div className={s.plans}>
               <article className={`${s.planCard} ${s.freeCard}`} aria-labelledby="free-plan-title" data-reveal>
                 <div className={s.planLabel}><h2 id="free-plan-title">Free</h2><span className={s.planBadge}>Up to 10 employees</span></div>
                 <p className={s.planDescription}>A connected start for a small team.</p>
                 <div className={s.priceLine}><strong>{market ? money(0) : "Free"}</strong><span>for your workspace</span></div>
                 <p className={s.billingNote}>No payment card required.</p>
-                <a className={`${secondary.button} ${s.signup} ${s.freeSignup}`} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} aria-hidden="true" /></a>
+                <SiteLink className={`${secondary.button} ${s.signup} ${s.freeSignup}`} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} aria-hidden="true" /></SiteLink>
                 <div className={s.cardDivider} />
                 <p className={s.listTitle}>Your everyday essentials</p>
                 <ul className={s.planList}>
@@ -163,7 +164,7 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
                   <li><Check size={16} aria-hidden="true" />Rolling 30-day view of audit history</li>
                 </ul>
                 <p className={s.cardFinePrint}>Invoice and expense allowances are total records, not monthly limits. Recruitment is available on Business.</p>
-                <a className={s.exploreLink} href="#limits">Compare the plans <ArrowDown size={15} aria-hidden="true" /></a>
+                <SiteLink className={s.exploreLink} href="#limits">Compare the plans <ArrowDown size={15} aria-hidden="true" /></SiteLink>
               </article>
 
               <article className={`${s.planCard} ${s.businessCard}`} aria-labelledby="business-plan-title" data-reveal data-reveal-delay="1">
@@ -190,8 +191,8 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
                   </div>
                   <p className={s.taxNote}>{rates.currency} ({rates.symbol}), excluding applicable taxes.</p>
                 </div>}
-                <p className={s.seatNote} id="seat-definition">Your first 10 employees stay included on Business. Charges start with employee 11. <a href="#pricing-questions">How seats work <ArrowDown size={12} aria-hidden="true" /></a></p>
-                <a className={`${secondary.button} ${s.signup}`} href={demoHref}>Get Business <ArrowRight size={17} aria-hidden="true" /></a>
+                <p className={s.seatNote} id="seat-definition">Your first 10 employees stay included on Business. Charges start with employee 11. <SiteLink href="#pricing-questions">How seats work <ArrowDown size={12} aria-hidden="true" /></SiteLink></p>
+                <SiteLink className={`${secondary.button} ${s.signup}`} href={demoHref}>Get Business <ArrowRight size={17} aria-hidden="true" /></SiteLink>
                 <p className={s.cardNote}>Online payments are not connected yet. Contact us about Business for your billing country.</p>
                 <div className={s.cardDivider} />
                 <p className={s.listTitle}>Everything in Free, with more room</p>
@@ -229,7 +230,7 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
           <aside className={s.aiCard} data-reveal aria-labelledby="ai-included-title">
             <span className={s.aiIcon}><BrainCircuit size={26} aria-hidden="true" /></span>
             <div className={s.aiCopy}><h3 id="ai-included-title">A little help from Crewzy AI.</h3><p>Ask questions about workspace information you’re authorised to access. Free includes 30 weighted AI actions per workspace each month; Business includes 300.</p></div>
-            <a href="#limits">Compare the allowances <ArrowRight size={16} aria-hidden="true" /></a>
+            <SiteLink href="#limits">Compare the allowances <ArrowRight size={16} aria-hidden="true" /></SiteLink>
           </aside>
         </section>
 
@@ -255,12 +256,12 @@ export default function PricingContent({ market }: { market: PricingMarket | nul
             <h2 id="pricing-questions-title">Before you <span>get started.</span></h2>
           </div>
           <div className={s.faqList} data-reveal>{questions.map(({ question, answer }) => <details key={question}><summary>{question}<ChevronDown size={19} aria-hidden="true" /></summary><p>{answer}</p></details>)}</div>
-          <p className={s.termsNote}>Read the <a href="/terms#consumer-rights">cancellation and consumer rights</a> in our Terms and conditions.</p>
+          <p className={s.termsNote}>Read the <SiteLink href="/terms#consumer-rights">cancellation and consumer rights</SiteLink> in our Terms and conditions.</p>
         </section>
 
         <section className={s.closing} aria-labelledby="start-free-title" data-reveal>
           <div className={typography.closing}><h2 id="start-free-title">Less everyday admin.<br /><span>More of your work connected.</span></h2><p>Start free with up to 10 employees, or talk to us about Business.</p></div>
-          <div className={s.closingActions}><a className={secondary.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} aria-hidden="true" /></a><a className={s.demoLink} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></a></div>
+          <div className={s.closingActions}><SiteLink className={secondary.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} aria-hidden="true" /></SiteLink><SiteLink className={s.demoLink} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></SiteLink></div>
         </section>
       </main>
       <Footer />

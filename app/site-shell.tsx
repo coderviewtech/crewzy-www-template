@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { SiteLink as Link } from "./site-link";
 import { ArrowRight, ChevronDown, Mail, Menu, X } from "lucide-react";
 import { Brand } from "./brand";
 import { company } from "./company";
@@ -10,12 +10,16 @@ import { MailtoLink } from "./mailto-link";
 import { appUrl, demoHref, salesEmail, siteCaption } from "./site-config";
 import {
   footerGroups,
-  platformColumns,
-  resourcesColumns,
-  solutionsColumns,
-  type MenuColumn,
+  navigationMenus,
+  type NavigationMenu,
 } from "./site-navigation";
 import s from "./site-shell.module.css";
+import { SiteMenuPanel } from "./site-menu-panel";
+import menuStyle from "./site-menu.module.css";
+
+function HomeLink({ children, onClick }: { children: ReactNode; onClick?: () => void }) {
+  return <Link href="/#top" aria-label="Crewzy home" onClick={onClick}>{children}</Link>;
+}
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,7 +38,7 @@ export function SiteHeader() {
   };
 
   const handlePointerEnter = (label: string) => {
-    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 1051px) and (hover: hover)").matches) {
       if (leaveTimer.current) {
         clearTimeout(leaveTimer.current);
         leaveTimer.current = null;
@@ -43,10 +47,12 @@ export function SiteHeader() {
     }
   };
 
-  const handlePointerLeave = () => {
-    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+  const handlePointerLeave = (event: React.PointerEvent<HTMLDivElement>) => {
+    const region = event.currentTarget;
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 1051px) and (hover: hover)").matches) {
       if (leaveTimer.current) clearTimeout(leaveTimer.current);
       leaveTimer.current = setTimeout(() => {
+        if (region.querySelector("a:focus-visible")) return;
         setOpenMenu(null);
       }, 180);
     }
@@ -71,7 +77,8 @@ export function SiteHeader() {
     };
   }, [mobileOpen, openMenu]);
 
-  const dropdown = (label: string, columns: MenuColumn[], panelClassName?: string) => {
+  const dropdown = (menu: NavigationMenu) => {
+    const { label } = menu;
     const expanded = openMenu === label;
     return (
       <div
@@ -90,48 +97,35 @@ export function SiteHeader() {
           className={s.navTrigger}
           aria-expanded={expanded}
           aria-controls={`${id}-${label}`}
-          onClick={() => setOpenMenu(expanded ? null : label)}
+          onKeyDown={event => {
+            if (event.key !== "ArrowDown") return;
+            event.preventDefault();
+            setOpenMenu(label);
+            requestAnimationFrame(() => document.getElementById(`${id}-${label}`)?.querySelector<HTMLAnchorElement>("a")?.focus());
+          }}
+          onClick={event => {
+            // A pointer click confirms a hover-open menu; keyboard and touch toggle it.
+            const pointerHover = event.detail > 0 && window.matchMedia("(min-width: 1051px) and (hover: hover)").matches;
+            setOpenMenu(pointerHover ? label : expanded ? null : label);
+          }}
         >
           {label}
           <ChevronDown size={14} aria-hidden="true" className={s.navChevron} />
         </button>
-        <div
-          className={`${s.dropdownPanel} ${panelClassName || ""}`}
-          id={`${id}-${label}`}
-          hidden={!expanded}
-          data-lenis-prevent
-        >
-          <div className={s.megaGrid}>
-            {columns.map(col => (
-              <div key={col.title} className={s.menuColumn}>
-                <p className={s.columnHeading}>{col.title}</p>
-                <div className={s.columnLinks}>
-                  {col.items.map(({ label: name, description, href, icon: Icon }) => (
-                    <a href={href} key={name} className={s.menuItem} onClick={close}>
-                      <span className={s.menuItemIcon}>
-                        <Icon size={16} aria-hidden="true" />
-                      </span>
-                      <span className={s.menuItemText}>
-                        <strong className={s.menuItemTitle}>{name}</strong>
-                        {description && <small className={s.menuItemDesc}>{description}</small>}
-                      </span>
-                      <ArrowRight size={13} aria-hidden="true" className={s.menuItemArrow} />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className={menuStyle.panel} id={`${id}-${label}`} hidden={!expanded} data-lenis-prevent>
+          <SiteMenuPanel menu={menu} onNavigate={close} />
         </div>
       </div>
     );
   };
 
   return (
+    <>
+    {openMenu && <button className={menuStyle.backdrop} type="button" tabIndex={-1} aria-label="Close navigation menu" onClick={close} />}
     <header ref={header} className={s.header}>
-      <Link href="/#top" aria-label="Crewzy home" onClick={close}>
+      <HomeLink onClick={close}>
         <Brand className={s.headerBrand} markClassName={s.headerMark} />
-      </Link>
+      </HomeLink>
       <nav
         className={s.navigation}
         aria-label="Main navigation"
@@ -139,26 +133,26 @@ export function SiteHeader() {
         data-open={mobileOpen}
         data-lenis-prevent
       >
-        {dropdown("Platform", platformColumns, s.platformPanel)}
-        {dropdown("Solutions", solutionsColumns, s.solutionsPanel)}
-        <a href="/pricing" aria-current={pathname === "/pricing" || pathname?.startsWith("/pricing/market/") ? "page" : undefined} onClick={close}>
+        {dropdown(navigationMenus.Platform)}
+        {dropdown(navigationMenus.Solutions)}
+        <Link href="/pricing" aria-current={pathname === "/pricing" || pathname?.startsWith("/pricing/market/") ? "page" : undefined} onClick={close}>
           Pricing
-        </a>
-        <a href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={close}>
+        </Link>
+        <Link href="/about" aria-current={pathname === "/about" ? "page" : undefined} onClick={close}>
           About Crewzy
-        </a>
-        {dropdown("Resources", resourcesColumns, s.resourcesPanel)}
-        <a href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={close}>
+        </Link>
+        {dropdown(navigationMenus.Resources)}
+        <Link href="/contact" aria-current={pathname === "/contact" ? "page" : undefined} onClick={close}>
           Contact us
-        </a>
+        </Link>
         <div className={s.mobileActions}>
-          <a href={appUrl("/login")} className={s.signIn} onClick={close}>Sign in</a>
-          <a href={demoHref} className={s.primaryButton} onClick={close}>Request a demo <ArrowRight size={15} /></a>
+          <Link href={appUrl("/login")} className={s.signIn} onClick={close}>Sign in</Link>
+          <Link href={demoHref} className={s.primaryButton} onClick={close}>Request a demo <ArrowRight size={15} /></Link>
         </div>
       </nav>
       <div className={s.headerActions}>
-        <a className={s.signIn} href={appUrl("/login")}>Sign in</a>
-        <a className={s.primaryButton} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></a>
+        <Link className={s.signIn} href={appUrl("/login")}>Sign in</Link>
+        <Link className={s.primaryButton} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></Link>
         <button
           ref={menuButton}
           className={s.menuToggle}
@@ -171,6 +165,7 @@ export function SiteHeader() {
         </button>
       </div>
     </header>
+    </>
   );
 }
 
@@ -179,10 +174,10 @@ export function SiteFooter() {
     <footer className={s.footer}>
       <div className={s.footerIntro}>
         <div>
-          <Link href="/#top" aria-label="Crewzy home"><Brand className={s.footerBrand} /></Link>
+          <HomeLink><Brand className={s.footerBrand} /></HomeLink>
           <p>{siteCaption}</p>
           <span>One employee record. Connected workflows. Less everyday admin.</span>
-          <span>Crewzy is developed by <a className={s.companyLink} href="/about">{company.legalName}</a>, registered in {company.jurisdiction}.</span>
+          <span>Crewzy is developed by <Link className={s.companyLink} href="/about">{company.legalName}</Link>, registered in {company.jurisdiction}.</span>
         </div>
         <MailtoLink className={s.footerEmail} href={`mailto:${salesEmail}`}>
           <Mail size={18} aria-hidden="true" />
@@ -195,7 +190,7 @@ export function SiteFooter() {
           <section key={group.title}>
             <h3>{group.title}</h3>
             <nav aria-label={`${group.title} footer links`}>
-              {group.links.map(link => <a key={link.label} href={link.href}>{link.label}</a>)}
+              {group.links.map(link => <Link key={link.label} href={link.href}>{link.label}</Link>)}
             </nav>
           </section>
         ))}
@@ -203,18 +198,18 @@ export function SiteFooter() {
       <div className={s.footerLegal}>
         <p>{company.legalName} · Company number {company.number} · Registered in {company.jurisdiction}.</p>
         <p>Registered office: {company.registeredOffice}.</p>
-        <a href={company.companiesHouseUrl} target="_blank" rel="noopener noreferrer">View company registration <span className={s.srOnly}>(opens in a new tab)</span></a>
+        <Link href={company.companiesHouseUrl} target="_blank" rel="noopener noreferrer">View company registration <span className={s.srOnly}>(opens in a new tab)</span></Link>
       </div>
       <div className={s.footerBottom}>
         <span>© {new Date().getFullYear()} Crewzy. All rights reserved.</span>
         <div>
-          <a href="/about">About Crewzy</a>
-          <a href="/privacy">Privacy policy</a>
-          <a href="/terms">Terms and conditions</a>
-          <a href="/dpa">Data processing</a>
-          <a href="/subprocessors">Service providers</a>
-          <a href="/resources#security">Security &amp; trust</a>
-          <a href="/contact">Contact us</a>
+          <Link href="/about">About Crewzy</Link>
+          <Link href="/privacy">Privacy policy</Link>
+          <Link href="/terms">Terms and conditions</Link>
+          <Link href="/dpa">Data processing</Link>
+          <Link href="/subprocessors">Service providers</Link>
+          <Link href="/resources#security">Security &amp; trust</Link>
+          <Link href="/contact">Contact us</Link>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 "use client";
 
+import { SiteLink } from "../site-link";
 import { useRef } from "react";
-import Link from "next/link";
 import { ArrowRight, BrainCircuit, Check } from "lucide-react";
 import { Header, Footer, useScrollMotion } from "../chrome";
 import { appUrl, demoHref, moduleHref, moduleSlugs } from "../site-config";
@@ -19,7 +19,7 @@ export default function PlatformPage() {
       <span className={`${s.eyebrow} ${typeStyles.label}`}>The Crewzy platform</span>
       <h1>Your people and their work.<br /><span>Connected from the start.</span></h1>
       <p>People management, hiring, time, leave, finance and compliance, built around one employee record. Explore what each part does and how it fits into the working day.</p>
-      <div className={s.actions}><a className={s.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} /></a><a className={`${s.textLink} ${typeStyles.link}`} href={demoHref}>Request a demo <ArrowRight size={16} /></a></div>
+      <div className={s.actions}><SiteLink className={s.button} href={appUrl("/signup")}>Start free for up to 10 employees <ArrowRight size={17} /></SiteLink><SiteLink className={`${s.textLink} ${typeStyles.link}`} href={demoHref}>Request a demo <ArrowRight size={16} /></SiteLink></div>
     </div></section>
     <section className={s.content} aria-label="Platform modules">
       <div className={`${s.sectionIntro} ${typeStyles.heading}`}><h2>One record. More of your day connected.</h2><p>Keep employee details, requests and decisions in context as work moves between teams.</p></div>
@@ -27,16 +27,16 @@ export default function PlatformPage() {
         <div className={`${s.moduleLabel} ${typeStyles.label}`}><span className={s.moduleIcon}><module.icon size={22} /></span>{module.name}</div>
         <h2>{module.title.slice(0, -module.emphasis.length)}<span>{module.emphasis}</span></h2>
         <p>{module.description}</p><ul>{moduleExamples[index].notes.map(note => <li key={note}><Check size={16} />{note}</li>)}</ul>
-        <a className={`${s.textLink} ${typeStyles.link}`} href={index === 5 ? "/#compliance" : moduleHref(index)}>{index === 5 ? "Explore the compliance workflow" : `View the ${module.name.toLowerCase()} preview`}<ArrowRight size={16} /></a>
+        <SiteLink className={`${s.textLink} ${typeStyles.link}`} href={index === 5 ? "/#compliance" : moduleHref(index)}>{index === 5 ? "Explore the compliance workflow" : `View the ${module.name.toLowerCase()} preview`}<ArrowRight size={16} /></SiteLink>
       </article>)}</div>
       <section className={`${s.aiCallout} ${typeStyles.detail}`} aria-labelledby="workflow-pages-title">
         <div><h2 id="workflow-pages-title">Choose a workflow to explore</h2><p>See the process, plan scope and practical questions for your team.</p>
           <ul>{featureRoutes.map(feature => <li key={feature.slug}>
-            <a className={`${s.textLink} ${typeStyles.link}`} href={featurePath(feature.slug)}>{feature.label} <ArrowRight size={16} aria-hidden="true" /></a>
+            <SiteLink className={`${s.textLink} ${typeStyles.link}`} href={featurePath(feature.slug)}>{feature.label} <ArrowRight size={16} aria-hidden="true" /></SiteLink>
           </li>)}</ul>
         </div>
       </section>
-      <aside className={`${s.aiCallout} ${typeStyles.detail}`} data-reveal><BrainCircuit size={28} /><div><h2>A little help finding the answer.</h2><p>Crewzy AI brings source-linked answers to questions about the workspace information you’re authorised to access.</p></div><Link className={`${s.textLink} ${typeStyles.link}`} href="/#crewzy-ai">Explore Crewzy AI <ArrowRight size={16} /></Link></aside>
+      <aside className={`${s.aiCallout} ${typeStyles.detail}`} data-reveal><BrainCircuit size={28} /><div><h2>A little help finding the answer.</h2><p>Crewzy AI brings source-linked answers to questions about the workspace information you’re authorised to access.</p></div><SiteLink className={`${s.textLink} ${typeStyles.link}`} href="/#crewzy-ai">Explore Crewzy AI <ArrowRight size={16} /></SiteLink></aside>
     </section>
   </main><Footer /></div>;
 }

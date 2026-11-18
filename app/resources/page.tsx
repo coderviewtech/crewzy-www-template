@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteLink as Link } from "../site-link";
 import { useRef } from "react";
 import {
   ArrowRight,
@@ -25,6 +25,8 @@ import typeStyles from "../content-typography.module.css";
 import trust from "./trust.module.css";
 import { appUrl, Eyebrow, Footer, Header, useScrollMotion } from "../chrome";
 import { demoHref } from "../site-config";
+import { trustQuestions } from "../product-guide/content";
+import { QuestionList } from "../product-guide/question-list";
 import { GuideCards } from "../guide-cards";
 import { guidesPath } from "../site-routes";
 
@@ -163,6 +165,15 @@ export default function ResourcesPage() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className={styles.subSection} id="data-access" aria-labelledby="data-access-title">
+        <div className={[styles.subSectionHead, typeStyles.heading].join(" ")}>
+          <Eyebrow icon={MessagesSquare}>Your data questions</Eyebrow>
+          <h2 id="data-access-title">Understand access. <span>Make an informed choice.</span></h2>
+          <p>Plain answers about customer data, the controls described on this site and the information to confirm for your service.</p>
+        </div>
+        <QuestionList questions={trustQuestions} />
       </section>
 
       <section className={[styles.subSection, trust.aiSection].join(" ")} id="ai-safeguards" aria-labelledby="ai-security-title">

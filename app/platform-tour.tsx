@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { SiteLink } from "./site-link";
+import { TourTabs } from "./tour-tabs";
+import { useMobileTourLayout } from "./mobile-tour";
 import { ArrowRight, BriefcaseBusiness, CalendarDays, Check, CheckCheck, Clock3, FileCheck2, LockKeyhole, ShieldCheck, UsersRound, WalletCards } from "lucide-react";
 import styles from "./preview.module.css";
 import tour from "./platform-tour.module.css";
@@ -16,7 +18,7 @@ export const modules = [
   { name: "Compliance", icon: ShieldCheck, color: "green", title: "Stay ahead of what needs attention.", emphasis: "what needs attention.", description: "Connect document expiry tracking, renewal reviews and audit history to employee records. Keep compliance tasks and evidence in view." },
 ];
 
-export function IconTile({ index, small = false }: { index: number; small?: boolean }) { const item = modules[index]; return <span className={`${styles.iconTile} ${styles[item.color]} ${small ? styles.smallIcon : ""}`}><item.icon size={small ? 17 : 23} strokeWidth={1.8} /></span>; }
+export function IconTile({ index, small = false }: { index: number; small?: boolean }) { const item = modules[index]; return <span className={`${styles.iconTile} ${styles[item.color]} ${small ? styles.smallIcon : ""}`}><item.icon size={small ? 17 : 23} strokeWidth={2} aria-hidden="true" /></span>; }
 export const moduleExamples = [
   { label: "Your people", caption: "Employee records · 3 shown", columns: ["TEAM MEMBER", "TEAM", "STATUS"], rows: [["Sophie Harris", "Design", "Active"], ["Daniel Brooks", "Engineering", "Active"], ["Amelia Khan", "Operations", "Onboarding"]], notes: ["A shared employee record", "Connected onboarding and offboarding", "Documents where you need them"] },
   { label: "Hiring pipeline", caption: "3 active applications", columns: ["CANDIDATE", "ROLE", "STAGE"], rows: [["Alex Morgan", "Designer", "Interview"], ["Jamie Patel", "Developer", "Review"], ["Charlie Lee", "Operations", "Offer"]], notes: ["Candidates and applications together", "Interviews with shared context", "A clearer handover into onboarding"] },
@@ -80,29 +82,21 @@ function ModuleScreen({ index }: { index: number }) {
 }
 
 export function PlatformExplorer({ active, onSelect }: { active: number; onSelect: (index: number) => void }) {
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const linear = useMobileTourLayout();
   return <div className={tour.tour}>
     {moduleSlugs.map(slug => <span key={slug} id={`module-${slug}`} className={tour.anchor} aria-hidden="true" />)}
     <div className={tour.pin} data-module-pin>
-      <div className={tour.tabs} role="tablist" aria-label="Explore Crewzy modules">
-        {modules.map((module, index) => <button className={tour[accents[index]]} key={module.name} ref={node => { tabRefs.current[index] = node; }} role="tab" id={`module-tab-${index}`} aria-controls={`module-panel-${index}`} aria-selected={active === index} tabIndex={active === index ? 0 : -1} onClick={() => onSelect(index)} onKeyDown={event => {
-          let next = index;
-          if (event.key === "ArrowRight") next = (index + 1) % modules.length;
-          else if (event.key === "ArrowLeft") next = (index + modules.length - 1) % modules.length;
-          else if (event.key === "Home") next = 0;
-          else if (event.key === "End") next = modules.length - 1;
-          else return;
-          event.preventDefault(); onSelect(next); tabRefs.current[next]?.focus({ preventScroll: true });
-        }}><IconTile index={index} small /><span>{module.name}</span><span className={tour.tabTrack} aria-hidden="true"><i data-module-fill /></span></button>)}
-      </div>
+      <TourTabs label="Explore Crewzy modules" tabPrefix="module-tab" panelPrefix="module-panel"
+        active={active} onSelect={onSelect} moduleProgress
+        items={modules.map((module, index) => ({ name: module.name, icon: <IconTile index={index} small />, accent: `var(--preview-module-${module.color})` }))} />
       <div className={tour.frame}>
         <div className={tour.viewport} id="module-panel">
-          {modules.map((item, index) => <div className={`${tour.panel} ${tour[accents[index]]}`} style={{ zIndex: index + 1 }} key={item.name} role="tabpanel" id={`module-panel-${index}`} aria-labelledby={`module-tab-${index}`} aria-hidden={active !== index} inert={active !== index} tabIndex={active === index ? 0 : -1} data-module-page data-active={active === index}>
+          {modules.map((item, index) => <div className={`${tour.panel} ${tour[accents[index]]}`} style={{ zIndex: index + 1 }} key={item.name} role="tabpanel" id={`module-panel-${index}`} aria-labelledby={`module-tab-${index}`} aria-hidden={!linear && active !== index} inert={!linear && active !== index} tabIndex={active === index ? 0 : -1} data-module-page data-active={active === index}>
             <div className={tour.copy}>
               <span className={tour.chapterLabel}>{item.name}</span>
               <h3>{item.title.slice(0, -item.emphasis.length)}<span>{item.emphasis}</span></h3><p>{item.description}</p>
               <ul>{moduleExamples[index].notes.map(note => <li key={note}><Check size={15} />{note}</li>)}</ul>
-              <a className={tour.moduleAction} href={index === 5 ? "#compliance" : `/platform#${moduleSlugs[index]}`}>{index === 5 ? "Explore the compliance workflow" : `Explore ${item.name.toLowerCase()}`}<ArrowRight size={16} /></a>
+              <SiteLink className={tour.moduleAction} href={index === 5 ? "#compliance" : `/platform#${moduleSlugs[index]}`}>{index === 5 ? "Explore the compliance workflow" : `Explore ${item.name.toLowerCase()}`}<ArrowRight size={16} /></SiteLink>
             </div>
             <div className={tour.canvas}>
               <div className={tour.window}>

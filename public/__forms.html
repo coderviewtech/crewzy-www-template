@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="crewzy-form-registration" content="true" />
+    <title>Crewzy enquiry form registration</title>
+  </head>
+  <body>
+    <!-- Netlify detects this static form at deploy time; the React form posts here. -->
+    <form name="crewzy-product-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="crewzy-product-enquiry" />
+      <input name="name" type="text" />
+      <input name="email" type="email" />
+      <input name="source" type="text" />
+      <input name="follow-up-request" type="text" />
+      <input name="notice-version" type="text" />
+      <input name="bot-field" type="text" />
+    </form>
+    <p>Visit <a href="/meet">Meet Crewzy</a> to explore or start a chat.</p>
+  </body>
+</html>

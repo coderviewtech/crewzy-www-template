@@ -3,11 +3,13 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import { useSmoothScroll } from "./smooth-scroll";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import { complianceChapters, complianceDepth, complianceDuration, complianceStepAt, complianceTransitionDuration, complianceTransitions } from "./compliance-model";
 import { platformCadence, platformChapters, platformDepth, platformStepAt, platformTransitionDuration, platformTransitions } from "./platform-model";
 import { pinScope } from "./scroll-layout";
+import { mountMobileTour } from "./mobile-tour";
+import { mobileTourQuery } from "./tour-navigation";
 import { resolveHomeHash } from "./site-config";
 import { scrollToMeasuredTarget } from "./anchor-navigation";
 
@@ -21,11 +23,11 @@ export function usePreviewMotion(
   setModule: Dispatch<SetStateAction<number>>,
   navigateModule: RefObject<((index: number, immediate?: boolean) => void) | null>,
 ) {
+  const scroller = useSmoothScroll();
   useGSAP(() => {
     if (!root.current) return;
     const select = gsap.utils.selector(root);
     const media = gsap.matchMedia();
-    let lenis: Lenis | undefined;
     const introHeight = (selector: string) => {
       const intro = select(selector)[0] as HTMLElement | undefined;
       if (!intro) return 0;
@@ -34,28 +36,16 @@ export function usePreviewMotion(
     };
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
-      // Lenis already reads CSS scroll-margin-top. Adding another offset here
-      // doubles the header clearance and leaves an unintended gap on navigation.
-      // All home hashes use the handler below; a second anchor handler would
-      // compete with module chapter navigation and history restoration.
-      lenis = new Lenis({ duration: .85, smoothWheel: true, syncTouch: false, anchors: false });
-      const scrollEngine = lenis;
-      const tick = (seconds: number) => scrollEngine.raf(seconds * 1000);
-      scrollEngine.on("scroll", ScrollTrigger.update);
-      // Lenis's documented GSAP integration uses an unadjusted shared clock.
-      gsap.ticker.lagSmoothing(0);
-      gsap.ticker.add(tick);
-
       gsap.fromTo(select("[data-page-progress]"), { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: true } });
       // Reading content never fades out. Short, one-time movement adds polish
       // without a low-contrast state or a replay every time direction changes.
-      if (window.scrollY < 180) gsap.from(select("[data-hero-enter]"), { y: 10, force3D: false, duration: .6, stagger: .045, ease: "power2.out", clearProps: "transform" });
+      if (window.scrollY < 180) gsap.from(select("[data-hero-enter]"), { y: 24, force3D: false, duration: .8, stagger: .1, ease: "power2.out", clearProps: "transform" });
       select("[data-reveal]").forEach((element: HTMLElement) => {
         gsap.from(element, { y: 10, force3D: false, duration: .6, ease: "power2.out", clearProps: "transform", scrollTrigger: { trigger: element, start: "top 94%", once: true } });
       });
       // A short entrance finishes at native size; never scrub the dashboard text.
-      gsap.from(select("[data-product-frame]"), { y: 12, force3D: false,
-        duration: .6, ease: "power2.out", clearProps: "transform",
+      gsap.from(select("[data-product-frame]"), { y: 32, force3D: false,
+        duration: .85, ease: "power3.out", clearProps: "transform",
         scrollTrigger: { trigger: "[data-product-stage]", start: "top 88%", once: true },
       });
 
@@ -97,11 +87,22 @@ export function usePreviewMotion(
           }, { scale: 1, duration: 1, ease: "power2.out", force3D: false }, 0)
           .to(lines, { strokeDashoffset: 0, duration: .8, ease: "power1.out" }, .12);
       }
+    });
+
+    // Phones read complete cards in the native document; both tab rails track it.
+    media.add(mobileTourQuery, () => {
+      const modulePin = select("[data-module-pin]")[0] as HTMLElement;
+      const storyPin = select("[data-story-pin]")[0] as HTMLElement;
+      const modulePanels = select("[data-module-page]") as HTMLElement[];
+      const storyPanels = select("[data-stack-page]") as HTMLElement[];
+      if (!modulePin || !storyPin || !modulePanels.length || !storyPanels.length) return;
+      const modules = mountMobileTour(modulePin, modulePanels, setModule, scroller);
+      const story = mountMobileTour(storyPin, storyPanels, setStep, scroller);
+      navigateModule.current = modules.navigate;
+      navigateStep.current = story.navigate;
       return () => {
-        gsap.ticker.remove(tick);
-        scrollEngine.off("scroll", ScrollTrigger.update);
-        scrollEngine.destroy();
-        if (lenis === scrollEngine) lenis = undefined;
+        modules.destroy(); story.destroy();
+        navigateModule.current = null; navigateStep.current = null;
       };
     });
 
@@ -161,7 +162,7 @@ export function usePreviewMotion(
         const trigger = timeline.scrollTrigger;
         if (!chapter || !trigger) return;
         const position = trigger.labelToScroll(chapter.label);
-        if (lenis) scrollToMeasuredTarget(lenis, position, { duration: .7, immediate, onComplete: () => setModule(index) });
+        if (scroller.current) scrollToMeasuredTarget(scroller.current, position, { duration: .7, immediate, onComplete: () => setModule(index) });
         else window.scrollTo({ top: position, behavior: immediate ? "instant" : "smooth" });
         // Direct arrivals can seek before React has committed the initial tab
         // state. Keep the accessible selection in sync with the requested card.
@@ -171,8 +172,8 @@ export function usePreviewMotion(
       return () => { navigateModule.current = null; delete pin.dataset.moduleMode; delete pin.dataset.pinScope; };
     });
 
-    media.add({ tall: "(min-height: 680px)", motion: "(prefers-reduced-motion: no-preference)" }, context => {
-      if (!context.conditions?.tall || !context.conditions?.motion) return;
+    media.add({ wide: "(min-width: 761px)", tall: "(min-height: 680px)", motion: "(prefers-reduced-motion: no-preference)" }, context => {
+      if (!context.conditions?.wide || !context.conditions?.tall || !context.conditions?.motion) return;
       const panels = select("[data-stack-page]");
       const pin = select("[data-story-pin]")[0];
       const story = select("[data-compliance-story]")[0];
@@ -184,6 +185,7 @@ export function usePreviewMotion(
       const pinTarget = scope === "section" ? story : pin;
       pin.dataset.stackMode = "scroll";
       pin.dataset.pinScope = scope;
+      gsap.set(select("[data-story-progress]"), { scaleX: 0 });
       gsap.set(panels, { autoAlpha: 1, x: 0, y: 0, yPercent: 112, scale: complianceDepth.active, transformOrigin: "50% 0%", rotation: 0, force3D: false });
       gsap.set(panels[0], { yPercent: 0, scale: complianceDepth.active, rotation: 0 });
       let previousStep = -1;
@@ -215,7 +217,7 @@ export function usePreviewMotion(
         const trigger = timeline.scrollTrigger;
         if (!chapter || !trigger) return;
         const position = trigger.labelToScroll(chapter.label);
-        if (lenis) scrollToMeasuredTarget(lenis, position + (index === 0 ? 4 : 0), { duration: .8 });
+        if (scroller.current) scrollToMeasuredTarget(scroller.current, position + (index === 0 ? 4 : 0), { duration: .8 });
         else window.scrollTo({ top: position, behavior: "smooth" });
       };
       return () => { navigateStep.current = null; delete pin.dataset.stackMode; delete pin.dataset.pinScope; };
@@ -235,7 +237,7 @@ export function usePreviewMotion(
       }
       const target = document.getElementById(destination.section);
       if (!target) return;
-      if (lenis) scrollToMeasuredTarget(lenis, target, { duration: .7, immediate });
+      if (scroller.current) scrollToMeasuredTarget(scroller.current, target, { duration: .7, immediate });
       else target.scrollIntoView({ behavior: "instant", block: "start" });
     };
     const onHomeLink = (event: MouseEvent) => {
@@ -252,7 +254,7 @@ export function usePreviewMotion(
     const onHashChange = () => { pendingInitialHash = ""; followHomeHash(window.location.hash, true); };
     document.addEventListener("click", onHomeLink);
     window.addEventListener("hashchange", onHashChange);
-    const syncScrollDimensions = () => lenis?.resize();
+    const syncScrollDimensions = () => scroller.current?.resize();
     ScrollTrigger.addEventListener("refresh", syncScrollDimensions);
     const modulePanel = root.current.querySelector("#module-panel");
     const modulePin = select("[data-module-pin]")[0] as HTMLElement | undefined;
@@ -264,7 +266,7 @@ export function usePreviewMotion(
         if (disposed) return;
         const moduleScope = modulePin && window.matchMedia("(min-width: 761px) and (prefers-reduced-motion: no-preference)").matches
           ? pinScope(window.innerHeight, modulePin.offsetHeight, introHeight("[data-module-intro]")) : "none";
-        const storyScope = storyPin && window.matchMedia("(prefers-reduced-motion: no-preference)").matches
+        const storyScope = storyPin && window.matchMedia("(min-width: 761px) and (prefers-reduced-motion: no-preference)").matches
           ? pinScope(window.innerHeight, storyPin.offsetHeight, introHeight("[data-story-intro]")) : "none";
         // Re-evaluate both the fit guard and heading retention after resizing.
         if (moduleScope !== (modulePin?.dataset.pinScope ?? "none") || storyScope !== (storyPin?.dataset.pinScope ?? "none")) gsap.matchMediaRefresh();

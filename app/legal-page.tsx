@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "./site-link";
 import type { ReactNode } from "react";
 import { SiteHeader, SiteFooter } from "./site-shell";
 import styles from "./legal-page.module.css";

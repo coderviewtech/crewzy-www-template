@@ -23,6 +23,53 @@ npm run start -- --hostname 127.0.0.1 --port 3017
 Open http://127.0.0.1:3017 in a standalone browser tab. Font downloads require
 network access at build time; Next.js serves the downloaded fonts locally.
 
+## Meetup page and product guide
+
+`/meet`, the tour and public FAQs let visitors explore without sharing contact
+details. **Ask about Crewzy** first collects a required name and email for a
+product follow-up, then shows prepared answers from `app/product-guide/content.ts`.
+The same answers appear in the home FAQs and data/security questions. Staff-access
+controls reflect the owner's confirmation that the listed safeguards are implemented.
+
+The chat POSTs an enquiry to Netlify Forms using `public/__forms.html`, the static
+registration/target required by the current Next.js adapter. It sends name, email,
+an enquiry-source category, the follow-up request wording and notice version.
+No phone, transcript, question selections, URL queries or AI service is involved.
+Submitting is a request for a product follow-up, not an ongoing marketing opt-in.
+An in-memory flag avoids asking again during client-side navigation; a fresh page
+load starts again. It is a lead flow, not authentication or a verified-email gate.
+
+Hosting setup and production publication were completed and tested on **18 November 2026**:
+
+- Form detection is enabled on the existing Crewzy Netlify project, and
+  `crewzy-product-enquiry` is registered with honeypot protection.
+- A confirmed, form-specific notification sends `Crewzy website enquiry` to
+  `sales@crewzy.io`. The submitted `email` sets Reply-To. This configuration lives
+  in Netlify and is not controlled by source code.
+- The draft and the published `crewzy.io` homepage chat each saved a labelled
+  test name/email, unlocked the prepared answers, and delivered the matching
+  notification to the Zoho Sales folder. See the
+  [setup report](docs/reviews/netlify-form-setup-20261118.md) and
+  [production release report](docs/reviews/netlify-publication-20261118.md).
+
+Keep dashboard/export permissions and enquiry review/deletion arrangements under
+operational review. Provider spam filtering and client input checks do not verify
+email ownership. The labelled synthetic test remains available for owner review.
+
+`NEXT_PUBLIC_ENQUIRY_TIMEOUT_MS` is documented in `.env.example`. Errors preserve
+fields and never unlock the chat. No POST retries happen automatically. A local
+Next server does not process Netlify submissions: failure there is expected, not
+a reason to show a fabricated success. Hosted delivery was verified on the draft
+preview and on the published site.
+
+See [Netlify's Next.js form integration](https://opennext.js.org/netlify/forms)
+and [form notifications](https://docs.netlify.com/manage/forms/notifications/).
+
+`/meet/qr.png` and `/meet/qr.svg` are generated during the build and point directly
+to the canonical `crewzy.io/meet` page, now published and checked. Staff-access
+evidence, recommended operational controls and validation
+are recorded in `docs/reviews/meetup-guide-20261113.md`.
+
 ## Interaction design
 
 The original centred hero and three benefit highlights are retained, without
@@ -333,6 +380,23 @@ selects the market in production; headers, cookies, query parameters and direct
 market URLs cannot select another region's currency. Missing or unsupported
 geography shows the currency-neutral contact option. The application independently
 controls purchasable prices from its stored billing country.
+
+For local design review, use the existing development preview:
+
+```sh
+npm run dev -- --hostname localhost --port 3214 --webpack
+```
+
+Open `http://localhost:3214/pricing` for the UK default, or use
+`/pricing?previewMarket=IN`, `previewMarket=US` or `previewMarket=EU` to review
+another market. These overrides exist only in development. They do not change
+production country detection or the application's billing-country controls.
+
+Do not use a plain `npm start` server without hosting geography as the regional
+pricing design preview: it intentionally renders the unknown-region “Confirm
+pricing” / “Let’s talk” state. This can look as though prices were removed even
+though every approved rate and calculator remains in the build. Use that mode
+for production-artifact checks, and the development preview for visual review.
 
 The Next/Netlify adapter caches separate market paths and preserves HTML/Flight
 response variations. The old dynamic render and custom no-store edge wrapper are

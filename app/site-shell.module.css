@@ -1,6 +1,6 @@
 .header,
 .footer {
-  font-family: var(--font-inter), Arial, sans-serif;
+  font-family:var(--font-site);
   color: var(--preview-brand-ink);
   font-size: 14px;
   line-height: 1.5;
@@ -24,7 +24,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px #29457408;
   backdrop-filter: blur(18px);
-  z-index: 90;
+  z-index: 100;
 }
 
 .header > a {
@@ -94,159 +94,7 @@
 }
 
 .dropdown {
-  position: relative;
-}
-
-.dropdownPanel {
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 0;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow: 0 20px 48px -8px #0f172a1a, 0 4px 16px -2px #0f172a08;
-  max-height: calc(100dvh - 140px);
-  overflow-y: auto;
-  z-index: 95;
-  animation: dropdownIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dropdownPanel::before {
-  content: "";
-  position: absolute;
-  top: -16px;
-  left: 0;
-  right: 0;
-  height: 16px;
-  background: transparent;
-}
-
-.dropdownPanel[hidden] {
-  display: none;
-}
-
-@keyframes dropdownIn {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.platformPanel {
-  width: 740px;
-  left: -140px;
-}
-
-.solutionsPanel {
-  width: 560px;
-  left: -80px;
-}
-
-.resourcesPanel {
-  width: 540px;
-  left: -140px;
-}
-
-.megaGrid {
-  display: flex;
-  gap: 0;
-  padding: 18px 12px;
-}
-
-.menuColumn {
-  flex: 1;
-  min-width: 0;
-  padding: 0 14px;
-}
-
-.menuColumn + .menuColumn {
-  border-left: 1px solid #f1f5f9;
-}
-
-.columnHeading {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #64748b;
-  margin: 0 0 10px 8px;
-}
-
-.columnLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.menuItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 9px 8px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.15s ease;
-}
-
-.menuItem:hover {
-  background: #f8fafc;
-}
-
-.menuItem:hover .menuItemTitle {
-  color: var(--preview-brand-accent);
-}
-
-.menuItem:hover .menuItemArrow {
-  opacity: 1;
-  transform: translateX(2px);
-}
-
-.menuItemIcon {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
-  background: #eff6ff;
-  color: var(--preview-brand-accent);
-  flex: none;
-  margin-top: 1px;
-}
-
-.menuItemText {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-}
-
-.menuItemTitle {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #1e293b;
-  line-height: 1.35;
-  transition: color 0.15s ease;
-}
-
-.menuItemDesc {
-  font-size: 12px;
-  color: #64748b;
-  line-height: 1.4;
-  margin-top: 2px;
-}
-
-.menuItemArrow {
-  opacity: 0;
-  color: var(--preview-brand-accent);
-  flex: none;
-  align-self: center;
-  transition: all 0.15s ease;
-  margin-left: 2px;
+  position: static;
 }
 
 .headerActions {
@@ -273,10 +121,12 @@
   font-size: 14px;
   font-weight: 600;
   white-space: nowrap;
+  transition: background .2s, box-shadow .2s;
 }
 
 .primaryButton:hover {
   background: var(--preview-brand-hover);
+  box-shadow: 0 4px 14px #2854d621;
 }
 
 .menuToggle {
@@ -301,7 +151,7 @@
   font-weight: 400;
   border-top: 1px solid var(--preview-line);
   background: var(--preview-page-background);
-  padding: 52px max(28px, calc((100% - 1184px) / 2)) 24px;
+  padding: 52px max(28px, calc((100% - 1184px) / 2)) max(96px, calc(96px + env(safe-area-inset-bottom)));
 }
 
 .footerIntro {
@@ -328,7 +178,7 @@
 .footerIntro div > span {
   display: block;
   margin-top: 8px;
-  font-size: 13px;
+  font-size: var(--text-detail-size);
   color: var(--preview-brand-ink);
 }
 
@@ -345,7 +195,7 @@
 }
 
 .footerEmail span {
-  font-size: 12px;
+  font-size: var(--text-label-size);
   color: var(--preview-brand-ink);
 }
 
@@ -365,7 +215,7 @@
 }
 
 .footer .footerGroups h3 {
-  font-size: 13px !important;
+  font-size: 14px !important;
   font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0 !important;
@@ -379,7 +229,7 @@
 }
 
 .footerGroups a {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--preview-brand-ink);
 }
 
@@ -393,7 +243,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 12px;
+  font-size: var(--text-label-size);
   color: var(--preview-brand-ink);
 }
 
@@ -403,7 +253,7 @@
   border-top: 1px solid var(--preview-line);
   padding: 22px 0;
   color: var(--preview-brand-ink);
-  font-size: 12px;
+  font-size: var(--text-label-size);
   line-height: 1.8;
 }
 
@@ -431,10 +281,7 @@
   .signIn {
     display: none;
   }
-  .platformPanel {
-    width: 680px;
-    left: -120px;
-  }
+
 }
 
 @media (max-width: 1050px) {
@@ -461,6 +308,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 4px;
+    animation: mobileNavIn .25s ease-out;
   }
   .navTrigger {
     width: 100%;
@@ -469,40 +317,6 @@
   .navigation > a,
   .navTrigger {
     padding: 7px 10px;
-  }
-  .dropdownPanel {
-    position: static;
-    width: auto !important;
-    left: auto !important;
-    max-height: none;
-    box-shadow: none;
-    border: 0;
-    padding: 8px;
-    background: var(--preview-brand-surface);
-    margin-bottom: 8px;
-    animation: none;
-  }
-  .dropdownPanel::before {
-    display: none;
-  }
-  .megaGrid {
-    flex-direction: column;
-    gap: 14px;
-    padding: 6px 0;
-  }
-  .menuColumn {
-    padding: 0;
-  }
-  .menuColumn + .menuColumn {
-    border-left: 0;
-    border-top: 1px solid #e2e8f0;
-    padding-top: 12px;
-  }
-  .columnHeading {
-    margin-left: 6px;
-  }
-  .menuItem {
-    padding: 8px 6px;
   }
   .mobileActions {
     display: flex;
@@ -543,8 +357,8 @@
     gap: 8px;
   }
   .header .primaryButton {
-    font-size: 12px;
-    min-height: 38px;
+    font-size: var(--text-label-size);
+    min-height: 44px;
     padding: 8px 11px;
   }
   .primaryButton > svg {
@@ -552,9 +366,11 @@
   }
   .menuToggle {
     padding: 6px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .footer {
-    padding: 36px 24px 22px;
+    padding: 36px 24px max(128px, calc(128px + env(safe-area-inset-bottom)));
   }
   .footerIntro {
     align-items: flex-start;
@@ -577,7 +393,8 @@
 
 @media (max-width: 360px) {
   .header {
-    padding-inline: 10px;
+    padding-inline: 6px;
+    gap: 6px;
   }
   .headerMark {
     width: 30px;
@@ -585,12 +402,22 @@
     margin-right: 7px;
   }
   .headerActions {
-    gap: 4px;
+    gap: 3px;
   }
+  .header .primaryButton { font-size: var(--text-label-size); padding-inline: 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .navChevron {
     transition: none;
   }
+}
+
+@keyframes mobileNavIn { from { transform: translateY(-12px); } to { transform: translateY(0); } }
+.navTrigger { position: relative; }
+.navTrigger::after { content: ""; position: absolute; left: 0; right: 20px; bottom: 2px; height: 2px; border-radius: 2px; background: var(--preview-brand-accent); transform: scaleX(0); transform-origin: left; transition: transform .22s; }
+.navTrigger[aria-expanded="true"]::after { transform: scaleX(1); }
+@media(max-width:1050px) {
+  .navigation > a, .navTrigger { font-size: 16px; font-weight: 600; line-height: 1.5; min-height: 52px; }
+  .navTrigger::after { display: none; }
 }

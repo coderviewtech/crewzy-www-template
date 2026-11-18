@@ -1,5 +1,4 @@
-/* Minimal reset. The landing pages carry all their own styling in
-   landing.module.css — this only removes browser defaults that would fight it. */
+/* Shared type, colour and interaction foundations for every public page. */
 
 *,
 *::before,
@@ -19,6 +18,9 @@ html {
 }
 
 :root {
+  --font-site: var(--font-inter), Arial, sans-serif;
+  --text-label-size: .75rem;
+  --text-detail-size: .8125rem;
   --preview-page-background: #fff;
   --preview-wordmark-size: 28px;
   /* One responsive type scale for both scroll-reveal sections. */
@@ -43,6 +45,12 @@ html {
   --preview-ink: #172a46;
   --preview-muted: #637189;
   --preview-blue: var(--preview-brand-accent); /* Legacy component alias. */
+  --preview-module-blue: var(--preview-brand-accent);
+  --preview-module-violet: #8960d7;
+  --preview-module-amber: #b37d18;
+  --preview-module-rose: #c75171;
+  --preview-module-teal: #288d91;
+  --preview-module-green: #258b64;
   --preview-line: #e6ebf3;
   --preview-surface: var(--preview-page-background);
   --preview-green: #138966;
@@ -52,7 +60,7 @@ html {
   --preview-ui-heading-size: 1.375rem;
   --preview-ui-heading-weight: 700;
   --preview-ui-border: #dce3ec;
-  --preview-ui-surface: #f6f8fb;
+  --preview-ui-surface: #fdfefe;
   --preview-compliance-accent: var(--preview-brand-accent);
   --preview-compliance-active: var(--preview-brand-tint);
   --preview-compliance-outline: var(--preview-brand-outline);
@@ -99,7 +107,9 @@ html.lenis body {
 
 body {
   background: var(--preview-page-background);
-  font-family: var(--font-nunito), var(--font-inter), Arial, sans-serif;
+  font-family: var(--font-site);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -145,7 +155,7 @@ textarea {
 
 /* Keyboard users must always be able to see where they are. */
 :focus-visible {
-  outline: 2px solid #7650e8;
+  outline: 2px solid var(--preview-brand-accent);
   outline-offset: 2px;
 }
 

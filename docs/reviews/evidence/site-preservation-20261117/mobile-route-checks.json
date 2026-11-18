@@ -1,0 +1,51 @@
+[
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Built around people.Designed foreveryday work.",
+    "route": "/about",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Let’s talk aboutyour team.",
+    "route": "/contact",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Help shape a more connected way to work.",
+    "route": "/customers",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "The same platform, shaped to how you actually work.",
+    "route": "/solutions",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Practical guides, connected workflows and trust information.",
+    "route": "/resources",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Practical guides for your team’s everyday work.",
+    "route": "/resources/guides",
+    "viewport": 390,
+    "width": 390
+  },
+  {
+    "font": "Inter, \"Inter Fallback\", Arial, sans-serif",
+    "heading": "Privacy policy",
+    "route": "/privacy",
+    "viewport": 390,
+    "width": 390
+  }
+]

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { SiteLink as Link } from "./site-link";
 import { AnalyticsRuntime } from "./analytics-runtime";
 import { analyticsCookiePrefix, consentChangeEvent, consentStorageKey, measurementLocation, measurementReferrer, parseConsent, type AnalyticsChoice, type AnalyticsConfig } from "./analytics-policy";
 import styles from "./analytics-consent.module.css";
@@ -60,9 +60,9 @@ export function AnalyticsConsent({ config }: { config: AnalyticsConfig }) {
 
   return (
     <>
-      <button ref={settingsButton} className={styles.settings} onClick={() => setOpen(value => !value)} aria-expanded={open || choice === null} aria-controls="analytics-choice">Cookie settings</button>
+      <button ref={settingsButton} className={styles.settings} data-cookie-settings onClick={() => setOpen(value => !value)} aria-expanded={open || choice === null} aria-controls="analytics-choice">Cookie settings</button>
       {(choice === null || open) && (
-        <section id="analytics-choice" className={styles.banner} aria-labelledby="analytics-choice-title">
+        <section id="analytics-choice" className={styles.banner} aria-labelledby="analytics-choice-title" data-lenis-prevent>
           <div><h2 id="analytics-choice-title">Your privacy choices</h2>
             <p>Allow Google Analytics to help us understand visits to Crewzy? It uses cookies to measure pages and traffic sources. Optional analytics stays off until you accept. <Link href="/privacy#analytics">Privacy details</Link></p>
             {choice && <p className={styles.status}>Analytics is currently {choice === "accepted" ? "on" : "off"}. You can change this at any time.</p>}

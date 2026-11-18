@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "../../../site-link";
 import { notFound } from "next/navigation";
 import { SiteHeader, SiteFooter } from "../../../site-shell";
 import { Breadcrumbs } from "../../../breadcrumbs";
@@ -52,7 +52,7 @@ export default async function GuidePage({ params }: Props) {
     publisher: { "@type": "Organization", name: company.legalName, url: siteUrl },
   };
   return <div className={`${base.preview} ${page.page} ${styles.page}`}>
-    <a href="#main" className={base.skipLink}>Skip to content</a>
+    <Link href="#main" className={base.skipLink}>Skip to content</Link>
     <SiteHeader />
     <main id="main">
       <section className={page.hero}><div className={page.heroInner}>
@@ -68,13 +68,13 @@ export default async function GuidePage({ params }: Props) {
             <div className={styles.ctaLinks}><Link href={featurePath(guide.feature)}>Explore the product workflow</Link><Link href={appUrl("/signup")}>Start free</Link><Link href={demoHref}>Request a demo</Link></div>
           </section>
           <section className={styles.sources} id="sources"><h2>Further reading</h2>
-            <ul>{content.sources.map(source => <li key={source.href}><a href={source.href}>{source.label}</a></li>)}</ul>
+            <ul>{content.sources.map(source => <li key={source.href}><Link href={source.href}>{source.label}</Link></li>)}</ul>
             <p className={styles.editorialNote}>Prepared by Crewzy. Worked examples are illustrative and do not describe customers or guarantee an outcome. Check current official guidance and your own requirements before applying them.</p>
             <div className={styles.ctaLinks}><Link href={guidesPath}>Browse all guides</Link><Link href="/pricing">Compare Crewzy plans</Link></div>
           </section>
         </article>
         <nav className={styles.toc} aria-label="On this page"><h2>In this guide</h2><ol>
-          {content.sections.map(section => <li key={section.id}><a href={`#${section.id}`}>{section.title.replace(/^\d+\. /, "")}</a></li>)}
+          {content.sections.map(section => <li key={section.id}><Link href={`#${section.id}`}>{section.title.replace(/^\d+\. /, "")}</Link></li>)}
         </ol></nav>
       </div>
     </main>

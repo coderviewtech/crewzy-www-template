@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "./site-link";
 import { ArrowRight } from "lucide-react";
 import { guideRoutes, guidePath } from "./site-routes";
 import styles from "./resources/guides/guide.module.css";

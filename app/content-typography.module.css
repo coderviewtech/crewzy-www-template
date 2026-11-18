@@ -35,7 +35,7 @@
 .page .label {
   color: var(--preview-brand-accent);
   border-color: var(--preview-brand-outline);
-  font-size: 12px;
+  font-size: var(--text-label-size);
   font-weight: var(--content-weight-heading);
   line-height: 1.5;
   letter-spacing: .06em;
@@ -89,7 +89,7 @@
 
 .page .modules > small {
   color: var(--preview-ui-muted);
-  font-size: 13px;
+  font-size: var(--text-detail-size);
   font-weight: var(--content-weight-label);
   letter-spacing: 0;
   text-transform: none;

@@ -68,7 +68,7 @@ export const findGuide = (slug: string) => guideRoutes.find(guide => guide.slug 
 
 /** The sitemap and rendered-page audits share one inventory. */
 export const marketingPaths = [
-  "/", "/platform", "/solutions", "/pricing", "/resources", "/customers", "/contact", "/about",
+  "/", "/platform", "/solutions", "/pricing", "/resources", "/customers", "/contact", "/about", "/meet",
   ...featureRoutes.map(feature => featurePath(feature.slug)),
   guidesPath,
   ...guideRoutes.map(guide => guidePath(guide.slug)),

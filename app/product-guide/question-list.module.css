@@ -1,0 +1,10 @@
+.list{border-top:1px solid var(--preview-line)}
+.list details{border-bottom:1px solid var(--preview-line)}
+.list summary{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:64px;padding:18px 0;cursor:pointer;font-size:16px;font-weight:600;line-height:1.5;list-style:none;color:var(--preview-brand-ink)}
+.list summary::-webkit-details-marker{display:none}
+.list summary span{flex:none;font-size:23px;color:var(--preview-brand-accent);font-weight:400}
+.list details[open] summary span{transform:rotate(45deg)}
+.list details>div{padding:0 0 24px;font-size:15px;line-height:1.8;color:var(--preview-brand-copy);max-width:75ch}
+.list a{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:8px;font-size:14px;font-weight:600;color:var(--preview-brand-accent)}
+.list ul{padding-left:22px;margin-top:12px;list-style:disc}
+.list li+li{margin-top:8px}

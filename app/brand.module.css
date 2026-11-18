@@ -7,7 +7,7 @@
 }
 
 .brand .wordmark {
-  font-family: var(--font-inter), Arial, sans-serif;
+  font-family:var(--font-site);
   font-size: inherit;
   font-weight: 750;
   letter-spacing: -.055em;

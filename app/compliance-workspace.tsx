@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { TourTabs } from "./tour-tabs";
+import type { CSSProperties } from "react";
+import { useMobileTourLayout } from "./mobile-tour";
 import { Bell, Check, CheckCheck, FileCheck2, FileText, Fingerprint, History, LockKeyhole, ShieldCheck, Upload, UserRound } from "lucide-react";
 import { complianceChapters } from "./compliance-model";
 import { SectionHeading } from "./section-heading";
@@ -9,6 +11,7 @@ import { Brand } from "./brand";
 import s from "./compliance-workspace.module.css";
 
 const chapterIcons = [ShieldCheck, FileCheck2, History];
+const chapterAccents = ["var(--preview-module-green)", "var(--preview-module-amber)", "var(--preview-module-blue)"];
 const workspaceLocations = ["Documents", "Reviews", "Audit history"];
 
 function PageChrome({ title }: { title: string }) {
@@ -57,32 +60,25 @@ function WorkspaceContent({ index }: { index: number }) {
 }
 
 export function ComplianceWorkspace({ step, onStep }: { step: number; onStep: (index: number) => void }) {
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const linear = useMobileTourLayout();
   return <section className={s.section} id="compliance" aria-labelledby="compliance-title">
     <div className={s.story} data-compliance-story>
     <header className={s.intro} data-story-intro>
       <SectionHeading label="Compliance, connected" title="Compliance." emphasis="A clearer picture." description="Track document expiry dates, follow renewals and keep a history of reviews and approvals. Keep compliance evidence connected to each employee record." id="compliance-title" />
     </header>
-    <div className={s.pin} data-story-pin>
-      <div className={s.chapters} role="tablist" aria-label="Compliance workspace pages">
-        {complianceChapters.map((chapter, index) => {
+    <div className={s.pinFrame}>
+    <div className={s.pin} data-story-pin style={{ "--chapter-accent": chapterAccents[step], "--chapter-progress": (step + 1) / complianceChapters.length } as CSSProperties}>
+      <TourTabs label="Compliance workspace pages" tabPrefix="compliance-tab" panelPrefix="compliance-page"
+        active={step} onSelect={onStep} indicator="section" items={complianceChapters.map((chapter, index) => {
           const Icon = chapterIcons[index];
-          return <button key={chapter.label} ref={node => { tabRefs.current[index] = node; }} role="tab" id={"compliance-tab-" + index} aria-selected={step === index} aria-controls={"compliance-page-" + index} tabIndex={step === index ? 0 : -1} onClick={() => onStep(index)} onKeyDown={event => {
-            let next = index;
-            if (event.key === "ArrowRight") next = (index + 1) % complianceChapters.length;
-            else if (event.key === "ArrowLeft") next = (index + complianceChapters.length - 1) % complianceChapters.length;
-            else if (event.key === "Home") next = 0;
-            else if (event.key === "End") next = complianceChapters.length - 1;
-            else return;
-            event.preventDefault(); onStep(next); tabRefs.current[next]?.focus({ preventScroll: true });
-          }}><Icon size={19} /><span>{chapter.shortTitle}</span></button>;
-        })}
-      </div>
-      <div className={s.readingTrack} aria-hidden="true"><span data-story-progress /></div>
+          return { name: chapter.shortTitle, icon: <Icon size={19} aria-hidden="true" />, accent: chapterAccents[index] };
+        })}>
+        <div className={s.readingTrack} aria-hidden="true"><span data-story-progress /></div>
+      </TourTabs>
       <div className={s.deckViewport} data-stack-visual data-stack-viewport>
         {complianceChapters.map((chapter, index) => {
           const Icon = chapterIcons[index];
-          return <section className={s.workspacePage} style={{ zIndex: index + 1 }} data-stack-page key={chapter.label} id={"compliance-page-" + index} role="tabpanel" aria-labelledby={"compliance-tab-" + index} aria-hidden={step !== index} inert={step !== index} tabIndex={step === index ? 0 : -1}>
+          return <section className={s.workspacePage} style={{ zIndex: index + 1, "--preview-compliance-accent": chapterAccents[index] } as CSSProperties} data-stack-page key={chapter.label} id={"compliance-page-" + index} role="tabpanel" aria-labelledby={"compliance-tab-" + index} aria-hidden={!linear && step !== index} inert={!linear && step !== index} tabIndex={step === index ? 0 : -1}>
             <div className={s.chapterCopy}>
               <div className={s.chapterHeading}>
                 <span className={s.chapterIcon}><Icon size={28} strokeWidth={1.7} aria-hidden="true" /></span>
@@ -102,6 +98,7 @@ export function ComplianceWorkspace({ step, onStep }: { step: number; onStep: (i
           </section>;
         })}
       </div>
+    </div>
     </div>
     </div>
   </section>;

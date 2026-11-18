@@ -1,3 +1,4 @@
+import { SiteLink } from "../../site-link";
 import { createPageMetadata } from "../../site-seo";
 import { guidesPath } from "../../site-routes";
 import { SiteHeader, SiteFooter } from "../../site-shell";
@@ -15,7 +16,7 @@ export const metadata = createPageMetadata({
 
 export default function GuidesPage() {
   return <div className={`${base.preview} ${page.page} ${styles.page}`}>
-    <a href="#main" className={base.skipLink}>Skip to content</a>
+    <SiteLink href="#main" className={base.skipLink}>Skip to content</SiteLink>
     <SiteHeader />
     <main id="main">
       <section className={page.hero}><div className={page.heroInner}>

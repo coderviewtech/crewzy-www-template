@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "../site-link";
 import { company } from "../company";
 import { privacyEmail } from "../site-config";
 import { LegalPage, LegalTable } from "../legal-page";
@@ -46,13 +46,13 @@ export default function DpaPage() {
             <tbody>{protections.map(([area, protection]) => <tr key={area}><th scope="row">{area}</th><td>{protection}</td></tr>)}</tbody>
           </table>
         </LegalTable>
-        <p>These protections reflect the <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/">ICO’s Article 28 contract guidance</a>.</p>
+        <p>These protections reflect the <Link href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/contracts-and-liabilities-between-controllers-and-processors-multi/what-needs-to-be-included-in-the-contract/">ICO’s Article 28 contract guidance</Link>.</p>
       </section>
 
       <section>
         <h2>Agree processing terms</h2>
         <p>A written DPA covering the agreed service must be in place before Crewzy processes live personal data on an organisation’s behalf. This page explains the agreement; viewing it does not execute one.</p>
-        <p>To request processing terms, email <a href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></a> with your organisation’s name, intended services and contact details. Please do not send employee records or identity documents with an initial enquiry.</p>
+        <p>To request processing terms, email <Link href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></Link> with your organisation’s name, intended services and contact details. Please do not send employee records or identity documents with an initial enquiry.</p>
         <p>You can also write to Privacy enquiries, {company.legalName}, {company.registeredOffice}.</p>
       </section>
     </LegalPage>

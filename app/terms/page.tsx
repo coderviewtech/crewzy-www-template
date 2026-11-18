@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "../site-link";
 import { company } from "../company";
 import { privacyEmail, supportEmail } from "../site-config";
 import { LegalPage } from "../legal-page";
@@ -16,7 +16,7 @@ export default function TermsPage() {
     <LegalPage title="Terms and conditions" updatedOn={{ iso: "2026-10-26", label: "26 October 2026" }} summary="Clear terms for using Crewzy, choosing a subscription and managing your account.">
       <section id="agreement">
         <h2>1. Who provides Crewzy</h2>
-        <p>Crewzy is provided by {company.legalName}, registered in England and Wales under company number {company.number}, at {company.registeredOffice} (“we” or “us”). Contact <a href={`mailto:${supportEmail}`}>{supportEmail}</a> or write to that address.</p>
+        <p>Crewzy is provided by {company.legalName}, registered in England and Wales under company number {company.number}, at {company.registeredOffice} (“we” or “us”). Contact <Link href={`mailto:${supportEmail}`}>{supportEmail}</Link> or write to that address.</p>
         <p>These terms cover personal use, including personal expenses, and organisational use. They apply when presented and accepted during registration, checkout or an agreed order; viewing this website does not purchase a subscription. A written order may add service-specific terms, subject to mandatory rights.</p>
         <p>You are a consumer when buying wholly or mainly outside your trade, business, craft or profession, as applicable law defines it. Paying personally does not alone determine that status. The consumer protections below apply whenever you qualify.</p>
       </section>
@@ -40,7 +40,7 @@ export default function TermsPage() {
       </section>
       <section id="cancellation">
         <h2>5. Cancellation and account closure</h2>
-        <p>To stop renewal, send a clear request to <a href={`mailto:${supportEmail}`}>{supportEmail}</a> or our registered office, identifying your account or workspace and subscription. Do not include credentials or card details. Ordinary cancellation takes effect at the end of the current paid period; you do not need to delete the workspace.</p>
+        <p>To stop renewal, send a clear request to <Link href={`mailto:${supportEmail}`}>{supportEmail}</Link> or our registered office, identifying your account or workspace and subscription. Do not include credentials or card details. Ordinary cancellation takes effect at the end of the current paid period; you do not need to delete the workspace.</p>
         <p>We do not offer discretionary refunds for unused time or seats, reduced employee numbers, or a change of mind outside an applicable cancellation period. Statutory cancellation, refund and faulty-service remedies always take priority.</p>
         <p>Cancelling renewal and deleting data are separate. Arrange any necessary return or export before closing a workspace. Our intended retention period is {inactiveWorkspaceRetentionDays} days from workspace deactivation, including deactivation following non-payment, rather than from the first missed payment. See <Link href="/privacy#retention">retention information</Link> and your applicable processing agreement for scope, lawful exceptions and return or deletion arrangements. This is not a guarantee that every copy is automatically purged at the end of that period.</p>
       </section>
@@ -52,7 +52,7 @@ export default function TermsPage() {
         <p>A statutory cancellation refund will be paid without undue delay within the applicable legal period, generally 14 days after we are informed, using the original payment method unless otherwise agreed and without a refund fee. Faulty, misdescribed or improperly supplied services may also entitle you to correction, repeat performance, a price reduction, termination or refund. Customers in India, the US and elsewhere retain applicable mandatory service, renewal and cancellation protections.</p>
         <article aria-label="Optional consumer cancellation form">
           <h3>Optional cancellation form</h3>
-          <p>To: {company.legalName}, {company.registeredOffice}; <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</p>
+          <p>To: {company.legalName}, {company.registeredOffice}; <Link href={`mailto:${supportEmail}`}>{supportEmail}</Link>.</p>
           <p>I give notice that I cancel my contract for the following Crewzy service:</p>
           <ul>
             <li>Service or subscription, and order reference if available</li>
@@ -88,7 +88,7 @@ export default function TermsPage() {
       </section>
       <section id="contact">
         <h2>11. Contact and governing law</h2>
-        <p>Send service enquiries, cancellations and complaints to <a href={`mailto:${supportEmail}`}>{supportEmail}</a>; privacy enquiries to <a href={`mailto:${privacyEmail}`}>{privacyEmail}</a>; or write to our registered office above. Describe the issue and requested outcome without credentials or full card details.</p>
+        <p>Send service enquiries, cancellations and complaints to <Link href={`mailto:${supportEmail}`}>{supportEmail}</Link>; privacy enquiries to <Link href={`mailto:${privacyEmail}`}>{privacyEmail}</Link>; or write to our registered office above. Describe the issue and requested outcome without credentials or full card details.</p>
         <p>English and Welsh law applies, subject to mandatory local protections and any lawful written agreement with an organisation. Consumers retain mandatory home-country protections and access to courts or competent dispute bodies available under their local law; no exclusive English jurisdiction removes those rights.</p>
         <p>Any unenforceable provision leaves the rest effective so far as lawful. The date above identifies this version; later website updates do not silently replace agreed terms without the required notice and agreement.</p>
       </section>

@@ -1,5 +1,5 @@
 .page { background: var(--preview-page-background); }
-.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 26px; padding: 0; font-size: 13px; }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 26px; padding: 0; font-size: var(--text-detail-size); }
 .breadcrumb li + li::before { content: "/"; margin-right: 8px; color: var(--preview-ui-muted); }
 .breadcrumb a, .article a, .toc a, .byline a { color: var(--preview-brand-accent); text-decoration: underline; text-underline-offset: 4px; }
 .byline { display: flex; gap: 8px 18px; flex-wrap: wrap; margin-top: 22px; font-size: 14px; color: var(--preview-brand-copy); }
@@ -35,7 +35,7 @@
 .ctaLinks a { min-height: 44px; display: inline-flex; align-items: center; }
 .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .cards article { padding: 30px; border: 1px solid var(--preview-line); border-radius: 12px; background: #fff; display: flex; flex-direction: column; align-items: flex-start; }
-.cards .category { color: var(--preview-brand-accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+.cards .category { color: var(--preview-brand-accent); font-size: var(--text-label-size); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
 .cards .cardTitle { font-size: 25px; line-height: 1.25; margin-bottom: 16px; font-weight: 600; }
 .cards .cardTitle a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .cards p { color: var(--preview-brand-copy); line-height: 1.75; }

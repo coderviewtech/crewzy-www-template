@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { SiteLink as Link } from "../site-link";
 import { useRef } from "react";
 import {
   ArrowRight,

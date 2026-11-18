@@ -1,5 +1,5 @@
+import { SiteLink } from "../site-link";
 import { ArrowRight, Mail } from "lucide-react";
-import Link from "next/link";
 import { SiteHeader, SiteFooter } from "../site-shell";
 import { appUrl, contactPreferencesEmailHref, demoEmailHref, privacyEmail, salesEmail, supportEmail } from "../site-config";
 import { company } from "../company";
@@ -22,14 +22,14 @@ export default function ContactPage() {
         <MailtoLink className={s.button} href={demoEmailHref} pendingLabel="Opening your email app…">Email to request a demo <ArrowRight size={17} /></MailtoLink>
         <small>Opens your email app. You can also write directly to <MailtoLink href={`mailto:${salesEmail}`}><strong>{salesEmail}</strong></MailtoLink>.</small>
         <p>Prefer a call? Ask us to call about your demo and include an optional phone number and a suitable time.</p>
-        <small>We use your message to respond and arrange the demo or call you request. A demo request does not subscribe you to ongoing marketing. <a href="/privacy#contact">How we contact you and your choices</a>.</small>
+        <small>We use your message to respond and arrange the demo or call you request. A demo request does not subscribe you to ongoing marketing. <SiteLink href="/privacy#contact">How we contact you and your choices</SiteLink>.</small>
       </article>
       <div className={`${s.contactOptions} ${typeStyles.detail}`}>
         <article className={s.contactOption}><h2>Have a question?</h2><p>Ask about the platform, your team’s requirements or getting started.</p><MailtoLink className={`${s.textLink} ${typeStyles.link}`} href={`mailto:${salesEmail}`}><strong>{salesEmail}</strong><ArrowRight size={16} /></MailtoLink></article>
         <article className={s.contactOption}><h2>Already using Crewzy?</h2><p>Contact support about your existing workspace. Please don’t include passwords or employee documents in your message.</p><MailtoLink className={`${s.textLink} ${typeStyles.link}`} href={`mailto:${supportEmail}`}>{supportEmail}<ArrowRight size={16} /></MailtoLink></article>
-        <article className={s.contactOption}><h2>Prefer to explore first?</h2><p>Start free for up to 10 employees, or take a look at the interactive platform preview.</p><div className={s.actions}><a className={`${s.textLink} ${typeStyles.link}`} href={appUrl("/signup")}>Create a workspace <ArrowRight size={16} /></a><Link className={`${s.textLink} ${typeStyles.link}`} href="/platform">Explore the platform <ArrowRight size={16} /></Link></div></article>
+        <article className={s.contactOption}><h2>Prefer to explore first?</h2><p>Start free for up to 10 employees, or take a look at the interactive platform preview.</p><div className={s.actions}><SiteLink className={`${s.textLink} ${typeStyles.link}`} href={appUrl("/signup")}>Create a workspace <ArrowRight size={16} /></SiteLink><SiteLink className={`${s.textLink} ${typeStyles.link}`} href="/platform">Explore the platform <ArrowRight size={16} /></SiteLink></div></article>
         <article className={s.contactOption}><h2>Your contact preferences</h2><p>Ask us to stop marketing by email, phone or both. You do not need to sign in.</p><MailtoLink className={`${s.textLink} ${typeStyles.link}`} href={contactPreferencesEmailHref}>{privacyEmail}<ArrowRight size={16} /></MailtoLink></article>
-        <article className={s.contactOption}><h2>The company behind Crewzy</h2><p>Crewzy is developed by {company.legalName}, registered in {company.jurisdiction}. Company number {company.number}.</p><a className={`${s.textLink} ${typeStyles.link}`} href="/about#company">Meet the company <ArrowRight size={16} /></a></article>
+        <article className={s.contactOption}><h2>The company behind Crewzy</h2><p>Crewzy is developed by {company.legalName}, registered in {company.jurisdiction}. Company number {company.number}.</p><SiteLink className={`${s.textLink} ${typeStyles.link}`} href="/about#company">Meet the company <ArrowRight size={16} /></SiteLink></article>
       </div>
     </div></section>
   </main><SiteFooter /></div>;

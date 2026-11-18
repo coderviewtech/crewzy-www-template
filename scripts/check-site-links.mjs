@@ -6,6 +6,7 @@ import { auditFetch as fetch } from "./audit-http.mjs";
 // Read-only audit of a running local preview; no forms or emails are submitted.
 const origin = process.argv[2] ?? "http://127.0.0.1:3017";
 const routes = [...marketingPaths, ...legalPaths];
+const assetRoutes = new Set(["/meet/qr.svg", "/meet/qr.png"]);
 const pages = new Map();
 for (const route of routes) {
   const response = await fetch(new URL(route, origin));
@@ -31,6 +32,13 @@ for (const [route, page] of pages) {
     const target = new URL(href, new URL(route, origin));
     if (target.protocol === "mailto:") continue;
     if (target.origin !== new URL(origin).origin) { productLinks.add(target.href); continue; }
+    if (assetRoutes.has(target.pathname)) {
+      const response = await fetch(target);
+      assert.equal(response.status, 200, `${route}: download ${target.pathname}`);
+      assert.match(response.headers.get("content-type"), /^image\//);
+      checked++;
+      continue;
+    }
     assert.ok(pages.has(target.pathname), `${route}: missing route ${target.pathname}`);
     if (target.hash) {
       const hash = decodeURIComponent(target.hash);

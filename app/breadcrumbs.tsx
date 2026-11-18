@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "./site-link";
 import { siteUrl } from "./site-seo";
 import { StructuredData } from "./structured-data";
 

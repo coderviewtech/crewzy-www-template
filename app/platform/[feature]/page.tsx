@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { SiteLink as Link } from "../../site-link";
 import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader, SiteFooter } from "../../site-shell";
@@ -38,7 +38,7 @@ export default async function FeaturePage({ params }: Props) {
   ];
 
   return <div className={`${base.preview} ${s.page} ${typography.page} ${detail.page}`}>
-    <a className={base.skipLink} href="#main">Skip to content</a>
+    <Link className={base.skipLink} href="#main">Skip to content</Link>
     <SiteHeader />
     <main id="main">
       <section className={s.hero}><div className={`${s.heroInner} ${typography.hero}`}>
@@ -46,9 +46,9 @@ export default async function FeaturePage({ params }: Props) {
         <h1>{content.heading}</h1>
         <p>{content.introduction}</p>
         <div className={s.actions}>
-          <a className={s.button} href={appUrl("/signup")}>Start free <ArrowRight size={17} aria-hidden="true" /></a>
-          <a className={`${s.textLink} ${typography.link}`} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></a>
-          <a className={`${s.textLink} ${typography.link}`} href="/pricing">Compare plans</a>
+          <Link className={s.button} href={appUrl("/signup")}>Start free <ArrowRight size={17} aria-hidden="true" /></Link>
+          <Link className={`${s.textLink} ${typography.link}`} href={demoHref}>Request a demo <ArrowRight size={16} aria-hidden="true" /></Link>
+          <Link className={`${s.textLink} ${typography.link}`} href="/pricing">Compare plans</Link>
         </div>
       </div></section>
       <div className={s.content}>
@@ -68,12 +68,12 @@ export default async function FeaturePage({ params }: Props) {
           </details>)}
         </section>
         <aside className={detail.fit}><h2>Check the fit for your team</h2><p>{content.fit}</p>
-          <a href="/resources#security">Read about security, privacy and current limitations</a>
+          <Link href="/resources#security">Read about security, privacy and current limitations</Link>
           {guide && <p><Link href={guidePath(guide.slug)}>Practical guide: {guide.title}</Link></p>}
         </aside>
         <nav className={detail.related} aria-label="Related workflows"><h2>Explore connected workflows</h2><ul>
           {featureRoutes.filter(item => item.slug !== feature.slug).map(item => <li key={item.slug}>
-            <a href={featurePath(item.slug)}>{item.label} <ArrowRight size={16} aria-hidden="true" /></a>
+            <Link href={featurePath(item.slug)}>{item.label} <ArrowRight size={16} aria-hidden="true" /></Link>
           </li>)}
           <li><Link href="/platform">View the full platform <ArrowRight size={16} aria-hidden="true" /></Link></li>
         </ul></nav>

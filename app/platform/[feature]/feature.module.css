@@ -1,6 +1,6 @@
 .page { background: var(--preview-page-background); }
 .page :is(p, li) { overflow-wrap: anywhere; }
-.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0 0 26px; font-size: 13px; }
+.breadcrumb ol { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0 0 26px; font-size: var(--text-detail-size); }
 .breadcrumb li + li::before { content: "/"; margin-right: 10px; color: var(--preview-ui-muted); }
 .breadcrumb a, .fit a, .related a { color: var(--preview-brand-accent); text-decoration: underline; text-underline-offset: 4px; }
 .overview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; }

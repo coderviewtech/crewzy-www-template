@@ -1,3 +1,4 @@
+import { SiteLink } from "../site-link";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -20,7 +21,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function AboutPage() {
   return (
     <div className={`${base.page} ${secondary.page} ${typography.page}`}>
-      <a className={s.skipLink} href="#main">Skip to content</a>
+      <SiteLink className={s.skipLink} href="#main">Skip to content</SiteLink>
       <SiteHeader />
       <main id="main">
         <section className={`${secondary.hero} ${s.hero}`}>
@@ -30,9 +31,9 @@ export default function AboutPage() {
               <h1>Built around people.<br /><span>Designed for<br />everyday work.</span></h1>
               <p>Crewzy brings people management, employee lifecycle workflows and everyday operations into one connected workspace. We help small and medium-sized businesses organise essential information, manage document expiry dates and keep compliance evidence in view.</p>
               <div className={secondary.actions}>
-                <a className={secondary.textLink} href="#purpose">Our purpose <ArrowRight size={16} aria-hidden="true" /></a>
-                <a className={secondary.textLink} href="#story">Our story <ArrowRight size={16} aria-hidden="true" /></a>
-                <a className={secondary.textLink} href="#founder">Meet the founder <ArrowRight size={16} aria-hidden="true" /></a>
+                <SiteLink className={secondary.textLink} href="#purpose">Our purpose <ArrowRight size={16} aria-hidden="true" /></SiteLink>
+                <SiteLink className={secondary.textLink} href="#story">Our story <ArrowRight size={16} aria-hidden="true" /></SiteLink>
+                <SiteLink className={secondary.textLink} href="#founder">Meet the founder <ArrowRight size={16} aria-hidden="true" /></SiteLink>
               </div>
             </div>
             <AboutHeroIllustration />
@@ -98,7 +99,7 @@ export default function AboutPage() {
               </div>
               <p>Manohar Nunna builds practical products around everyday business challenges. His experience spans creating products and solutions for organisations ranging from small businesses to enterprises.</p>
               <p>With a decade of experience in DevOps, DevSecOps and platform engineering, he brings experience across the software lifecycle: developing applications, deploying them and operating them with security, reliability and scale in mind.</p>
-              <a className={secondary.textLink} href={founder.linkedInUrl} target="_blank" rel="noopener noreferrer">Connect with Manohar on LinkedIn <ArrowUpRight size={16} aria-hidden="true" /><span className={s.srOnly}> (opens in a new tab)</span></a>
+              <SiteLink className={secondary.textLink} href={founder.linkedInUrl} target="_blank" rel="noopener noreferrer">Connect with Manohar on LinkedIn <ArrowUpRight size={16} aria-hidden="true" /><span className={s.srOnly}> (opens in a new tab)</span></SiteLink>
             </article>
           </section>
 
@@ -109,13 +110,13 @@ export default function AboutPage() {
             </div>
             <div className={s.companyCopy}>
               <p>Crewzy is a product developed by {company.legalName}, a technology company registered in {company.jurisdiction}. The company works in IT consultancy and technology services, with Manohar serving as a director.</p>
-              <a className={secondary.textLink} href={company.companiesHouseUrl} target="_blank" rel="noopener noreferrer">View Companies House record <ArrowUpRight size={16} aria-hidden="true" /><span className={s.srOnly}> (opens in a new tab)</span></a>
+              <SiteLink className={secondary.textLink} href={company.companiesHouseUrl} target="_blank" rel="noopener noreferrer">View Companies House record <ArrowUpRight size={16} aria-hidden="true" /><span className={s.srOnly}> (opens in a new tab)</span></SiteLink>
             </div>
           </section>
 
           <section className={`${s.contactSection} ${typography.heading}`} aria-labelledby="about-contact-heading">
             <div><h2 id="about-contact-heading">Let’s talk about <span>your team.</span></h2><p>Explore how Crewzy could support your people, everyday work and compliance processes.</p></div>
-            <a className={secondary.button} href="/contact">Talk to us <ArrowRight size={17} aria-hidden="true" /></a>
+            <SiteLink className={secondary.button} href="/contact">Talk to us <ArrowRight size={17} aria-hidden="true" /></SiteLink>
           </section>
         </div>
       </main>

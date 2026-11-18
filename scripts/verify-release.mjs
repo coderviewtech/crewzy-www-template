@@ -41,7 +41,7 @@ async function auditContext(context) {
   // Exercise the enabled path with a synthetic public ID. Localhost is not an allowed tracking origin.
   const env = { ...process.env, CONTEXT: context, NEXT_TELEMETRY_DISABLED: "1", GA_MEASUREMENT_ID: "G-TEST123456" };
   run([nextCli, "build"], env);
-  run(["--test", "tests/feature-prerender.test.mjs", "tests/guides-prerender.test.mjs", "tests/analytics-prerender.test.mjs"], { ...env, SEO_BUILD_DIR: ".next" });
+  run(["--test", "tests/feature-prerender.test.mjs", "tests/guides-prerender.test.mjs", "tests/analytics-prerender.test.mjs", "tests/meetup-guide.test.mjs", "tests/menu-hierarchy.test.mjs"], { ...env, SEO_BUILD_DIR: ".next", CREWZY_MEETUP_BUILD_DIR: ".next" });
   if (context === "production") run(["--test", "tests/pricing-prerender.test.mjs", "tests/pricing-next-adapter.test.mjs"], { ...env, CREWZY_PRICING_BUILD_DIR: ".next" });
   const port = await availablePort();
   const origin = `http://localhost:${port}`;

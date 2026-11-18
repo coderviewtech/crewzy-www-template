@@ -1,0 +1,183 @@
+[
+  {
+    "route": "/",
+    "published_blocks": 115,
+    "retained_exactly": 112,
+    "changed_or_removed": [
+      "Explore the full platform",
+      "See Security & trust for the scope and status of reviewed access controls, document safeguards and AI privacy improvements, together with remaining launch requirements.",
+      "What security controls are in place?"
+    ],
+    "missing_destinations": []
+  },
+  {
+    "route": "/platform",
+    "published_blocks": 42,
+    "retained_exactly": 42,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/solutions",
+    "published_blocks": 89,
+    "retained_exactly": 78,
+    "changed_or_removed": [
+      "By Business Type",
+      "Core Platform",
+      "Guides & Trust",
+      "Scale & Team Size",
+      "Support & Answers",
+      "Tours & Experience",
+      "Workflows & Operations"
+    ],
+    "missing_destinations": []
+  },
+  {
+    "route": "/pricing",
+    "published_blocks": 111,
+    "retained_exactly": 107,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources",
+    "published_blocks": 69,
+    "retained_exactly": 62,
+    "changed_or_removed": [
+      "By Business Type",
+      "Core Platform",
+      "Guides & Trust",
+      "Scale & Team Size",
+      "Support & Answers",
+      "Tours & Experience",
+      "Workflows & Operations"
+    ],
+    "missing_destinations": []
+  },
+  {
+    "route": "/customers",
+    "published_blocks": 36,
+    "retained_exactly": 29,
+    "changed_or_removed": [
+      "By Business Type",
+      "Core Platform",
+      "Guides & Trust",
+      "Scale & Team Size",
+      "Support & Answers",
+      "Tours & Experience",
+      "Workflows & Operations"
+    ],
+    "missing_destinations": []
+  },
+  {
+    "route": "/contact",
+    "published_blocks": 18,
+    "retained_exactly": 18,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/about",
+    "published_blocks": 33,
+    "retained_exactly": 33,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/platform/hr-software-small-business",
+    "published_blocks": 39,
+    "retained_exactly": 39,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/platform/document-expiry-tracking",
+    "published_blocks": 39,
+    "retained_exactly": 39,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/platform/timesheets-and-invoicing",
+    "published_blocks": 39,
+    "retained_exactly": 39,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/platform/leave-management",
+    "published_blocks": 39,
+    "retained_exactly": 39,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources/guides",
+    "published_blocks": 17,
+    "retained_exactly": 17,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources/guides/employee-document-expiry-tracking",
+    "published_blocks": 55,
+    "retained_exactly": 54,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources/guides/timesheets-to-client-invoices",
+    "published_blocks": 55,
+    "retained_exactly": 54,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources/guides/employee-records-spreadsheet-migration",
+    "published_blocks": 56,
+    "retained_exactly": 55,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/resources/guides/leave-requests-and-approvals",
+    "published_blocks": 51,
+    "retained_exactly": 50,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/privacy",
+    "published_blocks": 99,
+    "retained_exactly": 97,
+    "changed_or_removed": [
+      "Account and financial records, support correspondence and security records may need different periods to meet their purpose, applicable duties, investigations or legal holds. Provider and backup copies are subject to the applicable deletion or overwrite arrangements. A document’s expiry date does not itself trigger deletion.",
+      "We use AWS RDS for the database and its automated backups, Amazon S3 for documents, Amazon Bedrock for AI, Cloudflare Turnstile for signup protection, Zoho for Crewzy mailboxes, Twilio SendGrid for application email delivery and Netlify for the public website. See the provider list . Online payment providers are not currently connected."
+    ],
+    "missing_destinations": []
+  },
+  {
+    "route": "/terms",
+    "published_blocks": 56,
+    "retained_exactly": 56,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/dpa",
+    "published_blocks": 34,
+    "retained_exactly": 34,
+    "changed_or_removed": [],
+    "missing_destinations": []
+  },
+  {
+    "route": "/subprocessors",
+    "published_blocks": 42,
+    "retained_exactly": 40,
+    "changed_or_removed": [
+      "Hosting the public Crewzy website.",
+      "Website request and connection information, including the approximate country signal used for regional pricing where available."
+    ],
+    "missing_destinations": []
+  }
+]

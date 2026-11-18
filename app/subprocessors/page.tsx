@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { SiteLink as Link } from "../site-link";
 import { company } from "../company";
 import { privacyEmail } from "../site-config";
 import { LegalPage, LegalTable } from "../legal-page";
@@ -43,8 +43,8 @@ const providers = [
   },
   {
     name: "Netlify",
-    purpose: "Hosting the public Crewzy website.",
-    information: "Website request and connection information, including the approximate country signal used for regional pricing where available.",
+    purpose: "Hosting the public Crewzy website and receiving and storing website enquiries through Netlify Forms.",
+    information: "Website request and connection information, including approximate country for regional pricing; submitted names, email addresses, enquiry source, follow-up request wording and notice version. Form handling also involves submission metadata and spam screening.",
   },
   {
     name: "Google Analytics 4",
@@ -71,12 +71,12 @@ export default function SubprocessorsPage() {
           </table>
         </LegalTable>
         <p>Online payment providers are not currently connected.</p>
-        <p>For Cloudflare’s handling of signup security signals, see its <a href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</a>.</p>
+        <p>For Cloudflare’s handling of signup security signals, see its <Link href="https://www.cloudflare.com/turnstile-privacy-policy/">Turnstile Privacy Addendum</Link>.</p>
       </section>
 
       <section>
         <h2>Advertising</h2>
-        <p>We also use Google Ads to promote Crewzy. <a href="https://policies.google.com/privacy">Google’s privacy policy</a> explains how Google processes information in its advertising services. See our <Link href="/privacy#storage">privacy information about cookies and third-party services</Link>.</p>
+        <p>We also use Google Ads to promote Crewzy. <Link href="https://policies.google.com/privacy">Google’s privacy policy</Link> explains how Google processes information in its advertising services. See our <Link href="/privacy#storage">privacy information about cookies and third-party services</Link>.</p>
       </section>
 
       <section>
@@ -87,7 +87,7 @@ export default function SubprocessorsPage() {
 
       <section>
         <h2>Contact us</h2>
-        <p>For provider enquiries, email <a href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></a> or write to Privacy enquiries, {company.legalName}, {company.registeredOffice}.</p>
+        <p>For provider enquiries, email <Link href={`mailto:${privacyEmail}`}><strong>{privacyEmail}</strong></Link> or write to Privacy enquiries, {company.legalName}, {company.registeredOffice}.</p>
         <p>Related information: <Link href="/privacy">privacy policy</Link> and <Link href="/resources#security">security and trust</Link>.</p>
       </section>
     </LegalPage>

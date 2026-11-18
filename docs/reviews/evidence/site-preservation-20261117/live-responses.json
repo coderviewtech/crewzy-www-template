@@ -1,0 +1,86 @@
+[
+  {
+    "route": "/",
+    "status": 200
+  },
+  {
+    "route": "/platform",
+    "status": 200
+  },
+  {
+    "route": "/solutions",
+    "status": 200
+  },
+  {
+    "route": "/pricing",
+    "status": 200
+  },
+  {
+    "route": "/resources",
+    "status": 200
+  },
+  {
+    "route": "/customers",
+    "status": 200
+  },
+  {
+    "route": "/contact",
+    "status": 200
+  },
+  {
+    "route": "/about",
+    "status": 200
+  },
+  {
+    "route": "/platform/hr-software-small-business",
+    "status": 200
+  },
+  {
+    "route": "/platform/document-expiry-tracking",
+    "status": 200
+  },
+  {
+    "route": "/platform/timesheets-and-invoicing",
+    "status": 200
+  },
+  {
+    "route": "/platform/leave-management",
+    "status": 200
+  },
+  {
+    "route": "/resources/guides",
+    "status": 200
+  },
+  {
+    "route": "/resources/guides/employee-document-expiry-tracking",
+    "status": 200
+  },
+  {
+    "route": "/resources/guides/timesheets-to-client-invoices",
+    "status": 200
+  },
+  {
+    "route": "/resources/guides/employee-records-spreadsheet-migration",
+    "status": 200
+  },
+  {
+    "route": "/resources/guides/leave-requests-and-approvals",
+    "status": 200
+  },
+  {
+    "route": "/privacy",
+    "status": 200
+  },
+  {
+    "route": "/terms",
+    "status": 200
+  },
+  {
+    "route": "/dpa",
+    "status": 200
+  },
+  {
+    "route": "/subprocessors",
+    "status": 200
+  }
+]
