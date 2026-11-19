@@ -44,12 +44,12 @@ const providers = [
   {
     name: "Netlify",
     purpose: "Hosting the public Crewzy website and receiving and storing website enquiries through Netlify Forms.",
-    information: "Website request and connection information, including approximate country for regional pricing; submitted names, email addresses, enquiry source, follow-up request wording and notice version. Form handling also involves submission metadata and spam screening.",
+    information: "Website request and connection information, including approximate country for regional pricing; submitted names, email addresses, enquiry source, consented campaign attribution, follow-up request wording and notice version. Form handling also involves submission metadata and spam screening.",
   },
   {
     name: "Google Analytics 4",
-    purpose: "Measuring visits, public page views and traffic sources on crewzy.io after a visitor accepts optional analytics.",
-    information: "Website usage, browser/device information, approximate location and cookie identifiers. Workspace records and form contents are not sent by this marketing-site integration. See the privacy policy for choices and international processing information.",
+    purpose: "Measuring visits, public page views, completed workspace sign-ups and website enquiries after a visitor accepts optional analytics.",
+    information: "Website usage, browser/device information, approximate location, cookie identifiers and campaign attribution. Workspace records and form contents are not sent by this marketing-site integration. See the privacy policy for choices and international processing information.",
   },
 ];
 

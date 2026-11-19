@@ -92,8 +92,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={inter.variable}>
       <body>
         <SmoothScrollProvider>
-          <ProductGuideProvider>{children}</ProductGuideProvider>
-          <AnalyticsConsent config={analyticsConfig} />
+          <AnalyticsConsent config={analyticsConfig}>
+            <ProductGuideProvider>{children}</ProductGuideProvider>
+          </AnalyticsConsent>
         </SmoothScrollProvider>
         <StructuredData value={[organizationSchema, websiteSchema]} />
       </body>

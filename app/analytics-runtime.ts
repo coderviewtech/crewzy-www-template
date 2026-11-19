@@ -1,3 +1,5 @@
+import type { Attribution } from "./analytics-attribution";
+
 type Gtag = (...args: unknown[]) => void;
 type AnalyticsWindow = Window & {
   dataLayer?: IArguments[];
@@ -25,7 +27,7 @@ export class AnalyticsRuntime {
     this.config = config;
   }
 
-  grant(location: string, referrer: string): void {
+  grant(location: string, referrer: string, campaign?: Attribution): void {
     const { measurementId, cookieDays, cookiePrefix } = this.config;
     this.browser[`ga-disable-${measurementId}`] = false;
     this.enabled = true;
@@ -47,6 +49,10 @@ export class AnalyticsRuntime {
       cookie_expires: cookieDays * secondsPerDay,
       cookie_update: false,
       cookie_flags: "SameSite=Lax;Secure",
+      ...(campaign ? {
+        campaign_source: campaign.source, campaign_medium: campaign.medium,
+        ...(campaign.campaign ? { campaign_name: campaign.campaign } : {}),
+      } : {}),
       page_location: location,
       page_referrer: referrer,
     });
@@ -64,6 +70,17 @@ export class AnalyticsRuntime {
     this.browser.gtag?.("set", { page_location: location, page_referrer: referrer });
     this.browser.gtag?.("event", "page_view", {
       send_to: this.config.measurementId, page_location: location, page_referrer: referrer,
+    });
+  }
+
+  conversion(name: "generate_lead" | "sign_up", location: string, attribution: Attribution,
+    onSent?: () => void): void {
+    if (!this.enabled) return;
+    this.browser.gtag?.("event", name, {
+      send_to: this.config.measurementId, page_location: location,
+      lead_source: attribution.source, lead_medium: attribution.medium,
+      ...(attribution.campaign ? { lead_campaign: attribution.campaign } : {}),
+      ...(onSent ? { event_callback: onSent } : {}),
     });
   }
 

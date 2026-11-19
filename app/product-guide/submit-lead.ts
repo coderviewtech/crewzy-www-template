@@ -1,9 +1,10 @@
+import type { Attribution } from "../analytics-attribution";
 import {
   leadEmailMaxLength, leadFollowUpRequest, leadFormName, leadFormPath,
   leadNameMaxLength, leadNoticeVersion, leadRegistrationMarker, leadTimeoutMs,
 } from "./lead-config";
 
-export type GuideLead = { name: string; email: string; source: "meetup-page" | "website-chat"; honeypot: string };
+export type GuideLead = { name: string; email: string; source: "meetup-page" | "website-chat"; honeypot: string; attribution?: Attribution };
 
 /** Only the enquiry is sent; question selections, page queries and transcripts are excluded. */
 export function encodeGuideLead(lead: GuideLead): URLSearchParams {
@@ -17,6 +18,10 @@ export function encodeGuideLead(lead: GuideLead): URLSearchParams {
     "form-name": leadFormName, name, email, source: lead.source,
     "bot-field": lead.honeypot, "follow-up-request": leadFollowUpRequest,
     "notice-version": leadNoticeVersion,
+    ...(lead.attribution ? {
+      "lead-source": lead.attribution.source, "lead-medium": lead.attribution.medium,
+      "lead-campaign": lead.attribution.campaign ?? "",
+    } : {}),
   });
 }
 

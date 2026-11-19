@@ -5,7 +5,7 @@ import { LegalPage, LegalTable } from "../legal-page";
 import { createLegalMetadata } from "../site-seo";
 import { customerDataCategories } from "../privacy-data";
 import { inactiveWorkspaceRetentionDays } from "../legal-policy";
-import { analyticsConfig } from "../analytics-config";
+import { analyticsAttributionHours, analyticsConfig } from "../analytics-config";
 import styles from "../legal-page.module.css";
 
 export const metadata = createLegalMetadata({
@@ -122,9 +122,9 @@ export default function PrivacyPolicyPage() {
         <h2>10. Cookies, security and updates</h2>
         <section id="analytics">
           <h3>Optional website analytics</h3>
-          <p>With your consent, we use Google Analytics 4 on the public crewzy.io website to understand visits, page views and traffic sources. It processes technical information such as browser and device information, approximate location, visit times and cookie identifiers. This marketing-site integration does not send workspace records or form contents to Analytics.</p>
+          <p>With your consent, we use Google Analytics 4 on the public crewzy.io website to understand visits, page views and traffic sources. It processes technical information such as browser and device information, approximate location, visit times and cookie identifiers. With analytics enabled, we record completed workspace sign-ups and website enquiries with their traffic source, and include that source on saved enquiries so we can understand how people found us. We do not send names, email addresses, workspace records or form contents to Google Analytics.</p>
           <p>Analytics is off until you select “Accept analytics”. “Reject analytics” keeps it off. You can change your choice using “Cookie settings” at the bottom of any page. Rejecting after accepting stops future collection and clears this site’s analytics cookies; it does not erase information already sent to Google.</p>
-          <p>We remember your choice in browser storage for up to {analyticsConfig.consentDays} days. Our analytics cookies use the crewzy_marketing prefix and expire after up to {analyticsConfig.consentDays} days without extending their lifetime on every visit. We exclude URL query strings and fragments from the page addresses we send. Optional advertising signals and ad personalisation are disabled in this integration.</p>
+          <p>We remember your choice in browser storage for up to {analyticsConfig.consentDays} days. Our analytics cookies use the crewzy_marketing prefix and expire after up to {analyticsConfig.consentDays} days without extending their lifetime on every visit. We exclude URL query strings and fragments from the page addresses we send. If you accept analytics, we keep the campaign source, medium and name or referring site in browser storage for up to {analyticsAttributionHours} hours to attribute enquiries and sign-ups. Optional advertising signals and ad personalisation are disabled in this integration.</p>
           <p>Google processes analytics information on our behalf under its data-processing terms, which may involve processing outside the UK. See <Link href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites that use its services</Link>. Contact our privacy address above for relevant requests, including withdrawal of consent or erasure where applicable.</p>
         </section>
         <p>The application uses authentication cookies and browser storage for sessions and interface preferences. Remembered-account details may remain after sign-out; the different-account action clears them, and hints older than 90 days are not used.</p>

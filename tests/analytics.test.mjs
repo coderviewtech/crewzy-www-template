@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { analyticsId, measurementLocation, measurementReferrer, millisecondsPerDay, parseConsent } from "../app/analytics-policy.ts";
+import { analyticsId, consentVersion, measurementLocation, measurementReferrer, millisecondsPerDay, parseConsent } from "../app/analytics-policy.ts";
 import { AnalyticsRuntime } from "../app/analytics-runtime.ts";
 
 const NOW = Date.UTC(2026, 10, 17);
 const ID = "G-TEST123456";
 const ORIGIN = "https://crewzy.io";
 const PATHS = ["/", "/pricing", "/resources/guides"];
-const record = (choice, savedAt = NOW) => JSON.stringify({ version: 1, choice, savedAt });
+const record = (choice, savedAt = NOW) => JSON.stringify({ version: consentVersion, choice, savedAt });
 
 test("analytics only accepts a valid public GA4 ID", () => {
   for (const value of [undefined, "", "UA-123", "G-test", 'G-ABC123\" onload=\"x', "https://bad.test"]) assert.equal(analyticsId(value), "");
@@ -20,6 +20,11 @@ test("a missing, malformed, future or expired consent never grants tracking", ()
   }
   assert.equal(parseConsent(record("accepted"), NOW, 180), "accepted");
   assert.equal(parseConsent(record("rejected"), NOW, 180), "rejected");
+});
+
+test("a visit-only acceptance does not grant conversion tracking, while a prior refusal is preserved", () => {
+  assert.equal(parseConsent(JSON.stringify({ version: 1, choice: "accepted", savedAt: NOW }), NOW, 180), null);
+  assert.equal(parseConsent(JSON.stringify({ version: 1, choice: "rejected", savedAt: NOW }), NOW, 180), "rejected");
 });
 
 test("measurement drops query strings and fragments, and rejects private or foreign paths", () => {
@@ -100,4 +105,24 @@ test("withdrawal disables the tag immediately and removes only its own cookies",
   runtime.page(`${ORIGIN}/pricing`, "");
   assert.equal(browser[`ga-disable-${ID}`], false);
   assert.equal(browser.dataLayer.at(-1)[2].page_location, `${ORIGIN}/pricing`);
+});
+
+test("a completed conversion sends only its allowlisted attribution, and withdrawal blocks the next one", () => {
+  const { runtime, browser } = fixture();
+  const campaign = { source: "reddit", medium: "referral", campaign: "ga4-qa" };
+  runtime.conversion("generate_lead", ORIGIN, campaign);
+  assert.equal(browser.dataLayer, undefined);
+  runtime.grant(ORIGIN, "", campaign);
+  const config = browser.dataLayer.find(command => command[0] === "config")[2];
+  assert.equal(config.campaign_source, "reddit");
+  assert.equal(config.campaign_medium, "referral");
+  assert.equal(config.campaign_name, "ga4-qa");
+  runtime.conversion("generate_lead", ORIGIN, { ...campaign, email: "private@example.com" });
+  assert.deepEqual(Array.from(browser.dataLayer.at(-1)), ["event", "generate_lead", {
+    send_to: ID, page_location: ORIGIN, lead_source: "reddit", lead_medium: "referral", lead_campaign: "ga4-qa",
+  }]);
+  const before = browser.dataLayer.length;
+  runtime.stop();
+  runtime.conversion("sign_up", ORIGIN, campaign);
+  assert.equal(browser.dataLayer.length, before);
 });

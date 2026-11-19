@@ -78,3 +78,14 @@ test("network and timeout failures propagate without retry or false success", as
     fetch.mock.restore();
   }
 });
+
+test("consented attribution stays on the saved enquiry alongside the existing form source", () => {
+  const body = encodeGuideLead({
+    ...lead, attribution: { source: "google", medium: "cpc", campaign: "crewzy-qa" },
+  });
+  assert.equal(body.get("source"), "meetup-page");
+  assert.equal(body.get("lead-source"), "google");
+  assert.equal(body.get("lead-medium"), "cpc");
+  assert.equal(body.get("lead-campaign"), "crewzy-qa");
+  assert.equal(encodeGuideLead(lead).get("lead-source"), null);
+});

@@ -1,7 +1,8 @@
 "use client";
 
 import { SiteLink } from "../site-link";
-import { useRef, useState, type FormEvent } from "react";
+import { EnquiryAnalytics } from "../analytics-context";
+import { useContext, useRef, useState, type FormEvent } from "react";
 import { ArrowRight } from "lucide-react";
 import { leadEmailMaxLength, leadFollowUpRequest, leadFormName, leadNameMaxLength } from "./lead-config";
 import { submitGuideLead } from "./submit-lead";
@@ -9,6 +10,7 @@ import s from "./product-guide.module.css";
 
 /** Contact capture precedes prepared answers; public FAQs remain accessible separately. */
 export function GuideLeadForm({ onAccepted, onBrowse }: { onAccepted: () => void; onBrowse: () => void }) {
+  const analytics = useContext(EnquiryAnalytics);
   const pending = useRef(false);
   const errorMessage = useRef<HTMLParagraphElement>(null);
   const [sending, setSending] = useState(false);
@@ -23,13 +25,21 @@ export function GuideLeadForm({ onAccepted, onBrowse }: { onAccepted: () => void
     setSending(true);
     setError("");
     try {
+      const honeypot = String(fields.get("bot-field") ?? "");
+      const attribution = honeypot ? undefined : analytics?.attribution();
       await submitGuideLead({
         name: String(fields.get("name") ?? ""), email: String(fields.get("email") ?? ""),
-        honeypot: String(fields.get("bot-field") ?? ""),
+        honeypot, attribution,
         source: window.location.pathname.replace(/\/$/, "") === "/meet" ? "meetup-page" : "website-chat",
       });
       form.reset();
       onAccepted();
+      // Measurement is optional and cannot turn an accepted enquiry into an error.
+      try {
+        analytics?.completed(attribution);
+      } catch (error) {
+        console.warn("Enquiry analytics could not run.", error instanceof Error ? error.name : "Unknown error");
+      }
     } catch {
       // Keep entered details for an explicit retry, without logging personal data.
       setError("We couldn’t confirm your submission. Please try again, or contact us directly.");

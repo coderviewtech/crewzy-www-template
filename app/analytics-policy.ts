@@ -4,8 +4,12 @@ export type AnalyticsConfig = {
   origin: string;
   paths: string[];
   consentDays: number;
+  attributionMs: number;
+  signupUrl: string;
 };
 
+export const consentVersion = 2;
+const visitOnlyConsentVersion = 1;
 export const consentStorageKey = "crewzy.analytics-consent.v1";
 export const consentChangeEvent = "crewzy:analytics-consent";
 export const analyticsCookiePrefix = "crewzy_marketing";
@@ -15,8 +19,11 @@ export function parseConsent(raw: string | null, now: number, lifetimeDays: numb
   if (!raw) return null;
   try {
     const record = JSON.parse(raw);
-    if (!record || record.version !== 1 || !Number.isFinite(record.savedAt)) return null;
+    if (!record || !Number.isFinite(record.savedAt)) return null;
     if (record.savedAt > now || now - record.savedAt >= lifetimeDays * millisecondsPerDay) return null;
+    // A prior refusal still applies. Conversion attribution needs the updated notice.
+    if (record.version === visitOnlyConsentVersion && record.choice === "rejected") return "rejected";
+    if (record.version !== consentVersion) return null;
     return record.choice === "accepted" || record.choice === "rejected" ? record.choice : null;
   } catch (error) {
     if (error instanceof SyntaxError) return null;
